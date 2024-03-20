@@ -1,0 +1,74 @@
+
+export const MAIN_FOLDER_NAME = 'images';
+export const OUTPUT_FOLDER_NAME = 'output';
+export const SOURCE_FOLDER_NAME = 'ретушь';
+export const CSVPath = `${MAIN_FOLDER_NAME}/данные.csv`
+
+export const CUT_OFF = 24;
+
+export const LAYOUT_TYPE = {
+  F1C1: 'слева 1 всклянь, 1 справа cutted',
+  F1H3: 'слева 1 всклянь, 3 справа горизонтали',
+  H4: '4 горизонтали',
+  F1V2H1: 'слева 1 всклянь, справа 2 вертикали и 1 горизонталь', //// 
+  F1H2: 'слева 1 всклянь, справа 2 горизонтали', // 
+  F1V4: '1 слева всклянь, справа 4 вертикали', // 
+  XXLF1V2: '1 слева всклянь, справа 2 вертикали', // 
+}
+
+export const SIZE_TYPES = {
+  HALF: 'HALF',
+  THREE_QUARTERS: 'THREE_QUARTERS',
+  HALF_CUTTED: 'HALF_CUTTED',
+  THREE_HORISONTAL_HALF: 'THREE_HORISONTAL_HALF', // 3HR
+  FOUR_HORISONTAL_FULL: 'FOUR_HORISONTAL_FULL', //4HF
+  TWO_VERTICAL_ONE_HORISONTAL_HALF: 'TWO_VERTICAL_ONE_HORISONTAL_HALF', //2V1H
+  TWO_HORISONTAL_HALF: 'TWO_HORISONTAL_HALF', //2V
+  FOUR_VERTICAL_HALF: 'FOUR_VERTICAL_HALF', //2VH
+  TWO_VERTICAL_CUSTOM: 'TWO_VERTICAL_CUSTOM', //2VH
+}
+
+export const PADDINGS = {
+  [SIZE_TYPES.HALF]: {
+    xPadding: 0,
+    yPadding: 0,
+  },
+  [SIZE_TYPES.HALF_CUTTED]: {
+    xPadding: 186,
+    yPadding: 186,
+  },
+  [SIZE_TYPES.THREE_QUARTERS]: {
+    xPadding: 186,
+    yPadding: 186,
+    innerPadding: 50
+  },
+  [SIZE_TYPES.THREE_HORISONTAL_HALF]: {
+    xPadding: 433,
+    yPadding: 83.5,
+  },
+  [SIZE_TYPES.FOUR_HORISONTAL_FULL]: {
+    xPadding: 186,
+    yPadding: 186,
+    innerPadding: 50
+  },
+  [SIZE_TYPES.TWO_VERTICAL_ONE_HORISONTAL_HALF]: {
+    xPadding: 186,
+    yPadding: 186,
+    innerPadding: 50
+  },
+  [SIZE_TYPES.TWO_HORISONTAL_HALF]: {
+    xPadding: 186,
+    yPadding: 186,
+    innerPadding: 50
+  },
+  [SIZE_TYPES.FOUR_VERTICAL_HALF]: {
+    xPadding: 186,
+    yPadding: 186,
+    innerPadding: 50
+  },
+  [SIZE_TYPES.TWO_VERTICAL_CUSTOM]: {
+    xPadding: 186,
+    yPadding: 186,
+    innerPadding: 50
+  },
+}
