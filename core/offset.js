@@ -4,7 +4,6 @@ Number.prototype.getHalf = function() {
   return this / 2;
 };
 
-
 Number.prototype.plusMargin = function() {
   return this + CUT_OFF;
 };
