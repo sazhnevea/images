@@ -8,8 +8,12 @@ import {
   SOURCE_FOLDER_NAME,
   SIZE_TYPES,
   PADDINGS,
-  CUT_OFF
+  CUT_OFF,
+  LAYOUT_TYPE,
+  LAYOUT_TYPE_MAPPING,
+  LAYOUT_NAME
 } from './constants.js';
+import { getKeyByValue, parseNumberArray } from './utils.js';
 
 const parentFolderPath = path.join(MAIN_FOLDER_NAME, OUTPUT_FOLDER_NAME);
 
@@ -29,6 +33,9 @@ export const createOutputFolder = () => {
   });
 };
 
+
+const layoutTypeValues = Object.values(LAYOUT_TYPE)
+
 export async function processCSVData(csvPath) {
   return new Promise((resolve, reject) => {
     const data = [];
@@ -36,164 +43,36 @@ export async function processCSVData(csvPath) {
     const readStream = fs.createReadStream(csvPath);
 
     readStream.pipe(csv())
-      .on('data', (row) => {
-        console.log('row', row)
+      .on('data', (studentData) => {
+        let dataToPush = {}
 
-        const dataToPush = {
-          name: row['Имя участника'],
-          pages: [
-            {
-              layoutPath: `layoutWithBorder.jpg`,
-              pageName: '2',
-              // F1C1 слева 1 в склянь, 1 справа cutted
-              photos: [
-                {
-                  path: `фото-${row['2 разворот первый портрет']}.jpg`,
-                  sizeType: SIZE_TYPES.HALF,
-                },
-                {
-                  path: `фото-${row['2 разворот второй портрет']}.jpg`,
-                  sizeType: SIZE_TYPES.HALF_CUTTED,
-                },
-              ]
-            },
-            {
-              layoutPath: `layoutWithBorder.jpg`,
-              pageName: '3',
-              // слева 1 справа 3 горизонтали
-              photos: [
-                {
-                  path: `фото-${row['3 разворот 1']}.jpg`,
-                  sizeType: SIZE_TYPES.HALF,
-                },
-                {
-                  path: `фото-${row['3 разворот 2']}.jpg`,
-                  sizeType: SIZE_TYPES.THREE_HORISONTAL_HALF,
-                },
-                {
-                  path: `фото-${row['3 разворот 3']}.jpg`,
-                  sizeType: SIZE_TYPES.THREE_HORISONTAL_HALF,
-                },
-                {
-                  path: `фото-${row['3 разворот 4']}.jpg`,
-                  sizeType: SIZE_TYPES.THREE_HORISONTAL_HALF,
-                },
-              ]
-            },
-            {
-              layoutPath: `layoutWithBorder.jpg`,
-              pageName: '4',
-              // 4 горизонтали
-              photos: [
-                {
-                  path: `фото-${row['3 разворот 1']}.jpg`,
-                  sizeType: SIZE_TYPES.FOUR_HORISONTAL_FULL,
-                },
-                {
-                  path: `фото-${row['3 разворот 2']}.jpg`,
-                  sizeType: SIZE_TYPES.FOUR_HORISONTAL_FULL,
-                },
-                {
-                  path: `фото-${row['3 разворот 3']}.jpg`,
-                  sizeType: SIZE_TYPES.FOUR_HORISONTAL_FULL,
-                },
-                {
-                  path: `фото-${row['3 разворот 4']}.jpg`,
-                  sizeType: SIZE_TYPES.FOUR_HORISONTAL_FULL,
-                },
-              ]
-            },
-            {
-              layoutPath: `layoutWithBorder.jpg`,
-              pageName: '5',
-              // слева 1 в склянь, справа 2 вертикали и 1 горизонталь
-              photos: [
-                {
-                  path: `фото-${row['3 разворот 1']}.jpg`,
-                  sizeType: SIZE_TYPES.HALF,
-                },
-                {
-                  path: `фото-${row['3 разворот 2']}.jpg`,
-                  sizeType: SIZE_TYPES.TWO_VERTICAL_ONE_HORISONTAL_HALF,
-                },
-                {
-                  path: `фото-${row['3 разворот 3']}.jpg`,
-                  sizeType: SIZE_TYPES.TWO_VERTICAL_ONE_HORISONTAL_HALF,
-                },
-                {
-                  path: `фото-${row['3 разворот 4']}.jpg`,
-                  sizeType: SIZE_TYPES.TWO_VERTICAL_ONE_HORISONTAL_HALF,
-                },
-              ]
-            },
-            {
-              layoutPath: `layoutWithBorder.jpg`,
-              pageName: '6',
-              // 1 слева всклянь, справа 2 горизонтали
-              photos: [
-                {
-                  path: `фото-${row['3 разворот 1']}.jpg`,
-                  sizeType: SIZE_TYPES.HALF,
-                },
-                {
-                  path: `фото-${row['3 разворот 2']}.jpg`,
-                  sizeType: SIZE_TYPES.TWO_HORISONTAL_HALF,
-                },
-                {
-                  path: `фото-${row['3 разворот 3']}.jpg`,
-                  sizeType: SIZE_TYPES.TWO_HORISONTAL_HALF,
-                },
-              ]
-            },
-            {
-              layoutPath: `layoutWithBorder.jpg`,
-              pageName: '7',
-              // 1 слева всклянь, справа 4 вертикали
-              photos: [
-                {
-                  path: `фото-${row['3 разворот 1']}.jpg`,
-                  sizeType: SIZE_TYPES.HALF,
-                },
-                {
-                  path: `фото-${row['3 разворот 2']}.jpg`,
-                  sizeType: SIZE_TYPES.FOUR_VERTICAL_HALF,
-                },
-                {
-                  path: `фото-${row['3 разворот 3']}.jpg`,
-                  sizeType: SIZE_TYPES.FOUR_VERTICAL_HALF,
-                },
-                {
-                  path: `фото-${row['3 разворот 2']}.jpg`,
-                  sizeType: SIZE_TYPES.FOUR_VERTICAL_HALF,
-                },
-                {
-                  path: `фото-${row['3 разворот 3']}.jpg`,
-                  sizeType: SIZE_TYPES.FOUR_VERTICAL_HALF,
-                },
-              ]
-            },
-            {
-              layoutPath: `layoutWithBorder.jpg`,
-              pageName: '8',
-              // 1 слева на 3/4 и справа 2 вертикали
-              photos: [
-                {
-                  path: `фото-${row['3 разворот 1']}.jpg`,
-                  sizeType: SIZE_TYPES.THREE_QUARTERS,
-                },
-                {
-                  path: `фото-${row['3 разворот 2']}.jpg`,
-                  sizeType: SIZE_TYPES.TWO_VERTICAL_CUSTOM,
-                },
-                {
-                  path: `фото-${row['3 разворот 3']}.jpg`,
-                  sizeType: SIZE_TYPES.TWO_VERTICAL_CUSTOM,
-                },
-              ]
-            },
-          ]
-        };
-        data.push(dataToPush);
+        if (studentData['Имя участника']) {
+          dataToPush.name = studentData['Имя участника']
+        
+          let pageNumber = 1
+
+          const pagesData = []
+          for (const property in studentData) {
+
+            if (layoutTypeValues.includes(property) && studentData[property]) {
+
+              const layoutTypesOrder = LAYOUT_TYPE_MAPPING[getKeyByValue(LAYOUT_TYPE, property)]
+
+              const photoNumbers = parseNumberArray(studentData[property])
+              const photos = processPhotoNumbers(photoNumbers, layoutTypesOrder)
+              const pageData = {
+                layoutPath: LAYOUT_NAME,
+                pageName: `${pageNumber}`,
+                photos: photos
+              }
+              pagesData.push(pageData)
+              pageNumber = pageNumber + 1
+            }
+            
+          }
+          dataToPush.pages = pagesData
+          data.push(dataToPush)
+        }
       })
       .on('end', () => {
         resolve(data);
@@ -230,7 +109,7 @@ const resizePhoto = async (photo, sizeType, layoutWidth, layoutHeight, order) =>
       break;
     }
     case SIZE_TYPES.THREE_QUARTERS: {
-      updatedWidth = Math.round((layoutWidth - (CUT_OFF * 2) - doubleXPadding) * 0.80 + CUT_OFF)
+      updatedWidth = Math.round((layoutWidth - (CUT_OFF * 2) - xPadding - innerPadding) * 0.80 + CUT_OFF)
       updatedHeight = layoutHeight.minusMargins() - doubleYPadding;
       resizedPhoto = await photo.resize(updatedWidth, updatedHeight).sharpen()
       break;
@@ -264,7 +143,7 @@ const resizePhoto = async (photo, sizeType, layoutWidth, layoutHeight, order) =>
       if (order === 3) {
         updatedWidth = Math.round(layoutWidth.getHalf().minusMargin()) - doubleXPadding ;
         updatedHeight = Math.round((layoutHeight.minusMargins() - (doubleYPadding) - innerPadding) / 2);
-        resizedPhoto = await photo.resize(updatedWidth, updatedHeight).sharpen({ sigma: 1 })
+        resizedPhoto = await photo.resize(updatedWidth, updatedHeight).sharpen({ sigma: 1 });
       }
       break
     }
@@ -281,7 +160,7 @@ const resizePhoto = async (photo, sizeType, layoutWidth, layoutHeight, order) =>
       break
     }
     case SIZE_TYPES.TWO_VERTICAL_CUSTOM: {
-      updatedWidth = Math.round((layoutWidth - (CUT_OFF * 2) - doubleXPadding) * 0.20)
+      updatedWidth = Math.round((layoutWidth - (CUT_OFF * 2) - xPadding - innerPadding) * 0.20)
       updatedHeight = Math.round((layoutHeight.minusMargins() - (doubleYPadding) - innerPadding) / 2);
       resizedPhoto = await photo.resize(updatedWidth, updatedHeight).sharpen({ sigma: 1 })
       break
@@ -433,7 +312,7 @@ async function processStudent(item) {
     const dataToComposite = await processPage(photos, layoutWidth, layoutHeight);
     
     await layout.composite(dataToComposite);
-    await layout.toFile(`${studentFolderPath}/${pageName}.png`);
+    await layout.toFile(`${studentFolderPath}/${pageName}.jpg`);
   }
 }
 
@@ -441,13 +320,29 @@ async function processPage(photos, layoutWidth, layoutHeight) {
   const dataToComposite = [];
   const promises = photos.map(async (photo, i) => {
     const { path, sizeType } = photo;
+
+    const imagePath = `${MAIN_FOLDER_NAME}/${SOURCE_FOLDER_NAME}/${path}`
+    fs.access(imagePath, fs.constants.F_OK, (err) => {
+      if (err) {
+        console.error('Файл не найден:', imagePath);
+        return;
+      }
+    })
     const currentPhoto = sharp(`${MAIN_FOLDER_NAME}/${SOURCE_FOLDER_NAME}/${path}`);
     const { resizedPhoto, updatedWidth, updatedHeight } = await resizePhoto(currentPhoto, sizeType, layoutWidth, layoutHeight, i);
     const { leftOffset, topOffset } = await getOffsets(updatedWidth, updatedHeight, sizeType, layoutWidth, layoutHeight, i);
     dataToComposite.push({ input: await resizedPhoto.toBuffer(), left: leftOffset, top: topOffset });
   });
 
-  await Promise.all(promises);
+  await Promise.allSettled(promises);
 
   return dataToComposite;
+}
+
+const processPhotoNumbers = (photoNumbers, layoutTypesOrder) => {
+  return photoNumbers.map((number, index) => ({
+    path: `фото-${number}.jpg`,
+    sizeType: layoutTypesOrder[index]
+  })
+  )
 }
