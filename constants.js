@@ -1,42 +1,91 @@
-export const MAIN_FOLDER_NAME = 'images';
-export const OUTPUT_FOLDER_NAME = 'output';
-export const SOURCE_FOLDER_NAME = 'ретушь';
-export const CSVPath = `${MAIN_FOLDER_NAME}/данныеТест.csv`
-export const LAYOUT_NAME = 'layout.jpg'
+export const ASSETS_FOLDER_NAME = 'assets';
+export const ALBUMS_FOLDER_NAME = 'albums';
+export const DATA_FOLDER_NAME = 'data';
+export const IMPOSE_FOLDER_NAME = 'верстка';
+export const RESULT = 'result';
+export const RETOUCH_FOLDER_NAME = 'ретушь';
+export const SOURCE_SORT_FOLDER_NAME = 'цветокоррекция';
+export const CSVPathImpose = `данныеОбложка.csv`
+export const CSVPathSort = `для сортировки.csv`
+export const LAYOUT_PATH = 'assets/layout.jpg'
 
 export const CUT_OFF = 24;
 
+export const ALBUM_NAME_FIELD = 'Название альбома'
+
+const ALBUM_NAMES = {
+  ourKingergarten: 'Наш детский сад'
+}
+
 export const LAYOUT_TYPE = {
+  COVER: 'обложка',
+  FULL: 'общая',
   F1C1: 'слева 1 всклянь, 1 справа cutted',
   F1H3: 'слева 1 всклянь, 3 справа горизонтали',
   H4: '4 горизонтали',
-  F1V2H1: 'слева 1 всклянь, справа 2 вертикали и 1 горизонталь', //// 
-  F1H2: 'слева 1 всклянь, справа 2 горизонтали', // 
-  F1V4: '1 слева всклянь, справа 4 вертикали', // 
-  XXLF1V2: 'слева 1 большой, справа 2 вертикали', // 
+  F1V2H1: 'слева 1 всклянь, справа 2 вертикали и 1 горизонталь', 
+  F1H2: 'слева 1 всклянь, справа 2 горизонтали', 
+  F1V4: '1 слева всклянь, справа 4 вертикали',
+  XXLF1V2: 'слева 1 большой, справа 2 вертикали',
+  VIGNETTE: 'виньетка',
 }
 
+export const ALBUM_NAMES_DATA = {
+  [ALBUM_NAMES.ourKingergarten]: {
+    name: ALBUM_NAMES.ourKingergarten,
+    layoutsData: {
+      [LAYOUT_TYPE.COVER]: {
+        layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/ourKingergarten/layouts/`,
+        step: 12,
+        decorations: [
+          {
+            name: 'sun.png',
+            path: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/ourKingergarten/decorations/`,
+            offsets: {
+              left: 2922,
+              top: 1550,
+            }
+          },
+          {
+            name: 'frame.png',
+            path: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/ourKingergarten/decorations/`,
+            offsets: {
+              left: 3126,
+              top: 718,
+            }
+          },
+        ] 
+      }
+    }
+  },
+}
 
 export const SIZE_TYPES = {
+  COVER: 'COVER', 
+  FULL: 'FULL', 
   HALF: 'HALF',
   THREE_QUARTERS: 'THREE_QUARTERS',
   HALF_CUTTED: 'HALF_CUTTED',
-  THREE_HORISONTAL_HALF: 'THREE_HORISONTAL_HALF', // 3HR
-  FOUR_HORISONTAL_FULL: 'FOUR_HORISONTAL_FULL', //4HF
-  TWO_VERTICAL_ONE_HORISONTAL_HALF: 'TWO_VERTICAL_ONE_HORISONTAL_HALF', //2V1H
-  TWO_HORISONTAL_HALF: 'TWO_HORISONTAL_HALF', //2V
-  FOUR_VERTICAL_HALF: 'FOUR_VERTICAL_HALF', //2VH
-  TWO_VERTICAL_CUSTOM: 'TWO_VERTICAL_CUSTOM', //2VH
+  THREE_HORISONTAL_HALF: 'THREE_HORISONTAL_HALF',
+  FOUR_HORISONTAL_FULL: 'FOUR_HORISONTAL_FULL',
+  TWO_VERTICAL_ONE_HORISONTAL_HALF: 'TWO_VERTICAL_ONE_HORISONTAL_HALF',
+  TWO_HORISONTAL_HALF: 'TWO_HORISONTAL_HALF',
+  FOUR_VERTICAL_HALF: 'FOUR_VERTICAL_HALF',
+  TWO_VERTICAL_CUSTOM: 'TWO_VERTICAL_CUSTOM',
+  VIGNETTE: 'FULL', 
 }
 
 export const LAYOUT_TYPE_MAPPING = {
+  FULL: [SIZE_TYPES.FULL],
+  COVER: [SIZE_TYPES.COVER],
   F1C1: [SIZE_TYPES.HALF, SIZE_TYPES.HALF_CUTTED],
   F1H3: [SIZE_TYPES.HALF, SIZE_TYPES.THREE_HORISONTAL_HALF, SIZE_TYPES.THREE_HORISONTAL_HALF, SIZE_TYPES.THREE_HORISONTAL_HALF],
   H4: [SIZE_TYPES.FOUR_HORISONTAL_FULL, SIZE_TYPES.FOUR_HORISONTAL_FULL, SIZE_TYPES.FOUR_HORISONTAL_FULL, SIZE_TYPES.FOUR_HORISONTAL_FULL],
   F1V2H1: [SIZE_TYPES.HALF, SIZE_TYPES.TWO_VERTICAL_ONE_HORISONTAL_HALF, SIZE_TYPES.TWO_VERTICAL_ONE_HORISONTAL_HALF, SIZE_TYPES.TWO_VERTICAL_ONE_HORISONTAL_HALF], //// 
   F1H2: [SIZE_TYPES.HALF, SIZE_TYPES.TWO_HORISONTAL_HALF, SIZE_TYPES.TWO_HORISONTAL_HALF], // 
-  F1V4: [SIZE_TYPES.HALF, SIZE_TYPES.FOUR_VERTICAL_HALF, SIZE_TYPES.FOUR_VERTICAL_HALF, SIZE_TYPES.FOUR_VERTICAL_HALF,SIZE_TYPES.FOUR_VERTICAL_HALF,], // 
+  F1V4: [SIZE_TYPES.HALF, SIZE_TYPES.FOUR_VERTICAL_HALF, SIZE_TYPES.FOUR_VERTICAL_HALF, SIZE_TYPES.FOUR_VERTICAL_HALF,SIZE_TYPES.FOUR_VERTICAL_HALF,], 
   XXLF1V2: [SIZE_TYPES.THREE_QUARTERS, SIZE_TYPES.TWO_VERTICAL_CUSTOM, SIZE_TYPES.TWO_VERTICAL_CUSTOM], // 
+  VIGNETTE: [SIZE_TYPES.FULL],
 }
 
 export const PADDINGS = {
@@ -81,5 +130,18 @@ export const PADDINGS = {
     xPadding: 186,
     yPadding: 186,
     innerPadding: 50
+  },
+  [SIZE_TYPES.COVER]: {
+    xPadding: 3244,
+    yPadding: 777,
+    innerPadding: 50
+  },
+  [SIZE_TYPES.FULL]: {
+    xPadding: 0,
+    yPadding: 0,
+  },
+  [SIZE_TYPES.VIGNETTE]: {
+    xPadding: 0,
+    yPadding: 0,
   },
 }
