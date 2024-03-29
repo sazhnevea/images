@@ -1,2 +1,2 @@
 cd ~/Projects/learning/images/
-node index.js
+node /sort/index.js
