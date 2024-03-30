@@ -1,5 +1,5 @@
 import fs from 'fs';
-import { ALBUM_NAME_FIELD } from "../constants.js";
+import { ALBUM_NAME_FIELD, DIRECTION } from "../constants.js";
 
 export const createFolder = (folderName) => {
   fs.access(folderName, fs.constants.F_OK, (err) => {
@@ -28,6 +28,8 @@ export const getKeyByValue = (object, value) => {
 }
 
 export const getImageName = (photoNumber) => `фото-${photoNumber}.jpg`
+
+export const getDirection = (width, height) => width > height ? DIRECTION.H : DIRECTION.V
 
 export const getAlbumName = (rowData) => {
   return rowData[ALBUM_NAME_FIELD]

@@ -17,7 +17,7 @@ export async function processCSVDataToImpose(csvPath) {
         if (!data.albumName) {
           data.albumName = albumName;
         }
-console.log('studentData', studentData)
+
         if (studentData['Имя участника']) {
           currentStudent = {
             name: studentData['Имя участника'],
@@ -88,89 +88,3 @@ const processPhotoNumbers = (photoNumbers, layoutTypesOrder, studentData, proper
     console.error(`Фотография № ${number} является лишней в развороте ${property} у студента ${studentData['Имя участника']}`)
   }).filter(Boolean)
 }
-
-
-
-
-
-
-
-// import csv from 'csv-parser';
-// import fs from 'fs';
-// import { getAlbumName, getImageName, getKeyByValue, getNumberStrings, parseNumberArray } from '../common/common.js';
-// import { LAYOUT_PATH, LAYOUT_TYPE, LAYOUT_TYPE_MAPPING } from '../constants.js';
-
-// const layoutTypeValues = Object.values(LAYOUT_TYPE)
-// export async function processCSVDataToImpose(csvPath) {
-//   return new Promise((resolve, reject) => {
-//     const data = { albumName: '', studentsData: [] };
-//     let currentStudent = {};
-//     let pageNumber = 1;
-
-//     const readStream = fs.createReadStream(csvPath);
-//     readStream.pipe(csv())
-//       .on('data', (studentData) => {
-//         if (!data.albumName) {
-//           data.albumName = getAlbumName(studentData);
-//         }
-
-//         if (studentData['Имя участника']) {
-//           currentStudent = {
-//             name: studentData['Имя участника'],
-//             pages: [],
-//           };
-
-//           for (const property in studentData) {
-//             if (layoutTypeValues.includes(property) && studentData[property]) {
-//               const layoutTypesOrder = LAYOUT_TYPE_MAPPING[getKeyByValue(LAYOUT_TYPE, property)];
-//               const numberStrings = getNumberStrings(studentData[property]);
-//               if (numberStrings) {
-//                 const photoNumbers = parseNumberArray(numberStrings);
-//                 const photos = processPhotoNumbers(photoNumbers, layoutTypesOrder, studentData, property);
-//                 currentStudent.pages.push({
-//                   layoutPath: LAYOUT_PATH,
-//                   pageName: `${pageNumber}`,
-//                   pageType: property,
-//                   photos: photos,
-//                 });
-//                 pageNumber++;
-//               } else {
-//                 console.error(`У студента ${studentData['Имя участника']} отсутствуют номера фотографий в развороте ${property}`);
-//               }
-//             }
-//           }
-
-//           data.studentsData.push(currentStudent);
-//           currentStudent = {};
-//           pageNumber = 1;
-//         }
-//       })
-//       .on('end', () => {
-//         data.studentsData.forEach((studentData) => {
-//           const coverPage = studentData.pages.find(({ pageType }) => pageType === LAYOUT_TYPE.COVER);
-//           if (coverPage) {
-//             const pagesAmount = studentData.pages.length;
-//             coverPage.layoutPath = `covers/kids/дети обложка ${Math.max(2, pagesAmount)}.jpg`;
-//             coverPage.pagesAmount = pagesAmount;
-//           }
-//         });
-//         resolve(data);
-//       })
-//       .on('error', (error) => {
-//         reject(error);
-//       });
-//   });
-// }
-
-
-// const processPhotoNumbers = (photoNumbers, layoutTypesOrder, studentData, property) => {
-//   return photoNumbers.map((number, index) => {
-//     if (layoutTypesOrder[index]) {
-//       return ({
-//         path: getImageName(number),
-//         sizeType: layoutTypesOrder[index]
-//       })
-//     }
-//     console.error(`Фотография № ${number} является лишней в развороте ${property} у студента ${studentData['Имя участника']}`)
-//   }).filter(Boolean)
-// }
