@@ -28,7 +28,6 @@ async function processStudent(item) {
     const layout = sharp(layoutPath);
     const { width: layoutWidth, height: layoutHeight } = await layout.metadata();
     const dataToComposite = await processPage(page, layoutWidth, layoutHeight);
-    
     layout.composite(dataToComposite);
     await layout.toFile(destinationPath);
   }));
@@ -36,16 +35,14 @@ async function processStudent(item) {
 
 async function processPage(page, layoutWidth, layoutHeight) {
   const { decorations, photos, pagesAmount, step } = page;
-
   const dataToComposite = [];
-
   await Promise.all(photos.map(async (photo, photoOrder) => {
     try {
       const { path, sizeType } = photo;
       const imagePath = `${DATA_FOLDER_NAME}/${RETOUCH_FOLDER_NAME}/${path}`;
-
+      
       await fs.promises.access(imagePath, fs.constants.F_OK);
-
+      
       const currentPhoto = sharp(imagePath);
       const { resizedPhoto, updatedWidth, updatedHeight } = await resizePhoto(currentPhoto, sizeType, layoutWidth, layoutHeight, photoOrder);
       const { leftOffset, topOffset } = await getOffsets(updatedWidth, updatedHeight, sizeType, layoutWidth, layoutHeight, photoOrder, pagesAmount, step);
@@ -66,23 +63,3 @@ async function processPage(page, layoutWidth, layoutHeight) {
 
   return dataToComposite;
 }
-
-// async function addDecorations(dataToComposite, pagesAmount) {
-//   const STEP = 12;
-//   const decorationFramePath = `${ASSETS_FOLDER_NAME}/covers/kids/decorations/frame.png`;
-//   const decorationFrameImage = sharp(decorationFramePath);
-//   dataToComposite.push({ input: await decorationFrameImage.toBuffer(), left: 3126 + ((pagesAmount - 1) * STEP), top: 718 });
-//   const decorationSunPath = `${ASSETS_FOLDER_NAME}/covers/kids/decorations/sun.png`;
-//   const decorationSunImage = sharp(decorationSunPath);
-//   dataToComposite.push({ input: await decorationSunImage.toBuffer(), left: 2922 + ((pagesAmount - 1) * STEP), top: 1550 });
-// }
-
-// async function addDecorations(dataToComposite, pagesAmount) {
-//   const STEP = 12;
-//   const decorationFramePath = `${ASSETS_FOLDER_NAME}/covers/kids/decorations/frame.png`;
-//   const decorationFrameImage = sharp(decorationFramePath);
-//   dataToComposite.push({ input: await decorationFrameImage.toBuffer(), left: 3126 + ((pagesAmount - 1) * STEP), top: 718 });
-//   const decorationSunPath = `${ASSETS_FOLDER_NAME}/covers/kids/decorations/sun.png`;
-//   const decorationSunImage = sharp(decorationSunPath);
-//   dataToComposite.push({ input: await decorationSunImage.toBuffer(), left: 2922 + ((pagesAmount - 1) * STEP), top: 1550 });
-// }
