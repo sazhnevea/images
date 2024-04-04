@@ -1,5 +1,6 @@
 import { CUT_OFF } from "../constants.js";
 
+
 Number.prototype.getHalf = function() {
   return this / 2;
 };
