@@ -23,7 +23,6 @@ export const DIRECTION = {
 }
 
 export const LAYOUT_TYPE = {
-  LAYOUTS: 'развороты',
   COVER: 'обложка',
   FULL: 'общая',
   F1C1: 'слева 1 всклянь, 1 справа cutted',
@@ -54,27 +53,41 @@ export const ALBUM_NAMES_DATA = {
     name: ALBUM_NAMES.ourKingergarten,
     layoutsData: {
       [LAYOUT_TYPE.COVER]: {
-        layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/ourKingergarten/layouts/`,
+        layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/ourKingergarten/${LAYOUT_TYPE.COVER}/`,
         step: 12,
-        decorations: [
-          {
-            name: 'sun.png',
-            path: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/ourKingergarten/decorations/`,
-            offsets: {
-              left: 2922,
-              top: 1550,
-            }
-          },
-          {
-            name: 'frame.png',
-            path: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/ourKingergarten/decorations/`,
-            offsets: {
-              left: 3126,
-              top: 718,
-            }
-          },
-        ] 
-      }
+        decoration: {
+          name: 'decoration.png',
+          path: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/ourKingergarten/${LAYOUT_TYPE.COVER}/`,
+          offsets: {
+            left: 2922,
+            top: 718,
+          }
+        },
+      },
+      [LAYOUT_TYPE.F1C1]: {
+        layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/ourKingergarten/${LAYOUT_TYPE.F1C1}/`
+      },
+      [LAYOUT_TYPE.F1H3]: {
+        layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/ourKingergarten/${LAYOUT_TYPE.F1H3}/`,
+      },
+      [LAYOUT_TYPE.H4]: {
+        layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/ourKingergarten/${LAYOUT_TYPE.H4}/`,
+      },
+      [LAYOUT_TYPE.F1V2H1]: {
+        layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/ourKingergarten/${LAYOUT_TYPE.F1V2H1}/`,
+      },
+      [LAYOUT_TYPE.F1H2]: {
+        layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/ourKingergarten/${LAYOUT_TYPE.F1H2}/`,
+      },
+      [LAYOUT_TYPE.F1V4]: {
+        layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/ourKingergarten/${LAYOUT_TYPE.F1V4}/`,
+      },
+      [LAYOUT_TYPE.XXLF1V2]: {
+        layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/ourKingergarten/${LAYOUT_TYPE.XXLF1V2}/`,
+      },
+      [LAYOUT_TYPE.VIGNETTE]: {
+        layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/ourKingergarten/${LAYOUT_TYPE.VIGNETTE}/`,
+      },
     }
   },
 }
