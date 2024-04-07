@@ -1,13 +1,15 @@
 import csv from 'csv-parser';
 import fs from 'fs';
-import { getAlbumName, getImageName, getKeyByValue, getNumberStrings, parseNumberArray } from '../common/common.js';
-import { ALBUM_NAMES_DATA, LAYOUT_PATH, LAYOUT_TYPE, LAYOUT_TYPE_MAPPING } from '../constants.js';
+import { getAlbumName, getImageName, getSizeCode, getNumberStrings, parseNumberArray } from '../common/common';
+import { ALBUM_DATA, LAYOUT_PATH, LAYOUT_TYPE_MAPPING } from '../constants.js';
+import { ALBUM_NAMES, Data, LAYOUT_TYPE, Photo, SIZE_CODES, SIZE_TYPES, Student } from './types';
 
 const layoutTypeValues = Object.values(LAYOUT_TYPE)
-export async function processCSVDataToImpose(csvPath) {
+
+export async function processCSVDataToImpose(csvPath: fs.PathLike) {
   return new Promise((resolve, reject) => {
-    const data = { albumName: '', studentsData: [] };
-    let currentStudent = {};
+    const data: Data = { albumName: '', studentsData: [] };
+    let currentStudent: Student = {} as Student;
     let pageNumber = 1;
 
     const readStream = fs.createReadStream(csvPath);
@@ -18,20 +20,22 @@ export async function processCSVDataToImpose(csvPath) {
           data.albumName = albumName;
         }
 
-        if (studentData['Имя участника']) {
+        const studentName = studentData['Имя участника']
+        if (studentName) {
           currentStudent = {
-            name: studentData['Имя участника'],
+            name: studentName,
             pages: [],
           };
 
           for (const property in studentData) {
             const fixedColumnName = layoutTypeValues.find(layoutType => property.includes(layoutType))
             if (fixedColumnName && studentData[property]) {
-              const layoutTypesOrder = LAYOUT_TYPE_MAPPING[getKeyByValue(LAYOUT_TYPE, fixedColumnName)];
+              const sizeCode = getSizeCode(LAYOUT_TYPE, fixedColumnName)
+              const layoutTypesOrder = LAYOUT_TYPE_MAPPING[sizeCode as SIZE_CODES];
               const numberStrings = getNumberStrings(studentData[property]);
               if (numberStrings) {
                 const photoNumbers = parseNumberArray(numberStrings);
-                const photos = processPhotoNumbers(photoNumbers, layoutTypesOrder, studentData, property);
+                const photos = processPhotoNumbers(photoNumbers, layoutTypesOrder);
                 currentStudent.pages.push({
                   layoutPath: LAYOUT_PATH,
                   pageName: `${pageNumber}`,
@@ -40,19 +44,18 @@ export async function processCSVDataToImpose(csvPath) {
                 });
                 pageNumber++;
               } else {
-                console.error(`У студента ${studentData['Имя участника']} отсутствуют номера фотографий в развороте ${property}`);
+                console.error(`У студента ${studentName} отсутствуют номера фотографий в развороте ${property}`);
               }
             }
           }
           data.studentsData.push(currentStudent);
-          currentStudent = {};
           pageNumber = 1;
         }
 
       })
       .on('end', () => {
-        if (Object.keys(ALBUM_NAMES_DATA).includes(data.albumName)) {
-          const albumData = ALBUM_NAMES_DATA[data.albumName]
+        if (Object.keys(ALBUM_DATA).includes(data.albumName)) {
+          const albumData = ALBUM_DATA[data.albumName]
           data.studentsData.forEach((studentData) => {
             studentData.pages.forEach(pageData => {
               const { pageType } = pageData;
@@ -77,14 +80,11 @@ export async function processCSVDataToImpose(csvPath) {
   });
 }
 
-const processPhotoNumbers = (photoNumbers, layoutTypesOrder, studentData, property) => {
+const processPhotoNumbers = (photoNumbers: number[], layoutTypesOrder: SIZE_TYPES[]) => {
   return photoNumbers.map((number, index) => {
-    if (layoutTypesOrder[index]) {
-      return ({
-        path: getImageName(number),
-        sizeType: layoutTypesOrder[index]
-      })
-    }
-    console.error(`Фотография № ${number} является лишней в развороте ${property} у студента ${studentData['Имя участника']}`)
-  }).filter(Boolean)
+    return ({
+      path: getImageName(number),
+      sizeType: layoutTypesOrder[index]
+    })
+  })
 }

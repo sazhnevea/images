@@ -2,11 +2,12 @@
   "name": "images",
   "version": "1.0.0",
   "main": "index.js",
-  "type": "module",
+  "type": "commonjs",
   "scripts": {
-    "prestart": "rm -rf result",
-    "impose": "node impose/index.js",
-    "sort": "node sort/index.js"
+    "prestart": "rm -rf build && npm run compile",
+    "compile": "tsc",
+    "impose": "nodemon --watch 'impose/**/*.ts' --exec 'node build/impose/index.js'",
+    "sort": "nodemon --watch 'src/**/*.ts' --exec 'node build/sort/index.js'"
   },
   "author": "",
   "license": "ISC",
@@ -18,10 +19,11 @@
     "uninstall": "^0.0.0"
   },
   "devDependencies": {
-    "@types/node": "^20.11.30",
+    "@types/node": "^20.12.3",
     "eslint": "^8.57.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-plugin-import": "^2.29.1",
+    "nodemon": "^3.1.0",
     "typescript": "^5.4.3"
   }
 }
