@@ -1,6 +1,7 @@
-import { CUT_OFF, PADDINGS, SIZE_TYPES } from "../constants.js";
+import { CUT_OFF, PADDINGS } from "../constants.js";
+import { SIZE_TYPES } from "./types.js";
 
-export const getOffsets = async (updatedWidth, updatedHeight, sizeType, layoutWidth, layoutHeight, order, pagesAmount, step) => {
+export const getOffsets = async (updatedWidth: number, updatedHeight: number, sizeType: SIZE_TYPES, layoutWidth: number, layoutHeight: number, order: number, pagesAmount?: number, step?: number) => {
   let leftOffset = 0;
   let topOffset = 0;
 
@@ -35,23 +36,27 @@ export const getOffsets = async (updatedWidth, updatedHeight, sizeType, layoutWi
       break;
     }
     case SIZE_TYPES.FOUR_HORISONTAL_FULL: {
-      if (order === 0) {
-        leftOffset = layoutWidth.getHalf() - (innerPadding / 2) - updatedWidth;
-        topOffset = Math.round(topOffset.plusMargin() + yPadding);
-      }
+      if (innerPadding) {
+        if (order === 0) {
+          leftOffset = layoutWidth.getHalf() - (innerPadding / 2) - updatedWidth;
+          topOffset = Math.round(topOffset.plusMargin() + yPadding);
+        }
 
-      if (order === 1) {
-        leftOffset = layoutWidth.getHalf() - (innerPadding / 2) - updatedWidth;
-        topOffset = Math.round(Math.round(topOffset.plusMargin() + yPadding) + updatedHeight + innerPadding)
-      }
-      if (order === 2) {
-        leftOffset = layoutWidth.getHalf() + (innerPadding / 2)
-        topOffset = Math.round(topOffset.plusMargin() + yPadding);
-      }
+        if (order === 1) {
+          leftOffset = layoutWidth.getHalf() - (innerPadding / 2) - updatedWidth;
+          topOffset = Math.round(Math.round(topOffset.plusMargin() + yPadding) + updatedHeight + innerPadding)
+        }
+        if (order === 2) {
+          leftOffset = layoutWidth.getHalf() + (innerPadding / 2)
+          topOffset = Math.round(topOffset.plusMargin() + yPadding);
+        }
 
-      if (order === 3) {
-        leftOffset = layoutWidth.getHalf() + (innerPadding / 2)
-        topOffset = Math.round(Math.round(topOffset.plusMargin() + yPadding) + updatedHeight + innerPadding)
+        if (order === 3) {
+          leftOffset = layoutWidth.getHalf() + (innerPadding / 2)
+          topOffset = Math.round(Math.round(topOffset.plusMargin() + yPadding) + updatedHeight + innerPadding)
+        }
+      } else {
+        console.log('Inner padding is not defined for' + ' ' + sizeType)
       }
       break;
     }
@@ -61,7 +66,11 @@ export const getOffsets = async (updatedWidth, updatedHeight, sizeType, layoutWi
         topOffset = Math.round(topOffset.plusMargin() + yPadding);
       }
       if (order === 2) {
-        leftOffset = layoutWidth.getHalf() + xPadding + updatedWidth + innerPadding
+        if (innerPadding) {
+          leftOffset = layoutWidth.getHalf() + xPadding + updatedWidth + innerPadding
+        } else {
+          console.log('Inner padding is not defined for' + ' ' + sizeType)
+        }
         topOffset = Math.round(topOffset.plusMargin() + yPadding);
       }
       if (order === 3) {
@@ -76,7 +85,12 @@ export const getOffsets = async (updatedWidth, updatedHeight, sizeType, layoutWi
         topOffset = Math.round(topOffset.plusMargin() + yPadding);
       }
       if (order === 2) {
-        topOffset = Math.round(topOffset.plusMargin() + yPadding + updatedHeight + innerPadding);
+        if (innerPadding) {
+
+          topOffset = Math.round(topOffset.plusMargin() + yPadding + updatedHeight + innerPadding);
+        } else {
+          console.log('Inner padding is not defined for' + ' ' + sizeType)
+        }
       }
       break
     }
@@ -86,7 +100,11 @@ export const getOffsets = async (updatedWidth, updatedHeight, sizeType, layoutWi
         topOffset = Math.round(topOffset.plusMargin() + yPadding);
       }
       if (order === 2) {
-        leftOffset = layoutWidth.getHalf() + xPadding + updatedWidth + innerPadding
+        if (innerPadding) {  
+          leftOffset = layoutWidth.getHalf() + xPadding + updatedWidth + innerPadding
+        } else {
+          console.log('Inner padding is not defined for' + ' ' + sizeType)
+        }
         topOffset = Math.round(topOffset.plusMargin() + yPadding);
       }
       if (order === 3) {
@@ -94,10 +112,13 @@ export const getOffsets = async (updatedWidth, updatedHeight, sizeType, layoutWi
         topOffset = Math.round(layoutHeight.minusMargin() - yPadding - updatedHeight);
       }
       if (order === 4) {
-        leftOffset = layoutWidth.getHalf() + xPadding + updatedWidth + innerPadding
+        if (innerPadding) {
+          leftOffset = layoutWidth.getHalf() + xPadding + updatedWidth + innerPadding
+        } else {
+          console.log('Inner padding is not defined for' + ' ' + sizeType)
+        }
         topOffset = Math.round(layoutHeight.minusMargin() - yPadding - updatedHeight);
       }
-
       break
     }
     case SIZE_TYPES.TWO_VERTICAL_CUSTOM: {
@@ -106,12 +127,21 @@ export const getOffsets = async (updatedWidth, updatedHeight, sizeType, layoutWi
         topOffset = Math.round(topOffset.plusMargin() + yPadding);
       }
       if (order === 2) {
-        topOffset = Math.round(topOffset.plusMargin() + yPadding + updatedHeight + innerPadding);
+        if (innerPadding) {  
+          topOffset = Math.round(topOffset.plusMargin() + yPadding + updatedHeight + innerPadding);
+        } else {
+          console.log('Inner padding is not defined for' + ' ' + sizeType)
+        }
       }
       break
     }
     case SIZE_TYPES.COVER: {
-      leftOffset = CUT_OFF + xPadding + ((pagesAmount - 1) * step);
+      if (pagesAmount && step) {
+
+        leftOffset = CUT_OFF + xPadding + ((pagesAmount - 1) * step);
+      } else {
+        console.log(`pagesAmount or step is not defined. pagesAmount value is ${pagesAmount}. step value is ${step}`)
+      }
       topOffset = Math.round(topOffset.plusMargin() + yPadding);
       break
     }

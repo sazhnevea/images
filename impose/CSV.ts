@@ -1,12 +1,12 @@
 import csv from 'csv-parser';
 import fs from 'fs';
-import { getAlbumName, getImageName, getSizeCode, getNumberStrings, parseNumberArray } from '../common/common';
+import { getAlbumName, getImageName, getNumberStrings, parseNumberArray } from '../common/common';
 import { ALBUM_DATA, LAYOUT_PATH, LAYOUT_TYPE_MAPPING } from '../constants.js';
-import { ALBUM_NAMES, Data, LAYOUT_TYPE, Photo, SIZE_CODES, SIZE_TYPES, Student } from './types';
+import { ALBUM_NAMES, Data, LAYOUT_TYPE, SIZE_CODES, SIZE_TYPES, Student } from './types';
 
 const layoutTypeValues = Object.values(LAYOUT_TYPE)
 
-export async function processCSVDataToImpose(csvPath: fs.PathLike) {
+export async function processCSVDataToImpose(csvPath: fs.PathLike): Promise<Data> {
   return new Promise((resolve, reject) => {
     const data: Data = { albumName: '', studentsData: [] };
     let currentStudent: Student = {} as Student;
@@ -30,8 +30,8 @@ export async function processCSVDataToImpose(csvPath: fs.PathLike) {
           for (const property in studentData) {
             const fixedColumnName = layoutTypeValues.find(layoutType => property.includes(layoutType))
             if (fixedColumnName && studentData[property]) {
-              const sizeCode = getSizeCode(LAYOUT_TYPE, fixedColumnName)
-              const layoutTypesOrder = LAYOUT_TYPE_MAPPING[sizeCode as SIZE_CODES];
+              const layoutTypeKey = getLayoutTypeKey(fixedColumnName)
+              const layoutTypesOrder = LAYOUT_TYPE_MAPPING[layoutTypeKey as SIZE_CODES];
               const numberStrings = getNumberStrings(studentData[property]);
               if (numberStrings) {
                 const photoNumbers = parseNumberArray(numberStrings);
@@ -55,7 +55,7 @@ export async function processCSVDataToImpose(csvPath: fs.PathLike) {
       })
       .on('end', () => {
         if (Object.keys(ALBUM_DATA).includes(data.albumName)) {
-          const albumData = ALBUM_DATA[data.albumName]
+          const albumData = ALBUM_DATA[data.albumName as ALBUM_NAMES]
           data.studentsData.forEach((studentData) => {
             studentData.pages.forEach(pageData => {
               const { pageType } = pageData;
@@ -88,3 +88,13 @@ const processPhotoNumbers = (photoNumbers: number[], layoutTypesOrder: SIZE_TYPE
     })
   })
 }
+
+const getLayoutTypeKey = (value: string): string | undefined => {
+  for (const key in LAYOUT_TYPE) {
+    if (LAYOUT_TYPE[key as keyof typeof LAYOUT_TYPE] === value) {
+      return key;
+    }
+  }
+  return undefined;
+}
+

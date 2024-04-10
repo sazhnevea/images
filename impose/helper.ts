@@ -1,6 +1,6 @@
 import fs from 'fs';
 
-export const createStudentFolder = async (studentFolderPath) => {
+export const createStudentFolder = async (studentFolderPath: string) => {
   try {
     await fs.promises.mkdir(studentFolderPath, { recursive: true });
     console.log(`${studentFolderPath} folder created successfully!`);

@@ -44,8 +44,6 @@ export enum LAYOUT_TYPE {
   VIGNETTE = 'виньетка',
 }
 
-
-
 export type LayoutTypeMapping = Record<SIZE_CODES, SIZE_TYPES[]>
 
 export interface Direction {
@@ -95,8 +93,11 @@ export interface Photo {
 export interface Page {
   layoutPath: string;
   pageName: string;
-  pageType: LAYOUT_TYPE,
-  photos: Photo[],
+  pageType: LAYOUT_TYPE;
+  photos: Photo[];
+  pagesAmount?: number;
+  step?: number;
+  decoration?: Decoration;
 }
 
 export interface Student {
