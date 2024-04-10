@@ -60,15 +60,16 @@ var resizePhoto = function (photo, sizeType, layoutWidth, layoutHeight, order) {
                     case types_js_1.SIZE_TYPES.FOUR_VERTICAL_HALF: return [3 /*break*/, 18];
                     case types_js_1.SIZE_TYPES.TWO_VERTICAL_CUSTOM: return [3 /*break*/, 20];
                     case types_js_1.SIZE_TYPES.COVER: return [3 /*break*/, 22];
+                    case types_js_1.SIZE_TYPES.FULL: return [3 /*break*/, 24];
                 }
-                return [3 /*break*/, 24];
+                return [3 /*break*/, 26];
             case 1:
                 updatedWidth = layoutWidth.getHalf();
                 updatedHeight = layoutHeight;
                 return [4 /*yield*/, photo.resize(updatedWidth, updatedHeight).sharpen()];
             case 2:
                 resizedPhoto = _c.sent();
-                return [3 /*break*/, 25];
+                return [3 /*break*/, 27];
             case 3:
                 if (innerPadding) {
                     updatedWidth = Math.round((layoutWidth - (constants_js_1.CUT_OFF * 2) - xPadding - innerPadding) * 0.80 + constants_js_1.CUT_OFF);
@@ -80,21 +81,21 @@ var resizePhoto = function (photo, sizeType, layoutWidth, layoutHeight, order) {
                 return [4 /*yield*/, photo.resize(updatedWidth, updatedHeight).sharpen()];
             case 4:
                 resizedPhoto = _c.sent();
-                return [3 /*break*/, 25];
+                return [3 /*break*/, 27];
             case 5:
                 updatedWidth = layoutWidth.getHalf().minusMargins() - doubleXPadding;
                 updatedHeight = layoutHeight.minusMargins() - doubleYPadding;
                 return [4 /*yield*/, photo.resize(updatedWidth, updatedHeight).sharpen({ sigma: 1 })];
             case 6:
                 resizedPhoto = _c.sent();
-                return [3 /*break*/, 25];
+                return [3 /*break*/, 27];
             case 7:
                 updatedWidth = Math.round(layoutWidth.getHalf().minusMargins()) - (doubleXPadding);
                 updatedHeight = Math.round((layoutHeight.minusMargins() - (doubleYPadding * 2)) / 3);
                 return [4 /*yield*/, photo.resize(updatedWidth, updatedHeight).sharpen({ sigma: 1 })];
             case 8:
                 resizedPhoto = _c.sent();
-                return [3 /*break*/, 25];
+                return [3 /*break*/, 27];
             case 9:
                 updatedWidth = Math.round(layoutWidth.getHalf().minusMargins()) - xPadding;
                 if (innerPadding) {
@@ -106,7 +107,7 @@ var resizePhoto = function (photo, sizeType, layoutWidth, layoutHeight, order) {
                 return [4 /*yield*/, photo.resize(updatedWidth, updatedHeight).sharpen({ sigma: 1 })];
             case 10:
                 resizedPhoto = _c.sent();
-                return [3 /*break*/, 25];
+                return [3 /*break*/, 27];
             case 11:
                 if (!(order === 1 || order === 2)) return [3 /*break*/, 13];
                 if (innerPadding) {
@@ -133,7 +134,7 @@ var resizePhoto = function (photo, sizeType, layoutWidth, layoutHeight, order) {
             case 14:
                 resizedPhoto = _c.sent();
                 _c.label = 15;
-            case 15: return [3 /*break*/, 25];
+            case 15: return [3 /*break*/, 27];
             case 16:
                 updatedWidth = Math.round(layoutWidth.getHalf().minusMargin()) - doubleXPadding;
                 if (innerPadding) {
@@ -145,7 +146,7 @@ var resizePhoto = function (photo, sizeType, layoutWidth, layoutHeight, order) {
                 return [4 /*yield*/, photo.resize(updatedWidth, updatedHeight).sharpen({ sigma: 1 })];
             case 17:
                 resizedPhoto = _c.sent();
-                return [3 /*break*/, 25];
+                return [3 /*break*/, 27];
             case 18:
                 if (innerPadding) {
                     updatedWidth = Math.round((layoutWidth.getHalf().minusMargin() - doubleXPadding - innerPadding) / 2);
@@ -157,7 +158,7 @@ var resizePhoto = function (photo, sizeType, layoutWidth, layoutHeight, order) {
                 return [4 /*yield*/, photo.resize(updatedWidth, updatedHeight).sharpen({ sigma: 1 })];
             case 19:
                 resizedPhoto = _c.sent();
-                return [3 /*break*/, 25];
+                return [3 /*break*/, 27];
             case 20:
                 if (innerPadding) {
                     updatedWidth = Math.round((layoutWidth - (constants_js_1.CUT_OFF * 2) - xPadding - innerPadding) * 0.20);
@@ -169,18 +170,25 @@ var resizePhoto = function (photo, sizeType, layoutWidth, layoutHeight, order) {
                 return [4 /*yield*/, photo.resize(updatedWidth, updatedHeight).sharpen({ sigma: 1 })];
             case 21:
                 resizedPhoto = _c.sent();
-                return [3 /*break*/, 25];
+                return [3 /*break*/, 27];
             case 22:
                 updatedWidth = 1359;
                 updatedHeight = 2040;
                 return [4 /*yield*/, photo.resize(updatedWidth, updatedHeight).sharpen({ sigma: 1 })];
             case 23:
                 resizedPhoto = _c.sent();
-                return [3 /*break*/, 25];
+                return [3 /*break*/, 27];
             case 24:
+                updatedWidth = layoutWidth;
+                updatedHeight = layoutHeight;
+                return [4 /*yield*/, photo.resize(updatedWidth, updatedHeight).sharpen({ sigma: 1 })];
+            case 25:
+                resizedPhoto = _c.sent();
+                return [3 /*break*/, 27];
+            case 26:
                 resizedPhoto = photo;
-                return [3 /*break*/, 25];
-            case 25: return [2 /*return*/, { resizedPhoto: resizedPhoto, updatedWidth: updatedWidth, updatedHeight: updatedHeight }];
+                return [3 /*break*/, 27];
+            case 27: return [2 /*return*/, { resizedPhoto: resizedPhoto, updatedWidth: updatedWidth, updatedHeight: updatedHeight }];
         }
     });
 }); };

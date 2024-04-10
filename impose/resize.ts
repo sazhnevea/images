@@ -113,6 +113,13 @@ console.log('sizeType', sizeType)
       resizedPhoto = await photo.resize(updatedWidth, updatedHeight).sharpen({ sigma: 1 })
       break
     }
+    
+    case SIZE_TYPES.FULL: {
+      updatedWidth = layoutWidth;
+      updatedHeight = layoutHeight;
+      resizedPhoto = await photo.resize(updatedWidth, updatedHeight).sharpen({ sigma: 1 })
+      break
+    }
 
     default:
       resizedPhoto = photo
