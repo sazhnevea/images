@@ -34,7 +34,7 @@ async function processStudent(item) {
 }
 
 async function processPage(page, layoutWidth, layoutHeight) {
-  const { decorations, photos, pagesAmount, step } = page;
+  const { decoration, photos, pagesAmount, step } = page;
   const dataToComposite = [];
   await Promise.all(photos.map(async (photo, photoOrder) => {
     try {
@@ -52,14 +52,16 @@ async function processPage(page, layoutWidth, layoutHeight) {
     }
   }));
 
-  if (decorations) {
-    decorations.forEach(async (decoration) => {
-      const { path, name, step, offsets} = decoration
-
+  if (decoration) {
+      const { path, name, step, offsets} = decoration;
       const decorationImage = sharp(`${path}${name}`, );
-      dataToComposite.push({ input: await decorationImage.toBuffer(), left: offsets.left + ((pagesAmount - 1) * step), top: offsets.top });
-  })
+
+      dataToComposite.push({ input: await decorationImage.toBuffer(), left: offsets.left + calculateLeftOffsetBssedOnPagesAmount(pagesAmount, step), top: offsets.top });
   }
 
   return dataToComposite;
+}
+
+const calculateLeftOffsetBssedOnPagesAmount = (pagesAmount, step = 0) => {
+return (pagesAmount - 1) * step
 }

@@ -74,9 +74,17 @@ export const resizePhoto = async (photo, sizeType, layoutWidth, layoutHeight, or
       resizedPhoto = await photo.resize(updatedWidth, updatedHeight).sharpen({ sigma: 1 })
       break
     }
+    case SIZE_TYPES.TWO_VERTICAL_RIGHT_CENTER: {
+      if (order === 1 || order === 2) {
+        updatedWidth = Math.round((layoutWidth.getHalf().minusMargin() - doubleXPadding - innerPadding) / 2 );
+        updatedHeight = Math.round((layoutHeight.minusMargins() - (doubleYPadding) - innerPadding) / 2);
+        resizedPhoto = await photo.resize(updatedWidth, updatedHeight).sharpen({ sigma: 1 })
+      }
+      break
+    }
     case SIZE_TYPES.COVER: {
-      updatedWidth = 1357;
-      updatedHeight = 1905;
+      updatedWidth = 1359;
+      updatedHeight = 2040;
       resizedPhoto = await photo.resize(updatedWidth, updatedHeight).sharpen({ sigma: 1 })
       break
     }

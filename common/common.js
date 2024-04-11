@@ -27,7 +27,7 @@ export const getKeyByValue = (object, value) => {
   return Object.keys(object).find(key => object[key] === value);
 }
 
-export const getImageName = (photoNumber) => `фото-${photoNumber}.jpg`
+export const getImageName = (photoNumber) => `${photoNumber}.jpg`
 
 export const getDirection = (width, height) => width > height ? DIRECTION.H : DIRECTION.V
 

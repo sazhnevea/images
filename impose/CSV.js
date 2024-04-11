@@ -55,14 +55,15 @@ export async function processCSVDataToImpose(csvPath) {
           const albumData = ALBUM_NAMES_DATA[data.albumName]
           data.studentsData.forEach((studentData) => {
             studentData.pages.forEach(pageData => {
-              const { pageType } = pageData
+              const { pageType } = pageData;
               const layoutData = albumData.layoutsData[pageType]
               if (layoutData) {
+                const { step, layoutPathFolder, decoration } = layoutData 
                 const pagesAmount = studentData.pages.length;
                 pageData.pagesAmount = pagesAmount
-                pageData.step = layoutData.step
-                pageData.layoutPath = `${layoutData.layoutPathFolder}${Math.max(2, studentData.pages.length)}.jpg`
-                pageData.decorations = layoutData.decorations
+                pageData.step = step || 0
+                pageData.layoutPath = `${layoutPathFolder}${step ? Math.max(2, studentData.pages.length - 1) : 1}.jpg`
+                pageData.decoration = decoration
               }
             })
           })
@@ -75,7 +76,6 @@ export async function processCSVDataToImpose(csvPath) {
       });
   });
 }
-
 
 const processPhotoNumbers = (photoNumbers, layoutTypesOrder, studentData, property) => {
   return photoNumbers.map((number, index) => {

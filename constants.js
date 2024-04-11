@@ -23,13 +23,13 @@ export const DIRECTION = {
 }
 
 export const LAYOUT_TYPE = {
-  LAYOUTS: 'развороты',
   COVER: 'обложка',
   FULL: 'общая',
   F1C1: 'слева 1 всклянь, 1 справа cutted',
   F1H3: 'слева 1 всклянь, 3 справа горизонтали',
   H4: '4 горизонтали',
   F1V2H1: 'слева 1 всклянь, справа 2 вертикали и 1 горизонталь', 
+  F1V2: '1 слева всклянь, справа 2 вертикали', 
   F1H2: 'слева 1 всклянь, справа 2 горизонтали', 
   F1V4: '1 слева всклянь, справа 4 вертикали',
   XXLF1V2: 'слева 1 большой, справа 2 вертикали',
@@ -43,6 +43,7 @@ export const LAYOUT_TYPE_DIRECTION_MAPPING = {
 [LAYOUT_TYPE.F1H3]: [DIRECTION.V, DIRECTION.H, DIRECTION.H, DIRECTION.H],
 [LAYOUT_TYPE.H4]: [DIRECTION.H, DIRECTION.H, DIRECTION.H, DIRECTION.H],
 [LAYOUT_TYPE.F1V2H1]: [DIRECTION.V, DIRECTION.V, DIRECTION.V, DIRECTION.H], 
+[LAYOUT_TYPE.F1V2]: [DIRECTION.V, DIRECTION.V, DIRECTION.V], 
 [LAYOUT_TYPE.F1H2]: [DIRECTION.V, DIRECTION.H, DIRECTION.H], 
 [LAYOUT_TYPE.F1V4]: [DIRECTION.V, DIRECTION.V, DIRECTION.V, DIRECTION.V, DIRECTION.V],
 [LAYOUT_TYPE.XXLF1V2]: [DIRECTION.H, DIRECTION.V, DIRECTION.V],
@@ -54,27 +55,41 @@ export const ALBUM_NAMES_DATA = {
     name: ALBUM_NAMES.ourKingergarten,
     layoutsData: {
       [LAYOUT_TYPE.COVER]: {
-        layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/ourKingergarten/layouts/`,
+        layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/ourKingergarten/${LAYOUT_TYPE.COVER}/`,
         step: 12,
-        decorations: [
-          {
-            name: 'sun.png',
-            path: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/ourKingergarten/decorations/`,
-            offsets: {
-              left: 2922,
-              top: 1550,
-            }
-          },
-          {
-            name: 'frame.png',
-            path: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/ourKingergarten/decorations/`,
-            offsets: {
-              left: 3126,
-              top: 718,
-            }
-          },
-        ] 
-      }
+        decoration: {
+          name: 'decoration.png',
+          path: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/ourKingergarten/${LAYOUT_TYPE.COVER}/`,
+          offsets: {
+            left: 2980,
+            top: 568,
+          }
+        },
+      },
+      [LAYOUT_TYPE.F1C1]: {
+        layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/ourKingergarten/${LAYOUT_TYPE.F1C1}/`
+      },
+      [LAYOUT_TYPE.F1H3]: {
+        layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/ourKingergarten/${LAYOUT_TYPE.F1H3}/`,
+      },
+      [LAYOUT_TYPE.H4]: {
+        layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/ourKingergarten/${LAYOUT_TYPE.H4}/`,
+      },
+      [LAYOUT_TYPE.F1V2H1]: {
+        layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/ourKingergarten/${LAYOUT_TYPE.F1V2H1}/`,
+      },
+      [LAYOUT_TYPE.F1H2]: {
+        layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/ourKingergarten/${LAYOUT_TYPE.F1H2}/`,
+      },
+      [LAYOUT_TYPE.F1V4]: {
+        layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/ourKingergarten/${LAYOUT_TYPE.F1V4}/`,
+      },
+      [LAYOUT_TYPE.XXLF1V2]: {
+        layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/ourKingergarten/${LAYOUT_TYPE.XXLF1V2}/`,
+      },
+      [LAYOUT_TYPE.VIGNETTE]: {
+        layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/ourKingergarten/${LAYOUT_TYPE.VIGNETTE}/`,
+      },
     }
   },
 }
@@ -91,6 +106,7 @@ export const SIZE_TYPES = {
   TWO_HORISONTAL_HALF: 'TWO_HORISONTAL_HALF',
   FOUR_VERTICAL_HALF: 'FOUR_VERTICAL_HALF',
   TWO_VERTICAL_CUSTOM: 'TWO_VERTICAL_CUSTOM',
+  TWO_VERTICAL_RIGHT_CENTER: 'TWO_VERTICAL_RIGHT_CENTER',
   VIGNETTE: 'FULL', 
 }
 
@@ -101,6 +117,7 @@ export const LAYOUT_TYPE_MAPPING = {
   F1H3: [SIZE_TYPES.HALF, SIZE_TYPES.THREE_HORISONTAL_HALF, SIZE_TYPES.THREE_HORISONTAL_HALF, SIZE_TYPES.THREE_HORISONTAL_HALF],
   H4: [SIZE_TYPES.FOUR_HORISONTAL_FULL, SIZE_TYPES.FOUR_HORISONTAL_FULL, SIZE_TYPES.FOUR_HORISONTAL_FULL, SIZE_TYPES.FOUR_HORISONTAL_FULL],
   F1V2H1: [SIZE_TYPES.HALF, SIZE_TYPES.TWO_VERTICAL_ONE_HORISONTAL_HALF, SIZE_TYPES.TWO_VERTICAL_ONE_HORISONTAL_HALF, SIZE_TYPES.TWO_VERTICAL_ONE_HORISONTAL_HALF],
+  F1V2: [SIZE_TYPES.HALF, SIZE_TYPES.TWO_VERTICAL_RIGHT_CENTER, SIZE_TYPES.TWO_VERTICAL_RIGHT_CENTER],
   F1H2: [SIZE_TYPES.HALF, SIZE_TYPES.TWO_HORISONTAL_HALF, SIZE_TYPES.TWO_HORISONTAL_HALF],
   F1V4: [SIZE_TYPES.HALF, SIZE_TYPES.FOUR_VERTICAL_HALF, SIZE_TYPES.FOUR_VERTICAL_HALF, SIZE_TYPES.FOUR_VERTICAL_HALF,SIZE_TYPES.FOUR_VERTICAL_HALF,], 
   XXLF1V2: [SIZE_TYPES.THREE_QUARTERS, SIZE_TYPES.TWO_VERTICAL_CUSTOM, SIZE_TYPES.TWO_VERTICAL_CUSTOM],
@@ -146,6 +163,11 @@ export const PADDINGS = {
     innerPadding: 50
   },
   [SIZE_TYPES.TWO_VERTICAL_CUSTOM]: {
+    xPadding: 186,
+    yPadding: 186,
+    innerPadding: 50
+  },
+  [SIZE_TYPES.TWO_VERTICAL_RIGHT_CENTER]: {
     xPadding: 186,
     yPadding: 186,
     innerPadding: 50

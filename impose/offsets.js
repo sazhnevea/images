@@ -3,7 +3,6 @@ import { CUT_OFF, PADDINGS, SIZE_TYPES } from "../constants.js";
 export const getOffsets = async (updatedWidth, updatedHeight, sizeType, layoutWidth, layoutHeight, order, pagesAmount, step) => {
   let leftOffset = 0;
   let topOffset = 0;
-
   const { xPadding, yPadding, innerPadding } = PADDINGS[sizeType]
   switch (sizeType) {
     case SIZE_TYPES.HALF: {
@@ -110,9 +109,20 @@ export const getOffsets = async (updatedWidth, updatedHeight, sizeType, layoutWi
       }
       break
     }
+    case SIZE_TYPES.TWO_VERTICAL_RIGHT_CENTER: {
+      if (order === 1) {
+        leftOffset = layoutWidth.getHalf() + xPadding;
+        topOffset = Math.round((layoutHeight -updatedHeight) / 2);
+      }
+      if (order === 2) {
+        leftOffset = layoutWidth.getHalf() + xPadding + updatedWidth + innerPadding
+        topOffset = Math.round((layoutHeight - updatedHeight) / 2);
+      }
+      break
+    }
     case SIZE_TYPES.COVER: {
       leftOffset = CUT_OFF + xPadding + ((pagesAmount - 1) * step);
-      topOffset = Math.round(topOffset.plusMargin() + yPadding);
+      topOffset = Math.round(topOffset.plusMargin() + yPadding - 150);
       break
     }
     default:
