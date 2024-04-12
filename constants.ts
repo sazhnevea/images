@@ -9,7 +9,6 @@ export const RETOUCH_FOLDER_NAME = 'ретушь';
 export const SOURCE_SORT_FOLDER_NAME = 'цветокоррекция';
 export const CSVPathImpose = `верстка.csv`
 export const CSVPathSort = `сортировка.csv`
-export const LAYOUT_PATH = 'assets/layout.jpg'
 
 export const CUT_OFF = 24;
 
@@ -56,8 +55,14 @@ export const ALBUM_DATA: AlbumData = {
     name: ALBUM_NAMES.ourKingergarten,
     layouts: {
       [LAYOUT_TYPE.COVER]: {
+        name: `1.jpg`,
         layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/ourKingergarten/${LAYOUT_TYPE.COVER}/`,
-        photosSizeDataOrder: [PHOTO_SIZES_DATA[SIZE_TYPES.COVER]],
+        photosSizeAndOffsetsDataInOrder: [{
+          width: 1359,
+          height: 2040,
+          left: 3388,
+          top: 651,
+        }],
         step: 12,
         decoration: {
           name: 'decoration.png',
@@ -69,114 +74,242 @@ export const ALBUM_DATA: AlbumData = {
         },
       },
       [LAYOUT_TYPE.F1C1]: {
+        name: '1.jpg',
         layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/ourKingergarten/${LAYOUT_TYPE.F1C1}/`,
-        photosSizeDataOrder: [PHOTO_SIZES_DATA[SIZE_TYPES.HALF], PHOTO_SIZES_DATA[SIZE_TYPES.HALF_CUTTED]],
+        photosSizeAndOffsetsDataInOrder: [
+          {
+            width: 2386,
+            height: 3472,
+            left: 0,
+            top: 0,
+          },
+          {
+            width: 1966,
+            height: 3052,
+            left: 2584,
+            top: 210,
+          },
+        ],
       },
       [LAYOUT_TYPE.F1H3]: {
+        name: '1.jpg',
         layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/ourKingergarten/${LAYOUT_TYPE.F1H3}/`,
-        photosSizeDataOrder: [PHOTO_SIZES_DATA[SIZE_TYPES.HALF], PHOTO_SIZES_DATA[SIZE_TYPES.THREE_HORISONTAL_HALF], PHOTO_SIZES_DATA[SIZE_TYPES.THREE_HORISONTAL_HALF], PHOTO_SIZES_DATA[SIZE_TYPES.THREE_HORISONTAL_HALF]],
+        photosSizeAndOffsetsDataInOrder: [
+          {
+            width: 2386,
+            height: 3472,
+            left: 0,
+            top: 0,
+          },
+          {
+            width: 1472,
+            height: 1030,
+            left: 2831,
+            top: 108,
+          },
+          {
+            width: 1472,
+            height: 1030,
+            left: 2831,
+            top: 1222,
+          },
+          {
+            width: 1472,
+            height: 1030,
+            left: 2831,
+            top: 2336,
+          },
+        ],
       },
       [LAYOUT_TYPE.H4]: {
+        name: '1.jpg',
         layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/ourKingergarten/${LAYOUT_TYPE.H4}/`,
-        photosSizeDataOrder: [PHOTO_SIZES_DATA[SIZE_TYPES.FOUR_HORISONTAL_FULL], PHOTO_SIZES_DATA[SIZE_TYPES.FOUR_HORISONTAL_FULL], PHOTO_SIZES_DATA[SIZE_TYPES.FOUR_HORISONTAL_FULL], PHOTO_SIZES_DATA[SIZE_TYPES.FOUR_HORISONTAL_FULL]],
+        photosSizeAndOffsetsDataInOrder: [
+          {
+            width: 2152,
+            height: 1501,
+            left: 209,
+            top: 210,
+          },
+          {
+            width: 2152,
+            height: 1501,
+            left: 209,
+            top: 1761,
+          },
+          {
+            width: 2152,
+            height: 1501,
+            left: 2411,
+            top: 210,
+          },
+          {
+            width: 2152,
+            height: 1501,
+            left: 2411,
+            top: 1761,
+          },
+        ],
       },
       [LAYOUT_TYPE.F1V2H1]: {
+        name: '1.jpg',
         layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/ourKingergarten/${LAYOUT_TYPE.F1V2H1}/`,
-        photosSizeDataOrder: [
-          PHOTO_SIZES_DATA[SIZE_TYPES.HALF], 
+        photosSizeAndOffsetsDataInOrder: [
+          {
+            width: 2386,
+            height: 3472,
+            left: 0,
+            top: 0,
+          }, 
           {
             width: 970,
             height: 1501,
+            left: 2572,
+            top: 210,
           },
           {
             width: 970,
             height: 1501,
+            left: 3592,
+            top: 210,
           },
           {
             width: 1990,
             height: 1501,
+            left: 2572,
+            top: 1761,
           },
         ],
       },
       [LAYOUT_TYPE.F1H2]: {
+        name: '1.jpg',
         layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/ourKingergarten/${LAYOUT_TYPE.F1H2}/`,
-        photosSizeDataOrder: [
-          PHOTO_SIZES_DATA[SIZE_TYPES.HALF], 
+        photosSizeAndOffsetsDataInOrder: [
+          {
+            width: 2386,
+            height: 3472,
+            left: 0,
+            top: 0,
+          }, 
           {
             width: 970,
             height: 1501,
+            left: 2572,
+            top: 210,
           },
           {
             width: 970,
             height: 1501,
-          },
-          {
-            width: 1990,
-            height: 1501,
+            left: 2572,
+            top: 1761,
           },
         ],
       },
       [LAYOUT_TYPE.F1V4]: {
+        name: '1.jpg',
         layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/ourKingergarten/${LAYOUT_TYPE.F1V4}/`,
-        photosSizeDataOrder: [
-          PHOTO_SIZES_DATA[SIZE_TYPES.HALF], 
+        photosSizeAndOffsetsDataInOrder: [
+          {
+            width: 2386,
+            height: 3472,
+            left: 0,
+            top: 0,
+          }, 
           {
             width: 970,
             height: 1501,
+            left: 2572,
+            top: 210,
           },
           {
             width: 970,
             height: 1501,
+            left: 3626,
+            top: 210,
           },
           {
             width: 1990,
             height: 1501,
+            left: 2572,
+            top: 1761,
+          },
+          {
+            width: 1990,
+            height: 1501,
+            left: 3592,
+            top: 1761,
           },
         ],
       },
       [LAYOUT_TYPE.XXLF1V2]: {
+        name: '1.jpg',
         layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/ourKingergarten/${LAYOUT_TYPE.XXLF1V2}/`,
-        photosSizeDataOrder: [
-          PHOTO_SIZES_DATA[SIZE_TYPES.HALF], 
+        photosSizeAndOffsetsDataInOrder: [
           {
             width: 970,
             height: 1501,
+            left: 0,
+            top: 0,
           },
           {
             width: 970,
             height: 1501,
+            left: 3664,
+            top: 210,
           },
           {
             width: 1990,
             height: 1501,
+            left: 3664,
+            top: 1761,
           },
         ],
       },
       [LAYOUT_TYPE.F1V2]: {
+        name: '1.jpg',
         layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/ourKingergarten/${LAYOUT_TYPE.F1V2}/`,
-        photosSizeDataOrder: [
-          PHOTO_SIZES_DATA[SIZE_TYPES.HALF], 
+        photosSizeAndOffsetsDataInOrder: [
+          {
+            width: 2386,
+            height: 3472,
+            left: 0,
+            top: 0,
+          }, 
           {
             width: 970,
             height: 1501,
+            left: 2572,
+            top: 986,
           },
           {
             width: 970,
             height: 1501,
-          },
-          {
-            width: 1990,
-            height: 1501,
+            left: 3592,
+            top: 986,
           },
         ],
       },
       [LAYOUT_TYPE.VIGNETTE]: {
+        name: '1.jpg',
         layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/ourKingergarten/${LAYOUT_TYPE.VIGNETTE}/`,
-        photosSizeDataOrder: [PHOTO_SIZES_DATA[SIZE_TYPES.FULL]],
+        photosSizeAndOffsetsDataInOrder: [
+          {
+            width: 4772,
+            height: 3472,
+            left: 0,
+            top: 0
+          }
+        ],
       },
       [LAYOUT_TYPE.FULL]: {
+        name: '1.jpg',
         layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/ourKingergarten/${LAYOUT_TYPE.FULL}/`,
-        photosSizeDataOrder: [PHOTO_SIZES_DATA[SIZE_TYPES.FULL]],
+        photosSizeAndOffsetsDataInOrder: [{
+          width: 4772,
+          height: 3472,
+          left: 0,
+          top: 0
+        }],
       },
     }
   },
