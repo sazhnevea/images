@@ -102,13 +102,9 @@ export interface PageRaw {
   photos: PhotoRaw[];
 }
 
-export interface Page {
-  isCover: boolean;
-  pageName: string;
-  pageType: LAYOUT_TYPE;
-  layoutPath: string;
+export interface Page extends PageRaw {
   photos: Photo[];
-  pagesAmount?: number;
+  layoutPath: string;
   step?: number;
   decoration?: Decoration;
 }
