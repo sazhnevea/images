@@ -92,7 +92,8 @@ export interface PhotoRaw {
 }
 
 export interface Photo extends PhotoRaw {
-  size: PhotoSize
+  size: PhotoSize;
+  offset: OffsetData;
 }
 
 export interface PageRaw {

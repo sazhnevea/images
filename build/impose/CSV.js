@@ -1,4 +1,15 @@
 "use strict";
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -50,14 +61,15 @@ function processCSVDataToImpose(csvPath) {
     return __awaiter(this, void 0, void 0, function () {
         return __generator(this, function (_a) {
             return [2 /*return*/, new Promise(function (resolve, reject) {
-                    var data = { albumName: '', studentsData: [] };
+                    var data = {};
+                    var dataRaw = { albumName: '', studentsData: [] };
                     var currentStudent = {};
                     var pageNumber = 1;
                     var readStream = (0, fs_1.createReadStream)(csvPath);
                     readStream.pipe((0, csv_parser_1.default)())
                         .on('data', function (studentData) {
                         var albumName = (0, common_1.getAlbumName)(studentData);
-                        if (!data.albumName) {
+                        if (!dataRaw.albumName) {
                             data.albumName = albumName;
                         }
                         var studentName = studentData['Имя участника'];
@@ -74,7 +86,7 @@ function processCSVDataToImpose(csvPath) {
                                     if (photoNumbers) {
                                         var photos = processPhotoNumbers(photoNumbers, sizesMappingList);
                                         currentStudent.pages.push({
-                                            layoutPath: constants_js_1.LAYOUT_PATH,
+                                            isCover: types_1.LAYOUT_TYPE.COVER === fixedColumnName,
                                             pageName: "".concat(pageNumber),
                                             pageType: fixedColumnName,
                                             photos: photos,
@@ -89,27 +101,30 @@ function processCSVDataToImpose(csvPath) {
                             for (var property in studentData) {
                                 _loop_1(property);
                             }
-                            data.studentsData.push(currentStudent);
+                            dataRaw.studentsData.push(currentStudent);
                             pageNumber = 1;
                         }
                     })
                         .on('end', function () {
                         if (Object.keys(constants_js_1.ALBUM_DATA).includes(data.albumName)) {
                             var albumData_1 = constants_js_1.ALBUM_DATA[data.albumName];
-                            data.studentsData.forEach(function (studentData) {
-                                studentData.pages.forEach(function (pageData) {
-                                    var pageType = pageData.pageType;
+                            var studentsData_1 = [];
+                            dataRaw.studentsData.forEach(function (currentStudentData) {
+                                var student = {};
+                                student.name = currentStudentData.name;
+                                var pagesAmount = currentStudentData.pages.length;
+                                var pages = currentStudentData.pages.map(function (pageRawData) {
+                                    var pageType = pageRawData.pageType;
                                     var layoutData = albumData_1.layouts[pageType];
-                                    if (layoutData) {
-                                        var step = layoutData.step, layoutPathFolder = layoutData.layoutPathFolder, decoration = layoutData.decoration;
-                                        var pagesAmount = studentData.pages.length;
-                                        pageData.pagesAmount = pagesAmount;
-                                        pageData.step = step || 0;
-                                        pageData.layoutPath = "".concat(layoutPathFolder).concat(step ? Math.max(2, studentData.pages.length - 1) : 1, ".jpg");
-                                        pageData.decoration = decoration;
-                                    }
+                                    return populatePage(pageRawData, layoutData, pagesAmount);
                                 });
+                                student.pages = pages;
+                                studentsData_1.push(student);
                             });
+                            data.studentsData = studentsData_1;
+                        }
+                        else {
+                            console.log("".concat(dataRaw.albumName, " is missing in ALBUM_DATA"));
                         }
                         resolve(data);
                     })
@@ -124,7 +139,7 @@ exports.processCSVDataToImpose = processCSVDataToImpose;
 var processPhotoNumbers = function (photoNumbers, layoutTypesOrder) {
     return photoNumbers.map(function (number, index) {
         return ({
-            path: "".concat(number, ".jpg"),
+            path: "".concat(constants_js_1.DATA_FOLDER_NAME, "/").concat(constants_js_1.RETOUCH_FOLDER_NAME, "/").concat(number, ".jpg"),
             sizeType: layoutTypesOrder[index]
         });
     });
@@ -136,4 +151,18 @@ var getLayoutTypeKey = function (value) {
         }
     }
     return undefined;
+};
+var populatePage = function (pageDataRaw, layoutData, pagesAmount) {
+    var photos = pageDataRaw.photos, isCover = pageDataRaw.isCover;
+    var step = layoutData.step, layoutPathFolder = layoutData.layoutPathFolder, decoration = layoutData.decoration, photosSizeDataOrder = layoutData.photosSizeDataOrder;
+    return __assign(__assign({}, pageDataRaw), { layoutPath: getLayoutPath(layoutPathFolder, isCover, pagesAmount || 1), photos: populatePhotos(photos, photosSizeDataOrder), step: step, decoration: decoration });
+};
+var populatePhotos = function (photo, photosSizeDataOrder) {
+    return photo.map(function (photo, index) { return (__assign(__assign({}, photo), { size: photosSizeDataOrder[index] })); });
+};
+var getLayoutPath = function (layoutPathFolder, isCover, pagesAmount) {
+    if (isCover) {
+        return "".concat(layoutPathFolder).concat(Math.max(2, pagesAmount - 1), ".jpg");
+    }
+    return layoutPathFolder;
 };

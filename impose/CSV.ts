@@ -1,23 +1,24 @@
 import csv from 'csv-parser';
 import { PathLike, createReadStream } from 'fs';
 import { getAlbumName, getNumberStrings, parseNumberArray } from '../common/common';
-import { ALBUM_DATA, LAYOUT_PATH, LAYOUT_TYPE_SIZES_MAPPING } from '../constants.js';
+import { ALBUM_DATA, DATA_FOLDER_NAME, LAYOUT_PATH, LAYOUT_TYPE_SIZES_MAPPING, RETOUCH_FOLDER_NAME } from '../constants.js';
 import { ALBUM_NAMES, Data, DataRaw, LAYOUT_TYPE, LayoutData, Page, PageRaw, Photo, PhotoRaw, PhotoSize, SIZE_TYPES, Student, StudentRaw } from './types';
 
 const layoutTypeValues = Object.values(LAYOUT_TYPE)
 
 export async function processCSVDataToImpose(csvPath: PathLike): Promise<Data> {
   return new Promise((resolve, reject) => {
+    const data: Data = {} as Data;
     const dataRaw: DataRaw = { albumName: '', studentsData: [] };
     let currentStudent: StudentRaw = {} as StudentRaw;
     let pageNumber = 1;
-
+    
     const readStream = createReadStream(csvPath);
     readStream.pipe(csv())
       .on('data', (studentData) => {
         const albumName = getAlbumName(studentData)
         if (!dataRaw.albumName) {
-          dataRaw.albumName = albumName;
+          data.albumName = albumName;
         }
 
         const studentName = studentData['Имя участника']
@@ -51,8 +52,8 @@ export async function processCSVDataToImpose(csvPath: PathLike): Promise<Data> {
         }
       })
       .on('end', () => {
-        if (Object.keys(ALBUM_DATA).includes(dataRaw.albumName)) {
-          const albumData = ALBUM_DATA[dataRaw.albumName as ALBUM_NAMES]
+        if (Object.keys(ALBUM_DATA).includes(data.albumName)) {
+          const albumData = ALBUM_DATA[data.albumName as ALBUM_NAMES]
           const studentsData: Student[] = []
           dataRaw.studentsData.forEach((currentStudentData) => {
             const student: Student = {} as Student;
@@ -67,9 +68,11 @@ export async function processCSVDataToImpose(csvPath: PathLike): Promise<Data> {
             student.pages = pages
             studentsData.push(student)
           })
+          data.studentsData = studentsData
         } else {
-          console.log(`${data.albumName} is missing in ALBUM_DATA`)
+          console.log(`${dataRaw.albumName} is missing in ALBUM_DATA`)
         }
+        
         resolve(data);
       })
       .on('error', (error) => {
@@ -81,7 +84,7 @@ export async function processCSVDataToImpose(csvPath: PathLike): Promise<Data> {
 const processPhotoNumbers = (photoNumbers: number[], layoutTypesOrder: SIZE_TYPES[]): PhotoRaw[] => {
   return photoNumbers.map((number, index) => {
     return ({
-      path: `${number}.jpg`,
+      path: `${DATA_FOLDER_NAME}/${RETOUCH_FOLDER_NAME}/${number}.jpg`,
       sizeType: layoutTypesOrder[index]
     })
   })

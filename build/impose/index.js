@@ -40,27 +40,25 @@ var constants_js_1 = require("../constants.js");
 require("../core/offset.js");
 var common_js_1 = require("../common/common.js");
 var CSV_js_1 = require("./CSV.js");
-var sharp_js_1 = require("./sharp.js");
 function main() {
     return __awaiter(this, void 0, void 0, function () {
         var data, error_1;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    _a.trys.push([0, 3, , 4]);
+                    _a.trys.push([0, 2, , 3]);
                     (0, common_js_1.createFolder)(constants_js_1.RESULT);
                     return [4 /*yield*/, (0, CSV_js_1.processCSVDataToImpose)("".concat(constants_js_1.DATA_FOLDER_NAME, "/").concat(constants_js_1.CSVPathImpose))];
                 case 1:
                     data = _a.sent();
-                    return [4 /*yield*/, (0, sharp_js_1.processPhotos)(data)];
+                    console.log('data', data);
+                    console.log('data', data.studentsData[0].pages[2]);
+                    return [3 /*break*/, 3];
                 case 2:
-                    _a.sent();
-                    return [3 /*break*/, 4];
-                case 3:
                     error_1 = _a.sent();
                     console.error('An error occurred:', error_1);
-                    return [3 /*break*/, 4];
-                case 4: return [2 /*return*/];
+                    return [3 /*break*/, 3];
+                case 3: return [2 /*return*/];
             }
         });
     });
