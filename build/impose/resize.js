@@ -161,6 +161,19 @@ var resizePhoto = function (photo, sizeType, layoutWidth, layoutHeight, order) {
                 resizedPhoto = photo.resize(updatedWidth, updatedHeight).sharpen({ sigma: 1 });
                 break;
             }
+            case types_js_1.SIZE_TYPES.TWO_VERTICAL_RIGHT_CENTER: {
+                if (order === 1 || order === 2) {
+                    if (innerPadding) {
+                        updatedWidth = Math.round((layoutWidth.getHalf().minusMargin() - doubleXPadding - innerPadding) / 2);
+                        updatedHeight = Math.round((layoutHeight.minusMargins() - (doubleYPadding) - innerPadding) / 2);
+                    }
+                    else {
+                        console.log('Inner padding is not defined for' + ' ' + sizeType);
+                    }
+                    resizedPhoto = photo.resize(updatedWidth, updatedHeight).sharpen({ sigma: 1 });
+                }
+                break;
+            }
             case types_js_1.SIZE_TYPES.FULL: {
                 updatedWidth = layoutWidth;
                 updatedHeight = layoutHeight;
@@ -171,9 +184,6 @@ var resizePhoto = function (photo, sizeType, layoutWidth, layoutHeight, order) {
                 resizedPhoto = photo;
                 break;
         }
-        console.log('sizeType', sizeType);
-        console.log('updatedWidth', updatedWidth);
-        console.log('updatedHeight', updatedHeight);
         return [2 /*return*/, { resizedPhoto: resizedPhoto, updatedWidth: updatedWidth, updatedHeight: updatedHeight }];
     });
 }); };

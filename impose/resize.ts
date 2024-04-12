@@ -124,7 +124,18 @@ export const resizePhoto = async (photo: Sharp, sizeType: SIZE_TYPES, layoutWidt
       resizedPhoto = photo.resize(updatedWidth, updatedHeight).sharpen({ sigma: 1 })
       break
     }
-    
+    case SIZE_TYPES.TWO_VERTICAL_RIGHT_CENTER: {
+      if (order === 1 || order === 2) {
+        if (innerPadding) {
+        updatedWidth = Math.round((layoutWidth.getHalf().minusMargin() - doubleXPadding - innerPadding) / 2 );
+        updatedHeight = Math.round((layoutHeight.minusMargins() - (doubleYPadding) - innerPadding) / 2);
+      } else {
+        console.log('Inner padding is not defined for' + ' ' + sizeType)
+      }
+        resizedPhoto = photo.resize(updatedWidth, updatedHeight).sharpen({ sigma: 1 })
+      }
+      break
+    }
     case SIZE_TYPES.FULL: {
       updatedWidth = layoutWidth;
       updatedHeight = layoutHeight;
@@ -136,10 +147,5 @@ export const resizePhoto = async (photo: Sharp, sizeType: SIZE_TYPES, layoutWidt
       resizedPhoto = photo
       break;
   }
-
-  console.log('sizeType', sizeType)
-  console.log('updatedWidth', updatedWidth)
-  console.log('updatedHeight', updatedHeight)
-
   return { resizedPhoto, updatedWidth, updatedHeight };
 };

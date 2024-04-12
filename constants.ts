@@ -249,8 +249,9 @@ export const PADDINGS: Padding = {
     yPadding: 0,
   },
   [SIZE_TYPES.TWO_VERTICAL_RIGHT_CENTER]: {
-    xPadding: 0,
-    yPadding: 0,
+    xPadding: 186,
+    yPadding: 186,
+    innerPadding: 50
   },
   [SIZE_TYPES.VIGNETTE]: {
     xPadding: 0,

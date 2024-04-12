@@ -2,22 +2,22 @@ import csv from 'csv-parser';
 import { PathLike, createReadStream } from 'fs';
 import { getAlbumName, getNumberStrings, parseNumberArray } from '../common/common';
 import { ALBUM_DATA, LAYOUT_PATH, LAYOUT_TYPE_SIZES_MAPPING } from '../constants.js';
-import { ALBUM_NAMES, Data, LAYOUT_TYPE, Photo, SIZE_TYPES, Student } from './types';
+import { ALBUM_NAMES, Data, DataRaw, LAYOUT_TYPE, LayoutData, Page, PageRaw, Photo, PhotoRaw, SIZE_TYPES, Student, StudentRaw } from './types';
 
 const layoutTypeValues = Object.values(LAYOUT_TYPE)
 
 export async function processCSVDataToImpose(csvPath: PathLike): Promise<Data> {
   return new Promise((resolve, reject) => {
-    const data: Data = { albumName: '', studentsData: [] };
-    let currentStudent: Student = {} as Student;
+    const dataRaw: DataRaw = { albumName: '', studentsData: [] };
+    let currentStudent: StudentRaw = {} as StudentRaw;
     let pageNumber = 1;
 
     const readStream = createReadStream(csvPath);
     readStream.pipe(csv())
       .on('data', (studentData) => {
         const albumName = getAlbumName(studentData)
-        if (!data.albumName) {
-          data.albumName = albumName;
+        if (!dataRaw.albumName) {
+          dataRaw.albumName = albumName;
         }
 
         const studentName = studentData['Имя участника']
@@ -33,9 +33,9 @@ export async function processCSVDataToImpose(csvPath: PathLike): Promise<Data> {
               const sizesMappingList = LAYOUT_TYPE_SIZES_MAPPING[fixedColumnName];
               const photoNumbers = getNumberStrings(studentData[property]);
               if (photoNumbers) {
-                const photos: Photo[] = processPhotoNumbers(photoNumbers, sizesMappingList);
+                const photos = processPhotoNumbers(photoNumbers, sizesMappingList);
                 currentStudent.pages.push({
-                  layoutPath: LAYOUT_PATH,
+                  isCover: LAYOUT_TYPE.COVER === fixedColumnName,
                   pageName: `${pageNumber}`,
                   pageType: fixedColumnName,
                   photos: photos,
@@ -46,27 +46,31 @@ export async function processCSVDataToImpose(csvPath: PathLike): Promise<Data> {
               }
             }
           }
-          data.studentsData.push(currentStudent);
+          dataRaw.studentsData.push(currentStudent);
           pageNumber = 1;
         }
       })
       .on('end', () => {
-        if (Object.keys(ALBUM_DATA).includes(data.albumName)) {
-          const albumData = ALBUM_DATA[data.albumName as ALBUM_NAMES]
-          data.studentsData.forEach((studentData) => {
-            studentData.pages.forEach(pageData => {
-              const { pageType } = pageData;
+        if (Object.keys(ALBUM_DATA).includes(dataRaw.albumName)) {
+          const albumData = ALBUM_DATA[dataRaw.albumName as ALBUM_NAMES]
+          const studentaData: Student[] = []
+          dataRaw.studentsData.forEach((currentStudentData, index) => {
+            studentaData[index].name = currentStudentData.name
+            const pages = currentStudentData.pages.map(pageRawData => {
+              // const page: Page = pageData
+              const { pageType, isCover } = pageData;
+              const pagesAmount = currentStudentData.pages.length;
               const layoutData = albumData.layouts[pageType]
-              if (layoutData) {
+              const pageData = populatePage(pageRawData, layoutData, pagesAmount)
+
                 const { step, layoutPathFolder, decoration } = layoutData 
-                const pagesAmount = studentData.pages.length;
-                pageData.pagesAmount = pagesAmount
-                pageData.step = step || 0
-                pageData.layoutPath = `${layoutPathFolder}${step ? Math.max(2, studentData.pages.length - 1) : 1}.jpg`
-                pageData.decoration = decoration
-              }
+            
             })
+            studentaData[index].pages = pages
+
           })
+        } else {
+          console.log(`${data.albumName} is missing in ALBUM_DATA`)
         }
         resolve(data);
       })
@@ -76,7 +80,7 @@ export async function processCSVDataToImpose(csvPath: PathLike): Promise<Data> {
   });
 }
 
-const processPhotoNumbers = (photoNumbers: number[], layoutTypesOrder: SIZE_TYPES[]): Photo[] => {
+const processPhotoNumbers = (photoNumbers: number[], layoutTypesOrder: SIZE_TYPES[]): PhotoRaw[] => {
   return photoNumbers.map((number, index) => {
     return ({
       path: `${number}.jpg`,
@@ -94,3 +98,17 @@ const getLayoutTypeKey = (value: string): string | undefined => {
   return undefined;
 }
 
+const populatePage = (pageDataRaw: PageRaw, layoutData: LayoutData, pagesAmount?: number): Page => {
+    const { pageType, isCover } = pageDataRaw;
+
+      const { step, layoutPathFolder, decoration } = layoutData 
+
+      return {
+        ...pageDataRaw,
+        layoutPath: LAYOUT_PATH,
+        pagesAmount: pagesAmount || 1,
+        step: step || 0,
+        decoration: decoration,
+
+      }
+}

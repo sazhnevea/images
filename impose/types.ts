@@ -1,3 +1,5 @@
+import { inherits } from "util";
+
 export enum ALBUM_NAMES {
   ourKingergarten = 'Наш детский сад'
 }
@@ -58,14 +60,14 @@ export interface Decoration {
   offsets: Offsets
 }
 
-interface photosSize {
+interface PhotosSize {
   width: number;
   height: number;
 }
 
 export interface LayoutData {
   layoutPathFolder: string;
-  photosSizeDataOrder: photosSize[];
+  photosSizeDataOrder: PhotosSize[];
   step?: number;
   decoration?: Decoration
 }
@@ -77,11 +79,6 @@ export interface AlbumDataValue {
   layouts: LayoutDataWithType;
 }
 
-interface ResizeData {
-  width: number;
-  height: number;
-}
-
 interface OffsetData {
   left: number;
   top: number;
@@ -89,15 +86,28 @@ interface OffsetData {
 
 export type AlbumData = Record<ALBUM_NAMES, AlbumDataValue>
 
-export interface Photo {
+export interface PhotoRaw {
   path: string;
   sizeType: SIZE_TYPES
 }
 
-export interface Page {
-  layoutPath: string;
+export interface Photo extends PhotoRaw {
+  size: PhotosSize
+}
+
+
+export interface PageRaw {
+  isCover: boolean;
   pageName: string;
   pageType: LAYOUT_TYPE;
+  photos: PhotoRaw[];
+}
+
+export interface Page {
+  isCover: boolean;
+  pageName: string;
+  pageType: LAYOUT_TYPE;
+  layoutPath: string;
   photos: Photo[];
   pagesAmount?: number;
   step?: number;
@@ -109,6 +119,15 @@ export interface Student {
  pages: Page[]
 }
 
+export interface StudentRaw {
+ name: string;
+ pages: PageRaw[]
+}
+
+export interface DataRaw {
+  albumName: string;
+  studentsData: StudentRaw[]
+}
 export interface Data {
   albumName: string;
   studentsData: Student[]

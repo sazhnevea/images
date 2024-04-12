@@ -145,6 +145,8 @@ function processPage(page, layoutWidth, layoutHeight) {
                                         return [4 /*yield*/, (0, offsets_js_1.getOffsets)(updatedWidth, updatedHeight, sizeType, layoutWidth, layoutHeight, photoOrderNumber, pagesAmount, step)];
                                     case 3:
                                         _b = _f.sent(), leftOffset = _b.leftOffset, topOffset = _b.topOffset;
+                                        console.log('sizeType', sizeType);
+                                        console.log('leftOffset, topOffset', leftOffset, topOffset);
                                         _d = (_c = dataToComposite).push;
                                         _e = {};
                                         return [4 /*yield*/, resizedPhoto.toBuffer()];
@@ -152,7 +154,7 @@ function processPage(page, layoutWidth, layoutHeight) {
                                         _d.apply(_c, [(_e.input = _f.sent(), _e.left = leftOffset, _e.top = topOffset, _e)]);
                                         return [3 /*break*/, 6];
                                     case 5:
-                                        console.log("updatedWidth or updatedHeight or resizedPhoto is not defined! updatedWidth value is ".concat(updatedWidth, ".  updatedHeight value is ").concat(updatedHeight, ". resizedPhoto value is ").concat(resizedPhoto, "."));
+                                        console.log("updatedWidth or updatedHeight or resizedPhoto is not defined! updatedWidth value is ".concat(updatedWidth, ".  updatedHeight value is ").concat(updatedHeight, ". resizedPhoto value is ").concat(resizedPhoto, ". sizeType is ").concat(sizeType));
                                         _f.label = 6;
                                     case 6: return [3 /*break*/, 8];
                                     case 7:

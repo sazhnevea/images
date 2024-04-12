@@ -50,11 +50,14 @@ async function processPage(page: Page, layoutWidth: number, layoutHeight: number
       
       const currentPhoto = sharp(imagePath);
       const { resizedPhoto, updatedWidth, updatedHeight } = await resizePhoto(currentPhoto, sizeType, layoutWidth, layoutHeight, photoOrderNumber);
+
       if (updatedWidth && updatedHeight && resizedPhoto) {
         const { leftOffset, topOffset } = await getOffsets(updatedWidth, updatedHeight, sizeType, layoutWidth, layoutHeight, photoOrderNumber, pagesAmount, step);
+        console.log('sizeType', sizeType)
+        console.log('leftOffset, topOffset', leftOffset, topOffset)
         dataToComposite.push({ input: await resizedPhoto.toBuffer(), left: leftOffset, top: topOffset });
       } else {
-        console.log(`updatedWidth or updatedHeight or resizedPhoto is not defined! updatedWidth value is ${updatedWidth}.  updatedHeight value is ${updatedHeight}. resizedPhoto value is ${resizedPhoto}.`)
+        console.log(`updatedWidth or updatedHeight or resizedPhoto is not defined! updatedWidth value is ${updatedWidth}.  updatedHeight value is ${updatedHeight}. resizedPhoto value is ${resizedPhoto}. sizeType is ${sizeType}`)
       }
     } catch (err) {
       console.error('Error processing photo:', err);

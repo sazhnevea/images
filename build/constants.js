@@ -245,8 +245,9 @@ exports.PADDINGS = (_e = {},
         yPadding: 0,
     },
     _e[types_1.SIZE_TYPES.TWO_VERTICAL_RIGHT_CENTER] = {
-        xPadding: 0,
-        yPadding: 0,
+        xPadding: 186,
+        yPadding: 186,
+        innerPadding: 50
     },
     _e[types_1.SIZE_TYPES.VIGNETTE] = {
         xPadding: 0,
