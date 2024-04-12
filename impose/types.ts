@@ -60,14 +60,14 @@ export interface Decoration {
   offsets: Offsets
 }
 
-interface PhotosSize {
+export interface PhotoSize {
   width: number;
   height: number;
 }
 
 export interface LayoutData {
   layoutPathFolder: string;
-  photosSizeDataOrder: PhotosSize[];
+  photosSizeDataOrder: PhotoSize[];
   step?: number;
   decoration?: Decoration
 }
@@ -92,9 +92,8 @@ export interface PhotoRaw {
 }
 
 export interface Photo extends PhotoRaw {
-  size: PhotosSize
+  size: PhotoSize
 }
-
 
 export interface PageRaw {
   isCover: boolean;

@@ -2,7 +2,7 @@ import csv from 'csv-parser';
 import { PathLike, createReadStream } from 'fs';
 import { getAlbumName, getNumberStrings, parseNumberArray } from '../common/common';
 import { ALBUM_DATA, LAYOUT_PATH, LAYOUT_TYPE_SIZES_MAPPING } from '../constants.js';
-import { ALBUM_NAMES, Data, DataRaw, LAYOUT_TYPE, LayoutData, Page, PageRaw, Photo, PhotoRaw, SIZE_TYPES, Student, StudentRaw } from './types';
+import { ALBUM_NAMES, Data, DataRaw, LAYOUT_TYPE, LayoutData, Page, PageRaw, Photo, PhotoRaw, PhotoSize, SIZE_TYPES, Student, StudentRaw } from './types';
 
 const layoutTypeValues = Object.values(LAYOUT_TYPE)
 
@@ -53,21 +53,19 @@ export async function processCSVDataToImpose(csvPath: PathLike): Promise<Data> {
       .on('end', () => {
         if (Object.keys(ALBUM_DATA).includes(dataRaw.albumName)) {
           const albumData = ALBUM_DATA[dataRaw.albumName as ALBUM_NAMES]
-          const studentaData: Student[] = []
-          dataRaw.studentsData.forEach((currentStudentData, index) => {
-            studentaData[index].name = currentStudentData.name
+          const studentsData: Student[] = []
+          dataRaw.studentsData.forEach((currentStudentData) => {
+            const student: Student = {} as Student;
+            student.name = currentStudentData.name;
+
+            const pagesAmount = currentStudentData.pages.length;
             const pages = currentStudentData.pages.map(pageRawData => {
-              // const page: Page = pageData
-              const { pageType, isCover } = pageData;
-              const pagesAmount = currentStudentData.pages.length;
+              const { pageType} = pageRawData;
               const layoutData = albumData.layouts[pageType]
-              const pageData = populatePage(pageRawData, layoutData, pagesAmount)
-
-                const { step, layoutPathFolder, decoration } = layoutData 
-            
+              return populatePage(pageRawData, layoutData, pagesAmount)
             })
-            studentaData[index].pages = pages
-
+            student.pages = pages
+            studentsData.push(student)
           })
         } else {
           console.log(`${data.albumName} is missing in ALBUM_DATA`)
@@ -99,16 +97,27 @@ const getLayoutTypeKey = (value: string): string | undefined => {
 }
 
 const populatePage = (pageDataRaw: PageRaw, layoutData: LayoutData, pagesAmount?: number): Page => {
-    const { pageType, isCover } = pageDataRaw;
-
-      const { step, layoutPathFolder, decoration } = layoutData 
-
+    const { photos, isCover } = pageDataRaw;
+    const { step, layoutPathFolder, decoration, photosSizeDataOrder } = layoutData 
       return {
         ...pageDataRaw,
-        layoutPath: LAYOUT_PATH,
-        pagesAmount: pagesAmount || 1,
-        step: step || 0,
-        decoration: decoration,
-
+        layoutPath: getLayoutPath(layoutPathFolder, isCover, pagesAmount || 1),
+        photos: populatePhotos(photos, photosSizeDataOrder),
+        step,
+        decoration,
       }
+}
+
+const populatePhotos = (photo: PhotoRaw[], photosSizeDataOrder: PhotoSize[]): Photo[] => {
+  return photo.map((photo, index) => ({
+    ...photo,
+    size: photosSizeDataOrder[index]
+  }))
+}
+
+const getLayoutPath = (layoutPathFolder: string, isCover: boolean, pagesAmount: number): string => {
+  if (isCover) {
+    return `${layoutPathFolder}${Math.max(2, pagesAmount - 1)}.jpg`
+  }
+  return layoutPathFolder
 }
