@@ -33,3 +33,7 @@ export const getDirection = (width: number, height: number) => width > height ? 
 export const getAlbumName = (rowData: { [key: string]: string }) => {
   return rowData[ALBUM_NAME_FIELD];
 }
+
+export const calculateLeftOffsetBasedOnPagesAmount = (pagesAmount: number, step: number) => {
+  return (pagesAmount - 1) * step
+}

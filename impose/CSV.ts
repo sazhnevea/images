@@ -1,8 +1,8 @@
 import csv from 'csv-parser';
 import { PathLike, createReadStream } from 'fs';
-import { getAlbumName, getNumberStrings, parseNumberArray } from '../common/common';
-import { ALBUM_DATA, DATA_FOLDER_NAME, LAYOUT_PATH, LAYOUT_TYPE_SIZES_MAPPING, RETOUCH_FOLDER_NAME } from '../constants.js';
-import { ALBUM_NAMES, Data, DataRaw, LAYOUT_TYPE, LayoutData, Page, PageRaw, Photo, PhotoRaw, PhotoSize, SIZE_TYPES, Student, StudentRaw } from './types';
+import { calculateLeftOffsetBasedOnPagesAmount, getAlbumName, getNumberStrings } from '../common/common';
+import { ALBUM_DATA, DATA_FOLDER_NAME, LAYOUT_TYPE_SIZES_MAPPING, RETOUCH_FOLDER_NAME } from '../constants.js';
+import { ALBUM_NAMES, Data, DataRaw, Decoration, LAYOUT_TYPE, LayoutData, Page, PageRaw, Photo, PhotoRaw, PhotoSize, PhotosSizeAndOffsetsDataInOrder, SIZE_TYPES, Student, StudentRaw } from './types';
 
 const layoutTypeValues = Object.values(LAYOUT_TYPE)
 
@@ -61,7 +61,7 @@ export async function processCSVDataToImpose(csvPath: PathLike): Promise<Data> {
 
             const pagesAmount = currentStudentData.pages.length;
             const pages = currentStudentData.pages.map(pageRawData => {
-              const { pageType} = pageRawData;
+              const { pageType } = pageRawData;
               const layoutData = albumData.layouts[pageType]
               return populatePage(pageRawData, layoutData, pagesAmount)
             })
@@ -90,37 +90,49 @@ const processPhotoNumbers = (photoNumbers: number[], layoutTypesOrder: SIZE_TYPE
   })
 }
 
-const getLayoutTypeKey = (value: string): string | undefined => {
-  for (const key in LAYOUT_TYPE) {
-    if (LAYOUT_TYPE[key as keyof typeof LAYOUT_TYPE] === value) {
-      return key;
-    }
-  }
-  return undefined;
-}
-
 const populatePage = (pageDataRaw: PageRaw, layoutData: LayoutData, pagesAmount?: number): Page => {
     const { photos, isCover } = pageDataRaw;
-    const { step, layoutPathFolder, decoration, photosSizeDataOrder } = layoutData 
+    const { name, step, layoutPathFolder, decoration, photosSizeAndOffsetsDataInOrder } = layoutData 
       return {
         ...pageDataRaw,
-        layoutPath: getLayoutPath(layoutPathFolder, isCover, pagesAmount || 1),
-        photos: populatePhotos(photos, photosSizeDataOrder),
+        layoutPath: getLayoutPath(layoutPathFolder, name, isCover, pagesAmount || 1),
+        photos: populatePhotos(photos, photosSizeAndOffsetsDataInOrder, isCover, step, pagesAmount),
         step,
-        decoration,
+        decoration: decoration && processDecoration(decoration, isCover, pagesAmount, step),
       }
 }
 
-const populatePhotos = (photo: PhotoRaw[], photosSizeDataOrder: PhotoSize[]): Photo[] => {
+const processDecoration = (decoration: Decoration, isCover: boolean, pagesAmount?: number, step?: number): Decoration => {
+  if (!isCover) {
+    return decoration
+  }
+  return {
+    ...decoration,
+    path: getLayoutPath(decoration.path, decoration.name, isCover, pagesAmount || 1),
+    offsets: {
+      ...decoration.offsets,
+      left: withStep(decoration.offsets.left, pagesAmount, step) 
+    }
+  }
+}
+
+const populatePhotos = (photo: PhotoRaw[], photosSizeAndOffsetsDataInOrder: PhotosSizeAndOffsetsDataInOrder[], isCover: boolean, step?: number, pagesAmount?: number): Photo[] => {
   return photo.map((photo, index) => ({
     ...photo,
-    size: photosSizeDataOrder[index]
+    sizeAndOffset: {
+      ...photosSizeAndOffsetsDataInOrder[index],
+      left: isCover ? withStep(photosSizeAndOffsetsDataInOrder[index].left, pagesAmount, step) : photosSizeAndOffsetsDataInOrder[index].left
+    }
   }))
 }
 
-const getLayoutPath = (layoutPathFolder: string, isCover: boolean, pagesAmount: number): string => {
+const withStep = (value: number, step?: number, pagesAmount?: number): number => {
+return value + calculateLeftOffsetBasedOnPagesAmount(pagesAmount || 1, step || 0)
+}
+
+const getLayoutPath = (layoutPathFolder: string, name: string, isCover: boolean, pagesAmount: number): string => {
   if (isCover) {
-    return `${layoutPathFolder}${Math.max(2, pagesAmount - 1)}.jpg`
+    return `${layoutPathFolder}${Math.max(2, pagesAmount - 1) > 6 ? 6 : pagesAmount - 1}.jpg`
   }
-  return layoutPathFolder
+  return `${layoutPathFolder}/${name}`
 }

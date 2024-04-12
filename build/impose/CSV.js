@@ -144,25 +144,26 @@ var processPhotoNumbers = function (photoNumbers, layoutTypesOrder) {
         });
     });
 };
-var getLayoutTypeKey = function (value) {
-    for (var key in types_1.LAYOUT_TYPE) {
-        if (types_1.LAYOUT_TYPE[key] === value) {
-            return key;
-        }
-    }
-    return undefined;
-};
 var populatePage = function (pageDataRaw, layoutData, pagesAmount) {
     var photos = pageDataRaw.photos, isCover = pageDataRaw.isCover;
-    var step = layoutData.step, layoutPathFolder = layoutData.layoutPathFolder, decoration = layoutData.decoration, photosSizeDataOrder = layoutData.photosSizeDataOrder;
-    return __assign(__assign({}, pageDataRaw), { layoutPath: getLayoutPath(layoutPathFolder, isCover, pagesAmount || 1), photos: populatePhotos(photos, photosSizeDataOrder), step: step, decoration: decoration });
+    var name = layoutData.name, step = layoutData.step, layoutPathFolder = layoutData.layoutPathFolder, decoration = layoutData.decoration, photosSizeAndOffsetsDataInOrder = layoutData.photosSizeAndOffsetsDataInOrder;
+    return __assign(__assign({}, pageDataRaw), { layoutPath: getLayoutPath(layoutPathFolder, name, isCover, pagesAmount || 1), photos: populatePhotos(photos, photosSizeAndOffsetsDataInOrder, isCover, step, pagesAmount), step: step, decoration: decoration && processDecoration(decoration, isCover, pagesAmount, step) });
 };
-var populatePhotos = function (photo, photosSizeDataOrder) {
-    return photo.map(function (photo, index) { return (__assign(__assign({}, photo), { size: photosSizeDataOrder[index] })); });
-};
-var getLayoutPath = function (layoutPathFolder, isCover, pagesAmount) {
-    if (isCover) {
-        return "".concat(layoutPathFolder).concat(Math.max(2, pagesAmount - 1), ".jpg");
+var processDecoration = function (decoration, isCover, pagesAmount, step) {
+    if (!isCover) {
+        return decoration;
     }
-    return layoutPathFolder;
+    return __assign(__assign({}, decoration), { path: getLayoutPath(decoration.path, decoration.name, isCover, pagesAmount || 1), offsets: __assign(__assign({}, decoration.offsets), { left: withStep(decoration.offsets.left, pagesAmount, step) }) });
+};
+var populatePhotos = function (photo, photosSizeAndOffsetsDataInOrder, isCover, step, pagesAmount) {
+    return photo.map(function (photo, index) { return (__assign(__assign({}, photo), { sizeAndOffset: __assign(__assign({}, photosSizeAndOffsetsDataInOrder[index]), { left: isCover ? withStep(photosSizeAndOffsetsDataInOrder[index].left, pagesAmount, step) : photosSizeAndOffsetsDataInOrder[index].left }) })); });
+};
+var withStep = function (value, step, pagesAmount) {
+    return value + (0, common_1.calculateLeftOffsetBasedOnPagesAmount)(pagesAmount || 1, step || 0);
+};
+var getLayoutPath = function (layoutPathFolder, name, isCover, pagesAmount) {
+    if (isCover) {
+        return "".concat(layoutPathFolder).concat(Math.max(2, pagesAmount - 1) > 6 ? 6 : pagesAmount - 1, ".jpg");
+    }
+    return "".concat(layoutPathFolder, "/").concat(name);
 };

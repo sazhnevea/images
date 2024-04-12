@@ -1,5 +1,3 @@
-import { inherits } from "util";
-
 export enum ALBUM_NAMES {
   ourKingergarten = 'Наш детский сад'
 }
@@ -65,9 +63,12 @@ export interface PhotoSize {
   height: number;
 }
 
+export type PhotosSizeAndOffsetsDataInOrder = PhotoSize & OffsetData
+
 export interface LayoutData {
+  name: string;
   layoutPathFolder: string;
-  photosSizeDataOrder: PhotoSize[];
+  photosSizeAndOffsetsDataInOrder: PhotosSizeAndOffsetsDataInOrder[];
   step?: number;
   decoration?: Decoration
 }
@@ -92,8 +93,7 @@ export interface PhotoRaw {
 }
 
 export interface Photo extends PhotoRaw {
-  size: PhotoSize;
-  offset: OffsetData;
+  sizeAndOffset: PhotosSizeAndOffsetsDataInOrder;
 }
 
 export interface PageRaw {

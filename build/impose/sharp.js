@@ -44,8 +44,6 @@ var fs_1 = require("fs");
 var sharp_1 = __importDefault(require("sharp"));
 var path_1 = __importDefault(require("path"));
 var constants_js_1 = require("../constants.js");
-var resize_js_1 = require("./resize.js");
-var offsets_js_1 = require("./offsets.js");
 var helper_js_1 = require("./helper.js");
 var processPhotos = function (data) { return __awaiter(void 0, void 0, void 0, function () {
     var _i, _a, studentData;
@@ -82,28 +80,20 @@ function processStudent(student) {
                 case 1:
                     _a.sent();
                     return [4 /*yield*/, Promise.all(pages.map(function (page) { return __awaiter(_this, void 0, void 0, function () {
-                            var layoutPath, pageName, destinationPath, layout, _a, layoutWidth, layoutHeight, dataToComposite;
-                            return __generator(this, function (_b) {
-                                switch (_b.label) {
+                            var layoutPath, pageName, destinationPath, layout, dataToComposite;
+                            return __generator(this, function (_a) {
+                                switch (_a.label) {
                                     case 0:
                                         layoutPath = page.layoutPath, pageName = page.pageName;
                                         destinationPath = "".concat(studentFolderPath, "/").concat(pageName, ".jpg");
                                         layout = (0, sharp_1.default)(layoutPath);
-                                        return [4 /*yield*/, layout.metadata()];
+                                        return [4 /*yield*/, processPage(page)];
                                     case 1:
-                                        _a = _b.sent(), layoutWidth = _a.width, layoutHeight = _a.height;
-                                        if (!(layoutWidth && layoutHeight)) return [3 /*break*/, 3];
-                                        return [4 /*yield*/, processPage(page, layoutWidth, layoutHeight)];
-                                    case 2:
-                                        dataToComposite = _b.sent();
+                                        dataToComposite = _a.sent();
                                         layout.composite(dataToComposite);
-                                        return [3 /*break*/, 4];
-                                    case 3:
-                                        console.log("layoutWidth or layoutHeight is not defined. layoutWidth value is ".concat(layoutWidth, ".layoutHeight value is ").concat(layoutHeight, "."));
-                                        _b.label = 4;
-                                    case 4: return [4 /*yield*/, layout.toFile(destinationPath)];
-                                    case 5:
-                                        _b.sent();
+                                        return [4 /*yield*/, layout.toFile(destinationPath)];
+                                    case 2:
+                                        _a.sent();
                                         return [2 /*return*/];
                                 }
                             });
@@ -115,76 +105,60 @@ function processStudent(student) {
         });
     });
 }
-function processPage(page, layoutWidth, layoutHeight) {
+function processPage(page) {
     return __awaiter(this, void 0, void 0, function () {
-        var decoration, photos, step, dataToComposite, path_2, name, offsets, decorationImage, _a, _b;
+        var decoration, photos, dataToComposite, path_2, offsets, decorationImage, _a, _b;
         var _c;
         var _this = this;
         return __generator(this, function (_d) {
             switch (_d.label) {
                 case 0:
-                    decoration = page.decoration, photos = page.photos, step = page.step;
+                    decoration = page.decoration, photos = page.photos;
                     dataToComposite = [];
-                    return [4 /*yield*/, Promise.all(photos.map(function (photo, photoOrderNumber) { return __awaiter(_this, void 0, void 0, function () {
-                            var path_3, sizeType, imagePath, currentPhoto, _a, resizedPhoto, updatedWidth, updatedHeight, _b, leftOffset, topOffset, _c, _d, err_1;
-                            var _e;
-                            return __generator(this, function (_f) {
-                                switch (_f.label) {
+                    if (page.pageType === 'обложка') {
+                        console.log('page', page.photos[0].sizeAndOffset);
+                    }
+                    return [4 /*yield*/, Promise.all(photos.map(function (photo) { return __awaiter(_this, void 0, void 0, function () {
+                            var path_3, sizeAndOffset, width, height, left, top, currentPhoto, _a, _b, err_1;
+                            var _c;
+                            return __generator(this, function (_d) {
+                                switch (_d.label) {
                                     case 0:
-                                        _f.trys.push([0, 7, , 8]);
-                                        path_3 = photo.path, sizeType = photo.sizeType;
-                                        imagePath = "".concat(constants_js_1.DATA_FOLDER_NAME, "/").concat(constants_js_1.RETOUCH_FOLDER_NAME, "/").concat(path_3);
-                                        return [4 /*yield*/, fs_1.promises.access(imagePath, fs_1.constants.F_OK)];
+                                        _d.trys.push([0, 3, , 4]);
+                                        path_3 = photo.path, sizeAndOffset = photo.sizeAndOffset;
+                                        width = sizeAndOffset.width, height = sizeAndOffset.height, left = sizeAndOffset.left, top = sizeAndOffset.top;
+                                        return [4 /*yield*/, fs_1.promises.access(path_3, fs_1.constants.F_OK)];
                                     case 1:
-                                        _f.sent();
-                                        currentPhoto = (0, sharp_1.default)(imagePath);
-                                        return [4 /*yield*/, (0, resize_js_1.resizePhoto)(currentPhoto, sizeType, layoutWidth, layoutHeight, photoOrderNumber)];
+                                        _d.sent();
+                                        currentPhoto = (0, sharp_1.default)(path_3);
+                                        currentPhoto.resize(width, height).sharpen({ sigma: 1 });
+                                        _b = (_a = dataToComposite).push;
+                                        _c = {};
+                                        return [4 /*yield*/, currentPhoto.toBuffer()];
                                     case 2:
-                                        _a = _f.sent(), resizedPhoto = _a.resizedPhoto, updatedWidth = _a.updatedWidth, updatedHeight = _a.updatedHeight;
-                                        if (!(updatedWidth && updatedHeight && resizedPhoto)) return [3 /*break*/, 5];
-                                        return [4 /*yield*/, (0, offsets_js_1.getOffsets)(updatedWidth, updatedHeight, sizeType, layoutWidth, layoutHeight, photoOrderNumber, 1, step)];
+                                        _b.apply(_a, [(_c.input = _d.sent(), _c.left = left, _c.top = top, _c)]);
+                                        return [3 /*break*/, 4];
                                     case 3:
-                                        _b = _f.sent(), leftOffset = _b.leftOffset, topOffset = _b.topOffset;
-                                        console.log('sizeType', sizeType);
-                                        console.log('leftOffset, topOffset', leftOffset, topOffset);
-                                        _d = (_c = dataToComposite).push;
-                                        _e = {};
-                                        return [4 /*yield*/, resizedPhoto.toBuffer()];
-                                    case 4:
-                                        _d.apply(_c, [(_e.input = _f.sent(), _e.left = leftOffset, _e.top = topOffset, _e)]);
-                                        return [3 /*break*/, 6];
-                                    case 5:
-                                        console.log("updatedWidth or updatedHeight or resizedPhoto is not defined! updatedWidth value is ".concat(updatedWidth, ".  updatedHeight value is ").concat(updatedHeight, ". resizedPhoto value is ").concat(resizedPhoto, ". sizeType is ").concat(sizeType));
-                                        _f.label = 6;
-                                    case 6: return [3 /*break*/, 8];
-                                    case 7:
-                                        err_1 = _f.sent();
+                                        err_1 = _d.sent();
                                         console.error('Error processing photo:', err_1);
-                                        return [3 /*break*/, 8];
-                                    case 8: return [2 /*return*/];
+                                        return [3 /*break*/, 4];
+                                    case 4: return [2 /*return*/];
                                 }
                             });
                         }); }))];
                 case 1:
                     _d.sent();
-                    if (!decoration) return [3 /*break*/, 4];
-                    path_2 = decoration.path, name = decoration.name, offsets = decoration.offsets;
-                    decorationImage = (0, sharp_1.default)("".concat(path_2).concat(name));
-                    if (!step) return [3 /*break*/, 3];
+                    if (!decoration) return [3 /*break*/, 3];
+                    path_2 = decoration.path, offsets = decoration.offsets;
+                    decorationImage = (0, sharp_1.default)(path_2);
                     _b = (_a = dataToComposite).push;
                     _c = {};
                     return [4 /*yield*/, decorationImage.toBuffer()];
                 case 2:
-                    _b.apply(_a, [(_c.input = _d.sent(), _c.left = offsets.left + calculateLeftOffsetBssedOnPagesAmount(1, step), _c.top = offsets.top, _c)]);
-                    return [3 /*break*/, 4];
-                case 3:
-                    console.log("pagesAmount or step is not defined! pagesAmount value is ".concat(1, ". step value is ").concat(step, "."));
-                    _d.label = 4;
-                case 4: return [2 /*return*/, dataToComposite];
+                    _b.apply(_a, [(_c.input = _d.sent(), _c.left = offsets.left, _c.top = offsets.top, _c)]);
+                    _d.label = 3;
+                case 3: return [2 /*return*/, dataToComposite];
             }
         });
     });
 }
-var calculateLeftOffsetBssedOnPagesAmount = function (pagesAmount, step) {
-    return (pagesAmount - 1) * step;
-};

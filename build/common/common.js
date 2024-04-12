@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getAlbumName = exports.getDirection = exports.getImageName = exports.getLayoutType = exports.parseNumberArray = exports.getNumberStrings = exports.createFolder = void 0;
+exports.calculateLeftOffsetBasedOnPagesAmount = exports.getAlbumName = exports.getDirection = exports.getImageName = exports.getLayoutType = exports.parseNumberArray = exports.getNumberStrings = exports.createFolder = void 0;
 var fs_1 = require("fs");
 var constants_js_1 = require("../constants.js");
 var createFolder = function (folderName) {
@@ -37,3 +37,7 @@ var getAlbumName = function (rowData) {
     return rowData[constants_js_1.ALBUM_NAME_FIELD];
 };
 exports.getAlbumName = getAlbumName;
+var calculateLeftOffsetBasedOnPagesAmount = function (pagesAmount, step) {
+    return (pagesAmount - 1) * step;
+};
+exports.calculateLeftOffsetBasedOnPagesAmount = calculateLeftOffsetBasedOnPagesAmount;
