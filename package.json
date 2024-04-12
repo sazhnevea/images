@@ -4,9 +4,8 @@
   "main": "index.js",
   "type": "commonjs",
   "scripts": {
-    "prestart": "rm -rf build && npm run compile",
-    "compile": "tsc",
-    "impose": "nodemon --watch 'impose/**/*.ts' --exec 'node build/impose/index.js'",
+    "prestart": "rm -rf build && rm -rf result",
+    "impose": "tsc && node build/impose/index.js",
     "sort": "nodemon --watch 'src/**/*.ts' --exec 'node build/sort/index.js'"
   },
   "author": "",

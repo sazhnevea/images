@@ -135,6 +135,21 @@ export const getOffsets = async (updatedWidth: number, updatedHeight: number, si
       }
       break
     }
+    case SIZE_TYPES.TWO_VERTICAL_RIGHT_CENTER: {
+      if (order === 1) {
+        leftOffset = layoutWidth.getHalf() + xPadding;
+        topOffset = Math.round((layoutHeight -updatedHeight) / 2);
+      }
+      if (order === 2) {
+        if (innerPadding) {  
+        leftOffset = layoutWidth.getHalf() + xPadding + updatedWidth + innerPadding
+        } else {
+          console.log('Inner padding is not defined for' + ' ' + sizeType)
+        }
+        topOffset = Math.round((layoutHeight - updatedHeight) / 2);
+      }
+      break
+    }
     case SIZE_TYPES.COVER: {
       if (pagesAmount && step) {
 
@@ -142,7 +157,7 @@ export const getOffsets = async (updatedWidth: number, updatedHeight: number, si
       } else {
         console.log(`pagesAmount or step is not defined. pagesAmount value is ${pagesAmount}. step value is ${step}`)
       }
-      topOffset = Math.round(topOffset.plusMargin() + yPadding);
+      topOffset = Math.round(topOffset.plusMargin() + yPadding - 150);
       break
     }
     default:

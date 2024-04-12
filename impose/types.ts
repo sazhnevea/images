@@ -2,6 +2,20 @@ export enum ALBUM_NAMES {
   ourKingergarten = 'Наш детский сад'
 }
 
+export enum LAYOUT_TYPE {
+  COVER = 'обложка',
+  FULL = 'общая',
+  F1C1 = 'слева 1 всклянь, 1 справа cutted',
+  F1H3 = 'слева 1 всклянь, 3 справа горизонтали',
+  H4 = '4 горизонтали',
+  F1V2H1 = 'слева 1 всклянь, справа 2 вертикали и 1 горизонталь', 
+  F1V2 = '1 слева всклянь, справа 2 вертикали',
+  F1H2 = 'слева 1 всклянь, справа 2 горизонтали', 
+  F1V4 = '1 слева всклянь, справа 4 вертикали',
+  XXLF1V2 = 'слева 1 большой, справа 2 вертикали',
+  VIGNETTE = 'виньетка',
+}
+
 export enum SIZE_TYPES {
   COVER = 'COVER', 
   FULL = 'FULL', 
@@ -14,37 +28,11 @@ export enum SIZE_TYPES {
   TWO_HORISONTAL_HALF = 'TWO_HORISONTAL_HALF',
   FOUR_VERTICAL_HALF = 'FOUR_VERTICAL_HALF',
   TWO_VERTICAL_CUSTOM = 'TWO_VERTICAL_CUSTOM',
+  TWO_VERTICAL_RIGHT_CENTER = 'TWO_VERTICAL_RIGHT_CENTER',
   VIGNETTE = 'VIGNETTE', 
 }
 
-export enum SIZE_CODES {
-  FULL = 'FULL', 
-  COVER = 'COVER', 
-  F1C1 = 'F1C1',
-  F1H3 = 'F1H3',
-  H4 = 'H4',
-  F1V2H1 = 'F1V2H1',
-  F1H2 = 'F1H2',
-  F1V4 = 'F1V4',
-  XXLF1V2 = 'XXLF1V2',
-  VIGNETTE = 'VIGNETTE',
-}
-
-
-export enum LAYOUT_TYPE {
-  COVER = 'обложка',
-  FULL = 'общая',
-  F1C1 = 'слева 1 всклянь, 1 справа cutted',
-  F1H3 = 'слева 1 всклянь, 3 справа горизонтали',
-  H4 = '4 горизонтали',
-  F1V2H1 = 'слева 1 всклянь, справа 2 вертикали и 1 горизонталь', 
-  F1H2 = 'слева 1 всклянь, справа 2 горизонтали', 
-  F1V4 = '1 слева всклянь, справа 4 вертикали',
-  XXLF1V2 = 'слева 1 большой, справа 2 вертикали',
-  VIGNETTE = 'виньетка',
-}
-
-export type LayoutTypeMapping = Record<SIZE_CODES, SIZE_TYPES[]>
+export type LayoutTypeMapping = Record<LAYOUT_TYPE, SIZE_TYPES[]>
 
 export interface Direction {
   V: string;
@@ -70,17 +58,33 @@ export interface Decoration {
   offsets: Offsets
 }
 
-export interface LayoutDataValue {
+interface photosSize {
+  width: number;
+  height: number;
+}
+
+export interface LayoutData {
   layoutPathFolder: string;
+  photosSizeDataOrder: photosSize[];
   step?: number;
   decoration?: Decoration
 }
 
-export type LayoutData = Record<LAYOUT_TYPE, LayoutDataValue>
+export type LayoutDataWithType = Record<LAYOUT_TYPE, LayoutData>
 
 export interface AlbumDataValue {
   name: string;
-  layoutsData: LayoutData
+  layouts: LayoutDataWithType;
+}
+
+interface ResizeData {
+  width: number;
+  height: number;
+}
+
+interface OffsetData {
+  left: number;
+  top: number;
 }
 
 export type AlbumData = Record<ALBUM_NAMES, AlbumDataValue>

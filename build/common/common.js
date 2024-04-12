@@ -1,15 +1,12 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getAlbumName = exports.getDirection = exports.getImageName = exports.getLayoutType = exports.parseNumberArray = exports.getNumberStrings = exports.createFolder = void 0;
-var fs_1 = __importDefault(require("fs"));
+var fs_1 = require("fs");
 var constants_js_1 = require("../constants.js");
 var createFolder = function (folderName) {
-    fs_1.default.access(folderName, fs_1.default.constants.F_OK, function (err) {
+    (0, fs_1.access)(folderName, fs_1.constants.F_OK, function (err) {
         if (err) {
-            fs_1.default.mkdir(folderName, function (mkdirErr) {
+            (0, fs_1.mkdir)(folderName, function (mkdirErr) {
                 if (mkdirErr) {
                     console.log('Error creating output folder:', mkdirErr);
                 }
@@ -24,7 +21,7 @@ var createFolder = function (folderName) {
     });
 };
 exports.createFolder = createFolder;
-var getNumberStrings = function (string) { return string.match(/[-]{0,1}[\d]*[\\.]{0,1}[\d]+/g); };
+var getNumberStrings = function (string) { var _a; return (_a = string.match(/[-]{0,1}[\d]*[\\.]{0,1}[\d]+/g)) === null || _a === void 0 ? void 0 : _a.map(Number); };
 exports.getNumberStrings = getNumberStrings;
 var parseNumberArray = function (numberStrings) { return numberStrings.map(Number); };
 exports.parseNumberArray = parseNumberArray;

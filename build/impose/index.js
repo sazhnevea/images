@@ -52,6 +52,8 @@ function main() {
                     return [4 /*yield*/, (0, CSV_js_1.processCSVDataToImpose)("".concat(constants_js_1.DATA_FOLDER_NAME, "/").concat(constants_js_1.CSVPathImpose))];
                 case 1:
                     data = _a.sent();
+                    console.log('data', data.studentsData[0]);
+                    console.log('data', data.studentsData[0].pages[0]);
                     return [4 /*yield*/, (0, sharp_js_1.processPhotos)(data)];
                 case 2:
                     _a.sent();

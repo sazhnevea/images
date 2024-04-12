@@ -40,7 +40,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.processPhotos = void 0;
-var fs_1 = __importDefault(require("fs"));
+var fs_1 = require("fs");
 var sharp_1 = __importDefault(require("sharp"));
 var path_1 = __importDefault(require("path"));
 var constants_js_1 = require("../constants.js");
@@ -125,7 +125,7 @@ function processPage(page, layoutWidth, layoutHeight) {
                 case 0:
                     decoration = page.decoration, photos = page.photos, pagesAmount = page.pagesAmount, step = page.step;
                     dataToComposite = [];
-                    return [4 /*yield*/, Promise.all(photos.map(function (photo, photoOrder) { return __awaiter(_this, void 0, void 0, function () {
+                    return [4 /*yield*/, Promise.all(photos.map(function (photo, photoOrderNumber) { return __awaiter(_this, void 0, void 0, function () {
                             var path_3, sizeType, imagePath, currentPhoto, _a, resizedPhoto, updatedWidth, updatedHeight, _b, leftOffset, topOffset, _c, _d, err_1;
                             var _e;
                             return __generator(this, function (_f) {
@@ -134,15 +134,15 @@ function processPage(page, layoutWidth, layoutHeight) {
                                         _f.trys.push([0, 7, , 8]);
                                         path_3 = photo.path, sizeType = photo.sizeType;
                                         imagePath = "".concat(constants_js_1.DATA_FOLDER_NAME, "/").concat(constants_js_1.RETOUCH_FOLDER_NAME, "/").concat(path_3);
-                                        return [4 /*yield*/, fs_1.default.promises.access(imagePath, fs_1.default.constants.F_OK)];
+                                        return [4 /*yield*/, fs_1.promises.access(imagePath, fs_1.constants.F_OK)];
                                     case 1:
                                         _f.sent();
                                         currentPhoto = (0, sharp_1.default)(imagePath);
-                                        return [4 /*yield*/, (0, resize_js_1.resizePhoto)(currentPhoto, sizeType, layoutWidth, layoutHeight, photoOrder)];
+                                        return [4 /*yield*/, (0, resize_js_1.resizePhoto)(currentPhoto, sizeType, layoutWidth, layoutHeight, photoOrderNumber)];
                                     case 2:
                                         _a = _f.sent(), resizedPhoto = _a.resizedPhoto, updatedWidth = _a.updatedWidth, updatedHeight = _a.updatedHeight;
                                         if (!(updatedWidth && updatedHeight && resizedPhoto)) return [3 /*break*/, 5];
-                                        return [4 /*yield*/, (0, offsets_js_1.getOffsets)(updatedWidth, updatedHeight, sizeType, layoutWidth, layoutHeight, photoOrder, pagesAmount, step)];
+                                        return [4 /*yield*/, (0, offsets_js_1.getOffsets)(updatedWidth, updatedHeight, sizeType, layoutWidth, layoutHeight, photoOrderNumber, pagesAmount, step)];
                                     case 3:
                                         _b = _f.sent(), leftOffset = _b.leftOffset, topOffset = _b.topOffset;
                                         _d = (_c = dataToComposite).push;

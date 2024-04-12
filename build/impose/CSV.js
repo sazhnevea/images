@@ -41,7 +41,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.processCSVDataToImpose = void 0;
 var csv_parser_1 = __importDefault(require("csv-parser"));
-var fs_1 = __importDefault(require("fs"));
+var fs_1 = require("fs");
 var common_1 = require("../common/common");
 var constants_js_1 = require("../constants.js");
 var types_1 = require("./types");
@@ -53,7 +53,7 @@ function processCSVDataToImpose(csvPath) {
                     var data = { albumName: '', studentsData: [] };
                     var currentStudent = {};
                     var pageNumber = 1;
-                    var readStream = fs_1.default.createReadStream(csvPath);
+                    var readStream = (0, fs_1.createReadStream)(csvPath);
                     readStream.pipe((0, csv_parser_1.default)())
                         .on('data', function (studentData) {
                         var albumName = (0, common_1.getAlbumName)(studentData);
@@ -69,12 +69,10 @@ function processCSVDataToImpose(csvPath) {
                             var _loop_1 = function (property) {
                                 var fixedColumnName = layoutTypeValues.find(function (layoutType) { return property.includes(layoutType); });
                                 if (fixedColumnName && studentData[property]) {
-                                    var layoutTypeKey = getLayoutTypeKey(fixedColumnName);
-                                    var layoutTypesOrder = constants_js_1.LAYOUT_TYPE_MAPPING[layoutTypeKey];
-                                    var numberStrings = (0, common_1.getNumberStrings)(studentData[property]);
-                                    if (numberStrings) {
-                                        var photoNumbers = (0, common_1.parseNumberArray)(numberStrings);
-                                        var photos = processPhotoNumbers(photoNumbers, layoutTypesOrder);
+                                    var sizesMappingList = constants_js_1.LAYOUT_TYPE_SIZES_MAPPING[fixedColumnName];
+                                    var photoNumbers = (0, common_1.getNumberStrings)(studentData[property]);
+                                    if (photoNumbers) {
+                                        var photos = processPhotoNumbers(photoNumbers, sizesMappingList);
                                         currentStudent.pages.push({
                                             layoutPath: constants_js_1.LAYOUT_PATH,
                                             pageName: "".concat(pageNumber),
@@ -101,7 +99,7 @@ function processCSVDataToImpose(csvPath) {
                             data.studentsData.forEach(function (studentData) {
                                 studentData.pages.forEach(function (pageData) {
                                     var pageType = pageData.pageType;
-                                    var layoutData = albumData_1.layoutsData[pageType];
+                                    var layoutData = albumData_1.layouts[pageType];
                                     if (layoutData) {
                                         var step = layoutData.step, layoutPathFolder = layoutData.layoutPathFolder, decoration = layoutData.decoration;
                                         var pagesAmount = studentData.pages.length;
@@ -126,7 +124,7 @@ exports.processCSVDataToImpose = processCSVDataToImpose;
 var processPhotoNumbers = function (photoNumbers, layoutTypesOrder) {
     return photoNumbers.map(function (number, index) {
         return ({
-            path: (0, common_1.getImageName)(number),
+            path: "".concat(number, ".jpg"),
             sizeType: layoutTypesOrder[index]
         });
     });

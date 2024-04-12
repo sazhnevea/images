@@ -1,4 +1,4 @@
-import fs from 'fs';
+import { promises, constants } from 'fs';
 import sharp from 'sharp';
 import path from 'path';
 import {
@@ -41,17 +41,17 @@ async function processStudent(student: Student) {
 async function processPage(page: Page, layoutWidth: number, layoutHeight: number) {
   const { decoration, photos, pagesAmount, step } = page;
   const dataToComposite = [];
-  await Promise.all(photos.map(async (photo, photoOrder) => {
+  await Promise.all(photos.map(async (photo, photoOrderNumber) => {
     try {
       const { path, sizeType } = photo;
       const imagePath = `${DATA_FOLDER_NAME}/${RETOUCH_FOLDER_NAME}/${path}`;
       
-      await fs.promises.access(imagePath, fs.constants.F_OK);
+      await promises.access(imagePath, constants.F_OK);
       
       const currentPhoto = sharp(imagePath);
-      const { resizedPhoto, updatedWidth, updatedHeight } = await resizePhoto(currentPhoto, sizeType, layoutWidth, layoutHeight, photoOrder);
+      const { resizedPhoto, updatedWidth, updatedHeight } = await resizePhoto(currentPhoto, sizeType, layoutWidth, layoutHeight, photoOrderNumber);
       if (updatedWidth && updatedHeight && resizedPhoto) {
-        const { leftOffset, topOffset } = await getOffsets(updatedWidth, updatedHeight, sizeType, layoutWidth, layoutHeight, photoOrder, pagesAmount, step);
+        const { leftOffset, topOffset } = await getOffsets(updatedWidth, updatedHeight, sizeType, layoutWidth, layoutHeight, photoOrderNumber, pagesAmount, step);
         dataToComposite.push({ input: await resizedPhoto.toBuffer(), left: leftOffset, top: topOffset });
       } else {
         console.log(`updatedWidth or updatedHeight or resizedPhoto is not defined! updatedWidth value is ${updatedWidth}.  updatedHeight value is ${updatedHeight}. resizedPhoto value is ${resizedPhoto}.`)
@@ -63,7 +63,7 @@ async function processPage(page: Page, layoutWidth: number, layoutHeight: number
 
   if (decoration) {
       const { path, name, offsets} = decoration;
-      const decorationImage = sharp(`${path}${name}`, );
+      const decorationImage = sharp(`${path}${name}`);
 
       if (pagesAmount && step) {
         dataToComposite.push({ input: await decorationImage.toBuffer(), left: offsets.left + calculateLeftOffsetBssedOnPagesAmount(pagesAmount, step), top: offsets.top });
@@ -76,5 +76,5 @@ async function processPage(page: Page, layoutWidth: number, layoutHeight: number
 }
 
 const calculateLeftOffsetBssedOnPagesAmount = (pagesAmount: number, step: number) => {
-return (pagesAmount - 1) * step
+  return (pagesAmount - 1) * step
 }

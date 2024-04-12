@@ -177,6 +177,22 @@ var getOffsets = function (updatedWidth, updatedHeight, sizeType, layoutWidth, l
                 }
                 break;
             }
+            case types_js_1.SIZE_TYPES.TWO_VERTICAL_RIGHT_CENTER: {
+                if (order === 1) {
+                    leftOffset = layoutWidth.getHalf() + xPadding;
+                    topOffset = Math.round((layoutHeight - updatedHeight) / 2);
+                }
+                if (order === 2) {
+                    if (innerPadding) {
+                        leftOffset = layoutWidth.getHalf() + xPadding + updatedWidth + innerPadding;
+                    }
+                    else {
+                        console.log('Inner padding is not defined for' + ' ' + sizeType);
+                    }
+                    topOffset = Math.round((layoutHeight - updatedHeight) / 2);
+                }
+                break;
+            }
             case types_js_1.SIZE_TYPES.COVER: {
                 if (pagesAmount && step) {
                     leftOffset = constants_js_1.CUT_OFF + xPadding + ((pagesAmount - 1) * step);
@@ -184,7 +200,7 @@ var getOffsets = function (updatedWidth, updatedHeight, sizeType, layoutWidth, l
                 else {
                     console.log("pagesAmount or step is not defined. pagesAmount value is ".concat(pagesAmount, ". step value is ").concat(step));
                 }
-                topOffset = Math.round(topOffset.plusMargin() + yPadding);
+                topOffset = Math.round(topOffset.plusMargin() + yPadding - 150);
                 break;
             }
             default:

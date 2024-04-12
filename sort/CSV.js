@@ -1,4 +1,4 @@
-import fs from 'fs';
+import { createReadStream } from 'fs';
 import csv from 'csv-parser';
 import sharp from 'sharp';
 import { DATA_FOLDER_NAME, LAYOUT_TYPE, LAYOUT_TYPE_DIRECTION_MAPPING, SOURCE_SORT_FOLDER_NAME } from "../constants.js";
@@ -48,7 +48,7 @@ const isMatchAnyLayout = (directionsList) => {
 
 export async function processCSVDataToSort(csvPath) {
   try {
-    const csvStream = fs.createReadStream(csvPath).pipe(csv());
+    const csvStream = createReadStream(csvPath).pipe(csv());
     const photoNumbers = new Set();
 
     for await (const studentData of csvStream) {

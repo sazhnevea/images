@@ -1,10 +1,10 @@
-import fs from 'fs';
+import { access, constants, mkdir } from 'fs';
 import { ALBUM_NAME_FIELD, DIRECTION } from "../constants.js";
 
 export const createFolder = (folderName: string) => {
-  fs.access(folderName, fs.constants.F_OK, (err) => {
+  access(folderName, constants.F_OK, (err) => {
     if (err) {
-      fs.mkdir(folderName, (mkdirErr) => {
+      mkdir(folderName, (mkdirErr) => {
         if (mkdirErr) {
           console.log('Error creating output folder:', mkdirErr);
         } else {
@@ -18,8 +18,7 @@ export const createFolder = (folderName: string) => {
 };
 
 
-export const getNumberStrings = (string: string) => string.match(/[-]{0,1}[\d]*[\\.]{0,1}[\d]+/g)
-
+export const getNumberStrings = (string: string) => string.match(/[-]{0,1}[\d]*[\\.]{0,1}[\d]+/g)?.map(Number)
 
 export const parseNumberArray = (numberStrings: string[]) => numberStrings.map(Number);
 

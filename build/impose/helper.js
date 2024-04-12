@@ -35,19 +35,16 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.createStudentFolder = void 0;
-var fs_1 = __importDefault(require("fs"));
+var fs_1 = require("fs");
 var createStudentFolder = function (studentFolderPath) { return __awaiter(void 0, void 0, void 0, function () {
     var err_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
                 _a.trys.push([0, 2, , 3]);
-                return [4 /*yield*/, fs_1.default.promises.mkdir(studentFolderPath, { recursive: true })];
+                return [4 /*yield*/, fs_1.promises.mkdir(studentFolderPath, { recursive: true })];
             case 1:
                 _a.sent();
                 console.log("".concat(studentFolderPath, " folder created successfully!"));

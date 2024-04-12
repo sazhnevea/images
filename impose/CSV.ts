@@ -1,18 +1,18 @@
 import csv from 'csv-parser';
-import fs from 'fs';
-import { getAlbumName, getImageName, getNumberStrings, parseNumberArray } from '../common/common';
-import { ALBUM_DATA, LAYOUT_PATH, LAYOUT_TYPE_MAPPING } from '../constants.js';
-import { ALBUM_NAMES, Data, LAYOUT_TYPE, SIZE_CODES, SIZE_TYPES, Student } from './types';
+import { PathLike, createReadStream } from 'fs';
+import { getAlbumName, getNumberStrings, parseNumberArray } from '../common/common';
+import { ALBUM_DATA, LAYOUT_PATH, LAYOUT_TYPE_SIZES_MAPPING } from '../constants.js';
+import { ALBUM_NAMES, Data, LAYOUT_TYPE, Photo, SIZE_TYPES, Student } from './types';
 
 const layoutTypeValues = Object.values(LAYOUT_TYPE)
 
-export async function processCSVDataToImpose(csvPath: fs.PathLike): Promise<Data> {
+export async function processCSVDataToImpose(csvPath: PathLike): Promise<Data> {
   return new Promise((resolve, reject) => {
     const data: Data = { albumName: '', studentsData: [] };
     let currentStudent: Student = {} as Student;
     let pageNumber = 1;
 
-    const readStream = fs.createReadStream(csvPath);
+    const readStream = createReadStream(csvPath);
     readStream.pipe(csv())
       .on('data', (studentData) => {
         const albumName = getAlbumName(studentData)
@@ -30,12 +30,10 @@ export async function processCSVDataToImpose(csvPath: fs.PathLike): Promise<Data
           for (const property in studentData) {
             const fixedColumnName = layoutTypeValues.find(layoutType => property.includes(layoutType))
             if (fixedColumnName && studentData[property]) {
-              const layoutTypeKey = getLayoutTypeKey(fixedColumnName)
-              const layoutTypesOrder = LAYOUT_TYPE_MAPPING[layoutTypeKey as SIZE_CODES];
-              const numberStrings = getNumberStrings(studentData[property]);
-              if (numberStrings) {
-                const photoNumbers = parseNumberArray(numberStrings);
-                const photos = processPhotoNumbers(photoNumbers, layoutTypesOrder);
+              const sizesMappingList = LAYOUT_TYPE_SIZES_MAPPING[fixedColumnName];
+              const photoNumbers = getNumberStrings(studentData[property]);
+              if (photoNumbers) {
+                const photos: Photo[] = processPhotoNumbers(photoNumbers, sizesMappingList);
                 currentStudent.pages.push({
                   layoutPath: LAYOUT_PATH,
                   pageName: `${pageNumber}`,
@@ -51,7 +49,6 @@ export async function processCSVDataToImpose(csvPath: fs.PathLike): Promise<Data
           data.studentsData.push(currentStudent);
           pageNumber = 1;
         }
-
       })
       .on('end', () => {
         if (Object.keys(ALBUM_DATA).includes(data.albumName)) {
@@ -59,7 +56,7 @@ export async function processCSVDataToImpose(csvPath: fs.PathLike): Promise<Data
           data.studentsData.forEach((studentData) => {
             studentData.pages.forEach(pageData => {
               const { pageType } = pageData;
-              const layoutData = albumData.layoutsData[pageType]
+              const layoutData = albumData.layouts[pageType]
               if (layoutData) {
                 const { step, layoutPathFolder, decoration } = layoutData 
                 const pagesAmount = studentData.pages.length;
@@ -71,7 +68,6 @@ export async function processCSVDataToImpose(csvPath: fs.PathLike): Promise<Data
             })
           })
         }
-
         resolve(data);
       })
       .on('error', (error) => {
@@ -80,10 +76,10 @@ export async function processCSVDataToImpose(csvPath: fs.PathLike): Promise<Data
   });
 }
 
-const processPhotoNumbers = (photoNumbers: number[], layoutTypesOrder: SIZE_TYPES[]) => {
+const processPhotoNumbers = (photoNumbers: number[], layoutTypesOrder: SIZE_TYPES[]): Photo[] => {
   return photoNumbers.map((number, index) => {
     return ({
-      path: getImageName(number),
+      path: `${number}.jpg`,
       sizeType: layoutTypesOrder[index]
     })
   })

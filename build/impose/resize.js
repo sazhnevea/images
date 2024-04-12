@@ -40,37 +40,19 @@ exports.resizePhoto = void 0;
 var constants_js_1 = require("../constants.js");
 var types_js_1 = require("./types.js");
 var resizePhoto = function (photo, sizeType, layoutWidth, layoutHeight, order) { return __awaiter(void 0, void 0, void 0, function () {
-    var resizedPhoto, updatedWidth, updatedHeight, _a, xPadding, yPadding, innerPadding, doubleYPadding, doubleXPadding, _b;
-    return __generator(this, function (_c) {
-        switch (_c.label) {
-            case 0:
-                _a = constants_js_1.PADDINGS[sizeType], xPadding = _a.xPadding, yPadding = _a.yPadding, innerPadding = _a.innerPadding;
-                doubleYPadding = yPadding * 2;
-                doubleXPadding = xPadding * 2;
-                console.log('sizeType', sizeType);
-                _b = sizeType;
-                switch (_b) {
-                    case types_js_1.SIZE_TYPES.HALF: return [3 /*break*/, 1];
-                    case types_js_1.SIZE_TYPES.THREE_QUARTERS: return [3 /*break*/, 3];
-                    case types_js_1.SIZE_TYPES.HALF_CUTTED: return [3 /*break*/, 5];
-                    case types_js_1.SIZE_TYPES.THREE_HORISONTAL_HALF: return [3 /*break*/, 7];
-                    case types_js_1.SIZE_TYPES.FOUR_HORISONTAL_FULL: return [3 /*break*/, 9];
-                    case types_js_1.SIZE_TYPES.TWO_VERTICAL_ONE_HORISONTAL_HALF: return [3 /*break*/, 11];
-                    case types_js_1.SIZE_TYPES.TWO_HORISONTAL_HALF: return [3 /*break*/, 16];
-                    case types_js_1.SIZE_TYPES.FOUR_VERTICAL_HALF: return [3 /*break*/, 18];
-                    case types_js_1.SIZE_TYPES.TWO_VERTICAL_CUSTOM: return [3 /*break*/, 20];
-                    case types_js_1.SIZE_TYPES.COVER: return [3 /*break*/, 22];
-                    case types_js_1.SIZE_TYPES.FULL: return [3 /*break*/, 24];
-                }
-                return [3 /*break*/, 26];
-            case 1:
+    var resizedPhoto, updatedWidth, updatedHeight, _a, xPadding, yPadding, innerPadding, doubleYPadding, doubleXPadding;
+    return __generator(this, function (_b) {
+        _a = constants_js_1.PADDINGS[sizeType], xPadding = _a.xPadding, yPadding = _a.yPadding, innerPadding = _a.innerPadding;
+        doubleYPadding = yPadding * 2;
+        doubleXPadding = xPadding * 2;
+        switch (sizeType) {
+            case types_js_1.SIZE_TYPES.HALF: {
                 updatedWidth = layoutWidth.getHalf();
                 updatedHeight = layoutHeight;
-                return [4 /*yield*/, photo.resize(updatedWidth, updatedHeight).sharpen()];
-            case 2:
-                resizedPhoto = _c.sent();
-                return [3 /*break*/, 27];
-            case 3:
+                resizedPhoto = photo.resize(updatedWidth, updatedHeight).sharpen();
+                break;
+            }
+            case types_js_1.SIZE_TYPES.THREE_QUARTERS: {
                 if (innerPadding) {
                     updatedWidth = Math.round((layoutWidth - (constants_js_1.CUT_OFF * 2) - xPadding - innerPadding) * 0.80 + constants_js_1.CUT_OFF);
                 }
@@ -78,25 +60,22 @@ var resizePhoto = function (photo, sizeType, layoutWidth, layoutHeight, order) {
                     console.log('Inner padding is not defined for' + ' ' + sizeType);
                 }
                 updatedHeight = layoutHeight.minusMargins() - doubleYPadding;
-                return [4 /*yield*/, photo.resize(updatedWidth, updatedHeight).sharpen()];
-            case 4:
-                resizedPhoto = _c.sent();
-                return [3 /*break*/, 27];
-            case 5:
+                resizedPhoto = photo.resize(updatedWidth, updatedHeight).sharpen();
+                break;
+            }
+            case types_js_1.SIZE_TYPES.HALF_CUTTED: {
                 updatedWidth = layoutWidth.getHalf().minusMargins() - doubleXPadding;
                 updatedHeight = layoutHeight.minusMargins() - doubleYPadding;
-                return [4 /*yield*/, photo.resize(updatedWidth, updatedHeight).sharpen({ sigma: 1 })];
-            case 6:
-                resizedPhoto = _c.sent();
-                return [3 /*break*/, 27];
-            case 7:
+                resizedPhoto = photo.resize(updatedWidth, updatedHeight).sharpen({ sigma: 1 });
+                break;
+            }
+            case types_js_1.SIZE_TYPES.THREE_HORISONTAL_HALF: {
                 updatedWidth = Math.round(layoutWidth.getHalf().minusMargins()) - (doubleXPadding);
                 updatedHeight = Math.round((layoutHeight.minusMargins() - (doubleYPadding * 2)) / 3);
-                return [4 /*yield*/, photo.resize(updatedWidth, updatedHeight).sharpen({ sigma: 1 })];
-            case 8:
-                resizedPhoto = _c.sent();
-                return [3 /*break*/, 27];
-            case 9:
+                resizedPhoto = photo.resize(updatedWidth, updatedHeight).sharpen({ sigma: 1 });
+                break;
+            }
+            case types_js_1.SIZE_TYPES.FOUR_HORISONTAL_FULL: {
                 updatedWidth = Math.round(layoutWidth.getHalf().minusMargins()) - xPadding;
                 if (innerPadding) {
                     updatedHeight = Math.round((layoutHeight.minusMargins() - (doubleYPadding) - innerPadding) / 2);
@@ -104,25 +83,33 @@ var resizePhoto = function (photo, sizeType, layoutWidth, layoutHeight, order) {
                 else {
                     console.log('Inner padding is not defined for' + ' ' + sizeType);
                 }
-                return [4 /*yield*/, photo.resize(updatedWidth, updatedHeight).sharpen({ sigma: 1 })];
-            case 10:
-                resizedPhoto = _c.sent();
-                return [3 /*break*/, 27];
-            case 11:
-                if (!(order === 1 || order === 2)) return [3 /*break*/, 13];
-                if (innerPadding) {
-                    updatedWidth = Math.round((layoutWidth.getHalf().minusMargin() - doubleXPadding - innerPadding) / 2);
-                    updatedHeight = Math.round((layoutHeight.minusMargins() - (doubleYPadding) - innerPadding) / 2);
+                resizedPhoto = photo.resize(updatedWidth, updatedHeight).sharpen({ sigma: 1 });
+                break;
+            }
+            case types_js_1.SIZE_TYPES.TWO_VERTICAL_ONE_HORISONTAL_HALF: {
+                if (order === 1 || order === 2) {
+                    if (innerPadding) {
+                        updatedWidth = Math.round((layoutWidth.getHalf().minusMargin() - doubleXPadding - innerPadding) / 2);
+                        updatedHeight = Math.round((layoutHeight.minusMargins() - (doubleYPadding) - innerPadding) / 2);
+                    }
+                    else {
+                        console.log('Inner padding is not defined for' + ' ' + sizeType);
+                    }
+                    resizedPhoto = photo.resize(updatedWidth, updatedHeight).sharpen({ sigma: 1 });
                 }
-                else {
-                    console.log('Inner padding is not defined for' + ' ' + sizeType);
+                if (order === 3) {
+                    updatedWidth = Math.round(layoutWidth.getHalf().minusMargin()) - doubleXPadding;
+                    if (innerPadding) {
+                        updatedHeight = Math.round((layoutHeight.minusMargins() - (doubleYPadding) - innerPadding) / 2);
+                    }
+                    else {
+                        console.log('Inner padding is not defined for' + ' ' + sizeType);
+                    }
+                    resizedPhoto = photo.resize(updatedWidth, updatedHeight).sharpen({ sigma: 1 });
                 }
-                return [4 /*yield*/, photo.resize(updatedWidth, updatedHeight).sharpen({ sigma: 1 })];
-            case 12:
-                resizedPhoto = _c.sent();
-                _c.label = 13;
-            case 13:
-                if (!(order === 3)) return [3 /*break*/, 15];
+                break;
+            }
+            case types_js_1.SIZE_TYPES.TWO_HORISONTAL_HALF: {
                 updatedWidth = Math.round(layoutWidth.getHalf().minusMargin()) - doubleXPadding;
                 if (innerPadding) {
                     updatedHeight = Math.round((layoutHeight.minusMargins() - (doubleYPadding) - innerPadding) / 2);
@@ -130,24 +117,10 @@ var resizePhoto = function (photo, sizeType, layoutWidth, layoutHeight, order) {
                 else {
                     console.log('Inner padding is not defined for' + ' ' + sizeType);
                 }
-                return [4 /*yield*/, photo.resize(updatedWidth, updatedHeight).sharpen({ sigma: 1 })];
-            case 14:
-                resizedPhoto = _c.sent();
-                _c.label = 15;
-            case 15: return [3 /*break*/, 27];
-            case 16:
-                updatedWidth = Math.round(layoutWidth.getHalf().minusMargin()) - doubleXPadding;
-                if (innerPadding) {
-                    updatedHeight = Math.round((layoutHeight.minusMargins() - (doubleYPadding) - innerPadding) / 2);
-                }
-                else {
-                    console.log('Inner padding is not defined for' + ' ' + sizeType);
-                }
-                return [4 /*yield*/, photo.resize(updatedWidth, updatedHeight).sharpen({ sigma: 1 })];
-            case 17:
-                resizedPhoto = _c.sent();
-                return [3 /*break*/, 27];
-            case 18:
+                resizedPhoto = photo.resize(updatedWidth, updatedHeight).sharpen({ sigma: 1 });
+                break;
+            }
+            case types_js_1.SIZE_TYPES.FOUR_VERTICAL_HALF: {
                 if (innerPadding) {
                     updatedWidth = Math.round((layoutWidth.getHalf().minusMargin() - doubleXPadding - innerPadding) / 2);
                     updatedHeight = Math.round((layoutHeight.minusMargins() - (doubleYPadding) - innerPadding) / 2);
@@ -155,11 +128,10 @@ var resizePhoto = function (photo, sizeType, layoutWidth, layoutHeight, order) {
                 else {
                     console.log('Inner padding is not defined for' + ' ' + sizeType);
                 }
-                return [4 /*yield*/, photo.resize(updatedWidth, updatedHeight).sharpen({ sigma: 1 })];
-            case 19:
-                resizedPhoto = _c.sent();
-                return [3 /*break*/, 27];
-            case 20:
+                resizedPhoto = photo.resize(updatedWidth, updatedHeight).sharpen({ sigma: 1 });
+                break;
+            }
+            case types_js_1.SIZE_TYPES.TWO_VERTICAL_CUSTOM: {
                 if (innerPadding) {
                     updatedWidth = Math.round((layoutWidth - (constants_js_1.CUT_OFF * 2) - xPadding - innerPadding) * 0.20);
                     updatedHeight = Math.round((layoutHeight.minusMargins() - (doubleYPadding) - innerPadding) / 2);
@@ -167,29 +139,42 @@ var resizePhoto = function (photo, sizeType, layoutWidth, layoutHeight, order) {
                 else {
                     console.log('Inner padding is not defined for' + ' ' + sizeType);
                 }
-                return [4 /*yield*/, photo.resize(updatedWidth, updatedHeight).sharpen({ sigma: 1 })];
-            case 21:
-                resizedPhoto = _c.sent();
-                return [3 /*break*/, 27];
-            case 22:
+                resizedPhoto = photo.resize(updatedWidth, updatedHeight).sharpen({ sigma: 1 });
+                break;
+            }
+            case types_js_1.SIZE_TYPES.TWO_VERTICAL_RIGHT_CENTER: {
+                if (order === 1 || order === 2) {
+                    if (innerPadding) {
+                        updatedWidth = Math.round((layoutWidth.getHalf().minusMargin() - doubleXPadding - innerPadding) / 2);
+                        updatedHeight = Math.round((layoutHeight.minusMargins() - (doubleYPadding) - innerPadding) / 2);
+                    }
+                    else {
+                        console.log('Inner padding is not defined for' + ' ' + sizeType);
+                    }
+                    resizedPhoto = photo.resize(updatedWidth, updatedHeight).sharpen({ sigma: 1 });
+                }
+                break;
+            }
+            case types_js_1.SIZE_TYPES.COVER: {
                 updatedWidth = 1359;
                 updatedHeight = 2040;
-                return [4 /*yield*/, photo.resize(updatedWidth, updatedHeight).sharpen({ sigma: 1 })];
-            case 23:
-                resizedPhoto = _c.sent();
-                return [3 /*break*/, 27];
-            case 24:
+                resizedPhoto = photo.resize(updatedWidth, updatedHeight).sharpen({ sigma: 1 });
+                break;
+            }
+            case types_js_1.SIZE_TYPES.FULL: {
                 updatedWidth = layoutWidth;
                 updatedHeight = layoutHeight;
-                return [4 /*yield*/, photo.resize(updatedWidth, updatedHeight).sharpen({ sigma: 1 })];
-            case 25:
-                resizedPhoto = _c.sent();
-                return [3 /*break*/, 27];
-            case 26:
+                resizedPhoto = photo.resize(updatedWidth, updatedHeight).sharpen({ sigma: 1 });
+                break;
+            }
+            default:
                 resizedPhoto = photo;
-                return [3 /*break*/, 27];
-            case 27: return [2 /*return*/, { resizedPhoto: resizedPhoto, updatedWidth: updatedWidth, updatedHeight: updatedHeight }];
+                break;
         }
+        console.log('sizeType', sizeType);
+        console.log('updatedWidth', updatedWidth);
+        console.log('updatedHeight', updatedHeight);
+        return [2 /*return*/, { resizedPhoto: resizedPhoto, updatedWidth: updatedWidth, updatedHeight: updatedHeight }];
     });
 }); };
 exports.resizePhoto = resizePhoto;
