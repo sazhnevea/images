@@ -108,7 +108,7 @@ const processDecoration = (decoration: Decoration, isCover: boolean, pagesAmount
   }
   return {
     ...decoration,
-    path: getLayoutPath(decoration.path, decoration.name, isCover, pagesAmount || 1),
+    path: `${decoration.path}/${decoration.name}`,
     offsets: {
       ...decoration.offsets,
       left: withStep(decoration.offsets.left, pagesAmount, step) 
@@ -132,7 +132,7 @@ return value + calculateLeftOffsetBasedOnPagesAmount(pagesAmount || 1, step || 0
 
 const getLayoutPath = (layoutPathFolder: string, name: string, isCover: boolean, pagesAmount: number): string => {
   if (isCover) {
-    return `${layoutPathFolder}${Math.max(2, pagesAmount - 1) > 6 ? 6 : pagesAmount - 1}.jpg`
+    return `${layoutPathFolder}/${Math.max(2, pagesAmount - 1) > 6 ? 6 : pagesAmount - 1}.jpg`
   }
   return `${layoutPathFolder}/${name}`
 }

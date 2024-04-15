@@ -12,14 +12,7 @@ async function main() {
   try {
     createFolder(RESULT)
     const data: Data = await processCSVDataToImpose(`${DATA_FOLDER_NAME}/${CSVPathImpose}`);
-    console.log('data.studentsData[0].pages[7]', data.studentsData[0].pages[7])
-    await processPhotos({
-      albumName: data.albumName,
-      studentsData: [{
-        name: data.studentsData[0].name,
-        pages: [data.studentsData[0].pages[7]]  
-      }],
-    });
+    await processPhotos(data);
   } catch (error) {
     console.error('An error occurred:', error);
   }

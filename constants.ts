@@ -19,44 +19,13 @@ export const DIRECTION: Direction = {
   H: 'horisontal',
 }
 
-const PHOTO_SIZES_DATA = {
-  [SIZE_TYPES.FULL]: {
-    width: 4772,
-    height: 3472,
-  },
-  [SIZE_TYPES.HALF]: {
-    width: 2386,
-    height: 3472,
-  },
-  [SIZE_TYPES.HALF_CUTTED]: {
-    width: 1966,
-    height: 3052,
-  },
-  [SIZE_TYPES.COVER]: {
-    width: 1359,
-    height: 2040,
-  },
-  [SIZE_TYPES.TWO_HORISONTAL_HALF]: {
-    width: 1990,
-    height: 1501,
-  },
-  [SIZE_TYPES.THREE_HORISONTAL_HALF]: {
-    width: 1472,
-    height: 1030,
-  },
-  [SIZE_TYPES.FOUR_HORISONTAL_FULL]: {
-    width: 2152,
-    height: 1501,
-  },
-}
-
 export const ALBUM_DATA: AlbumData = {
   [ALBUM_NAMES.ourKingergarten]: {
     name: ALBUM_NAMES.ourKingergarten,
     layouts: {
       [LAYOUT_TYPE.COVER]: {
         name: `1.jpg`,
-        layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/ourKingergarten/${LAYOUT_TYPE.COVER}/`,
+        layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/ourKingergarten/${LAYOUT_TYPE.COVER}`,
         photosSizeAndOffsetsDataInOrder: [{
           width: 1359,
           height: 2040,
@@ -66,7 +35,7 @@ export const ALBUM_DATA: AlbumData = {
         step: 12,
         decoration: {
           name: 'decoration.png',
-          path: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/ourKingergarten/${LAYOUT_TYPE.COVER}/`,
+          path: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/ourKingergarten/${LAYOUT_TYPE.COVER}`,
           offsets: {
             left: 2980,
             top: 568,
@@ -75,7 +44,7 @@ export const ALBUM_DATA: AlbumData = {
       },
       [LAYOUT_TYPE.F1C1]: {
         name: '1.jpg',
-        layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/ourKingergarten/${LAYOUT_TYPE.F1C1}/`,
+        layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/ourKingergarten/${LAYOUT_TYPE.F1C1}`,
         photosSizeAndOffsetsDataInOrder: [
           {
             width: 2386,
@@ -93,7 +62,7 @@ export const ALBUM_DATA: AlbumData = {
       },
       [LAYOUT_TYPE.F1H3]: {
         name: '1.jpg',
-        layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/ourKingergarten/${LAYOUT_TYPE.F1H3}/`,
+        layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/ourKingergarten/${LAYOUT_TYPE.F1H3}`,
         photosSizeAndOffsetsDataInOrder: [
           {
             width: 2386,
@@ -123,7 +92,7 @@ export const ALBUM_DATA: AlbumData = {
       },
       [LAYOUT_TYPE.H4]: {
         name: '1.jpg',
-        layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/ourKingergarten/${LAYOUT_TYPE.H4}/`,
+        layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/ourKingergarten/${LAYOUT_TYPE.H4}`,
         photosSizeAndOffsetsDataInOrder: [
           {
             width: 2152,
@@ -153,7 +122,7 @@ export const ALBUM_DATA: AlbumData = {
       },
       [LAYOUT_TYPE.F1V2H1]: {
         name: '1.jpg',
-        layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/ourKingergarten/${LAYOUT_TYPE.F1V2H1}/`,
+        layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/ourKingergarten/${LAYOUT_TYPE.F1V2H1}`,
         photosSizeAndOffsetsDataInOrder: [
           {
             width: 2386,
@@ -183,7 +152,7 @@ export const ALBUM_DATA: AlbumData = {
       },
       [LAYOUT_TYPE.F1H2]: {
         name: '1.jpg',
-        layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/ourKingergarten/${LAYOUT_TYPE.F1H2}/`,
+        layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/ourKingergarten/${LAYOUT_TYPE.F1H2}`,
         photosSizeAndOffsetsDataInOrder: [
           {
             width: 2386,
@@ -192,13 +161,13 @@ export const ALBUM_DATA: AlbumData = {
             top: 0,
           }, 
           {
-            width: 970,
+            width: 1990,
             height: 1501,
             left: 2572,
             top: 210,
           },
           {
-            width: 970,
+            width: 1990,
             height: 1501,
             left: 2572,
             top: 1761,
@@ -207,7 +176,7 @@ export const ALBUM_DATA: AlbumData = {
       },
       [LAYOUT_TYPE.F1V4]: {
         name: '1.jpg',
-        layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/ourKingergarten/${LAYOUT_TYPE.F1V4}/`,
+        layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/ourKingergarten/${LAYOUT_TYPE.F1V4}`,
         photosSizeAndOffsetsDataInOrder: [
           {
             width: 2386,
@@ -224,17 +193,17 @@ export const ALBUM_DATA: AlbumData = {
           {
             width: 970,
             height: 1501,
-            left: 3626,
+            left: 3592,
             top: 210,
           },
           {
-            width: 1990,
+            width: 970,
             height: 1501,
             left: 2572,
             top: 1761,
           },
           {
-            width: 1990,
+            width: 970,
             height: 1501,
             left: 3592,
             top: 1761,
@@ -243,22 +212,22 @@ export const ALBUM_DATA: AlbumData = {
       },
       [LAYOUT_TYPE.XXLF1V2]: {
         name: '1.jpg',
-        layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/ourKingergarten/${LAYOUT_TYPE.XXLF1V2}/`,
+        layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/ourKingergarten/${LAYOUT_TYPE.XXLF1V2}`,
         photosSizeAndOffsetsDataInOrder: [
           {
-            width: 970,
-            height: 1501,
+            width: 3614,
+            height: 3472,
             left: 0,
             top: 0,
           },
           {
-            width: 970,
+            width: 898,
             height: 1501,
             left: 3664,
             top: 210,
           },
           {
-            width: 1990,
+            width: 898,
             height: 1501,
             left: 3664,
             top: 1761,
@@ -267,7 +236,7 @@ export const ALBUM_DATA: AlbumData = {
       },
       [LAYOUT_TYPE.F1V2]: {
         name: '1.jpg',
-        layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/ourKingergarten/${LAYOUT_TYPE.F1V2}/`,
+        layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/ourKingergarten/${LAYOUT_TYPE.F1V2}`,
         photosSizeAndOffsetsDataInOrder: [
           {
             width: 2386,
@@ -291,7 +260,7 @@ export const ALBUM_DATA: AlbumData = {
       },
       [LAYOUT_TYPE.VIGNETTE]: {
         name: '1.jpg',
-        layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/ourKingergarten/${LAYOUT_TYPE.VIGNETTE}/`,
+        layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/ourKingergarten/${LAYOUT_TYPE.VIGNETTE}`,
         photosSizeAndOffsetsDataInOrder: [
           {
             width: 4772,
@@ -303,7 +272,7 @@ export const ALBUM_DATA: AlbumData = {
       },
       [LAYOUT_TYPE.FULL]: {
         name: '1.jpg',
-        layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/ourKingergarten/${LAYOUT_TYPE.FULL}/`,
+        layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/ourKingergarten/${LAYOUT_TYPE.FULL}`,
         photosSizeAndOffsetsDataInOrder: [{
           width: 4772,
           height: 3472,

@@ -153,7 +153,7 @@ var processDecoration = function (decoration, isCover, pagesAmount, step) {
     if (!isCover) {
         return decoration;
     }
-    return __assign(__assign({}, decoration), { path: getLayoutPath(decoration.path, decoration.name, isCover, pagesAmount || 1), offsets: __assign(__assign({}, decoration.offsets), { left: withStep(decoration.offsets.left, pagesAmount, step) }) });
+    return __assign(__assign({}, decoration), { path: "".concat(decoration.path, "/").concat(decoration.name), offsets: __assign(__assign({}, decoration.offsets), { left: withStep(decoration.offsets.left, pagesAmount, step) }) });
 };
 var populatePhotos = function (photo, photosSizeAndOffsetsDataInOrder, isCover, step, pagesAmount) {
     return photo.map(function (photo, index) { return (__assign(__assign({}, photo), { sizeAndOffset: __assign(__assign({}, photosSizeAndOffsetsDataInOrder[index]), { left: isCover ? withStep(photosSizeAndOffsetsDataInOrder[index].left, pagesAmount, step) : photosSizeAndOffsetsDataInOrder[index].left }) })); });
@@ -163,7 +163,7 @@ var withStep = function (value, step, pagesAmount) {
 };
 var getLayoutPath = function (layoutPathFolder, name, isCover, pagesAmount) {
     if (isCover) {
-        return "".concat(layoutPathFolder).concat(Math.max(2, pagesAmount - 1) > 6 ? 6 : pagesAmount - 1, ".jpg");
+        return "".concat(layoutPathFolder, "/").concat(Math.max(2, pagesAmount - 1) > 6 ? 6 : pagesAmount - 1, ".jpg");
     }
     return "".concat(layoutPathFolder, "/").concat(name);
 };

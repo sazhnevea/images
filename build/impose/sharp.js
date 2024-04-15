@@ -115,9 +115,6 @@ function processPage(page) {
                 case 0:
                     decoration = page.decoration, photos = page.photos;
                     dataToComposite = [];
-                    if (page.pageType === 'обложка') {
-                        console.log('page', page.photos[0].sizeAndOffset);
-                    }
                     return [4 /*yield*/, Promise.all(photos.map(function (photo) { return __awaiter(_this, void 0, void 0, function () {
                             var path_3, sizeAndOffset, width, height, left, top, currentPhoto, _a, _b, err_1;
                             var _c;
@@ -150,6 +147,7 @@ function processPage(page) {
                     _d.sent();
                     if (!decoration) return [3 /*break*/, 3];
                     path_2 = decoration.path, offsets = decoration.offsets;
+                    console.log('path', path_2);
                     decorationImage = (0, sharp_1.default)(path_2);
                     _b = (_a = dataToComposite).push;
                     _c = {};

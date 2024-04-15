@@ -33,10 +33,7 @@ async function processStudent(student: Student) {
 async function processPage(page: Page) {
   const { decoration, photos } = page;
   const dataToComposite = [];
-  if (page.pageType === 'обложка') {
-    console.log('page', page.photos[0].sizeAndOffset)
 
-  }
   await Promise.all(photos.map(async (photo) => {
     try {
       const { path, sizeAndOffset } = photo;
@@ -54,7 +51,8 @@ async function processPage(page: Page) {
   }));
 
   if (decoration) {
-      const { path, offsets} = decoration;
+      const { path, offsets } = decoration;
+      console.log('path', path)
       const decorationImage = sharp(path);
       dataToComposite.push({ input: await decorationImage.toBuffer(), left: offsets.left, top: offsets.top });
   }
