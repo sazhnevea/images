@@ -6,7 +6,7 @@
   "scripts": {
     "prestart": "rm -rf build && rm -rf result",
     "impose": "tsc && node build/impose/index.js",
-    "sort": "nodemon --watch 'src/**/*.ts' --exec 'node build/sort/index.js'"
+    "sort": "tsc && node build/sort/index.js"
   },
   "author": "",
   "license": "ISC",

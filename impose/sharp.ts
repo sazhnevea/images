@@ -21,8 +21,10 @@ async function processStudent(student: Student) {
 
   await Promise.all(pages.map(async (page) => {
     const { layoutPath, pageName } = page;
-    const destinationPath = `${studentFolderPath}/${pageName}.jpg`
-    const layout = sharp(layoutPath);  
+    const destinationPath = `${studentFolderPath}/${pageName}.jpg`;
+  
+    const layout = sharp(layoutPath);
+   
     const dataToComposite = await processPage(page);
     layout.composite(dataToComposite);
   
@@ -37,7 +39,7 @@ async function processPage(page: Page) {
   await Promise.all(photos.map(async (photo) => {
     try {
       const { path, sizeAndOffset } = photo;
-      const { width, height, left, top } = sizeAndOffset
+      const { width, height, left, top } = sizeAndOffset;
       await promises.access(path, constants.F_OK);
       
       const currentPhoto = sharp(path);
@@ -52,7 +54,6 @@ async function processPage(page: Page) {
 
   if (decoration) {
       const { path, offsets } = decoration;
-      console.log('path', path)
       const decorationImage = sharp(path);
       dataToComposite.push({ input: await decorationImage.toBuffer(), left: offsets.left, top: offsets.top });
   }

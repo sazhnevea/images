@@ -63,7 +63,7 @@ export interface PhotoSize {
   height: number;
 }
 
-export type PhotosSizeAndOffsetsDataInOrder = PhotoSize & OffsetData
+export type PhotosSizeAndOffsetsDataInOrder = PhotoSize & AdditionalPhotoData
 
 export interface LayoutData {
   name: string;
@@ -80,7 +80,7 @@ export interface AlbumDataValue {
   layouts: LayoutDataWithType;
 }
 
-interface OffsetData {
+interface AdditionalPhotoData {
   left: number;
   top: number;
 }

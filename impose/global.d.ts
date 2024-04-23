@@ -7,7 +7,6 @@ declare global {
       }
   }
 
-
   interface Number {
       getHalf(): number;
       plusMargin(): number;

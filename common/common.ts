@@ -1,20 +1,18 @@
-import { access, constants, mkdir } from 'fs';
+import { access, constants, mkdir } from 'fs/promises';
 import { ALBUM_NAME_FIELD, DIRECTION } from "../constants.js";
 
-export const createFolder = (folderName: string) => {
-  access(folderName, constants.F_OK, (err) => {
-    if (err) {
-      mkdir(folderName, (mkdirErr) => {
-        if (mkdirErr) {
-          console.log('Error creating output folder:', mkdirErr);
-        } else {
-          console.log(`${folderName} folder created successfully!`);
-        }
-      });
-    } else {
-      console.log(`${folderName} folder already exists!`);
+export const createFolder = async (folderName: string) => {
+  try {
+    await access(folderName, constants.F_OK);
+    console.log(`${folderName} folder already exists!`);
+  } catch (error) {
+    try {
+      await mkdir(folderName);
+      console.log(`${folderName} folder created successfully!`);
+    } catch (mkdirErr) {
+      console.log('Error creating output folder:', mkdirErr);
     }
-  });
+  }
 };
 
 

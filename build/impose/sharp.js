@@ -46,23 +46,19 @@ var path_1 = __importDefault(require("path"));
 var constants_js_1 = require("../constants.js");
 var helper_js_1 = require("./helper.js");
 var processPhotos = function (data) { return __awaiter(void 0, void 0, void 0, function () {
-    var _i, _a, studentData;
-    return __generator(this, function (_b) {
-        switch (_b.label) {
-            case 0:
-                _i = 0, _a = data.studentsData;
-                _b.label = 1;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, Promise.all(data.studentsData.map(function (studentData) { return __awaiter(void 0, void 0, void 0, function () {
+                    return __generator(this, function (_a) {
+                        switch (_a.label) {
+                            case 0: return [4 /*yield*/, processStudent(studentData)];
+                            case 1: return [2 /*return*/, _a.sent()];
+                        }
+                    });
+                }); }))];
             case 1:
-                if (!(_i < _a.length)) return [3 /*break*/, 4];
-                studentData = _a[_i];
-                return [4 /*yield*/, processStudent(studentData)];
-            case 2:
-                _b.sent();
-                _b.label = 3;
-            case 3:
-                _i++;
-                return [3 /*break*/, 1];
-            case 4: return [2 /*return*/];
+                _a.sent();
+                return [2 /*return*/];
         }
     });
 }); };
@@ -147,7 +143,6 @@ function processPage(page) {
                     _d.sent();
                     if (!decoration) return [3 /*break*/, 3];
                     path_2 = decoration.path, offsets = decoration.offsets;
-                    console.log('path', path_2);
                     decorationImage = (0, sharp_1.default)(path_2);
                     _b = (_a = dataToComposite).push;
                     _c = {};

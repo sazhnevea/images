@@ -69,7 +69,7 @@ function processCSVDataToImpose(csvPath) {
                     readStream.pipe((0, csv_parser_1.default)())
                         .on('data', function (studentData) {
                         var albumName = (0, common_1.getAlbumName)(studentData);
-                        if (!dataRaw.albumName) {
+                        if (albumName.length && !dataRaw.albumName) {
                             data.albumName = albumName;
                         }
                         var studentName = studentData['Имя участника'];

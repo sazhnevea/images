@@ -17,7 +17,7 @@ export async function processCSVDataToImpose(csvPath: PathLike): Promise<Data> {
     readStream.pipe(csv())
       .on('data', (studentData) => {
         const albumName = getAlbumName(studentData)
-        if (!dataRaw.albumName) {
+        if (albumName.length && !dataRaw.albumName) {
           data.albumName = albumName;
         }
 
@@ -58,7 +58,6 @@ export async function processCSVDataToImpose(csvPath: PathLike): Promise<Data> {
           dataRaw.studentsData.forEach((currentStudentData) => {
             const student: Student = {} as Student;
             student.name = currentStudentData.name;
-
             const pagesAmount = currentStudentData.pages.length;
             const pages = currentStudentData.pages.map(pageRawData => {
               const { pageType } = pageRawData;
