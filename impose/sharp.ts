@@ -26,7 +26,7 @@ async function processStudent(student: Student) {
     const layout = sharp(layoutPath);
    
     const dataToComposite = await processPage(page);
-    layout.composite(dataToComposite);
+    layout.composite(dataToComposite).withMetadata();
   
     await layout.toFile(destinationPath);
   }));

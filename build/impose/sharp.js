@@ -46,19 +46,23 @@ var path_1 = __importDefault(require("path"));
 var constants_js_1 = require("../constants.js");
 var helper_js_1 = require("./helper.js");
 var processPhotos = function (data) { return __awaiter(void 0, void 0, void 0, function () {
-    return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0: return [4 /*yield*/, Promise.all(data.studentsData.map(function (studentData) { return __awaiter(void 0, void 0, void 0, function () {
-                    return __generator(this, function (_a) {
-                        switch (_a.label) {
-                            case 0: return [4 /*yield*/, processStudent(studentData)];
-                            case 1: return [2 /*return*/, _a.sent()];
-                        }
-                    });
-                }); }))];
+    var _i, _a, studentData;
+    return __generator(this, function (_b) {
+        switch (_b.label) {
+            case 0:
+                _i = 0, _a = data.studentsData;
+                _b.label = 1;
             case 1:
-                _a.sent();
-                return [2 /*return*/];
+                if (!(_i < _a.length)) return [3 /*break*/, 4];
+                studentData = _a[_i];
+                return [4 /*yield*/, processStudent(studentData)];
+            case 2:
+                _b.sent();
+                _b.label = 3;
+            case 3:
+                _i++;
+                return [3 /*break*/, 1];
+            case 4: return [2 /*return*/];
         }
     });
 }); };
@@ -86,7 +90,7 @@ function processStudent(student) {
                                         return [4 /*yield*/, processPage(page)];
                                     case 1:
                                         dataToComposite = _a.sent();
-                                        layout.composite(dataToComposite);
+                                        layout.composite(dataToComposite).withMetadata();
                                         return [4 /*yield*/, layout.toFile(destinationPath)];
                                     case 2:
                                         _a.sent();
