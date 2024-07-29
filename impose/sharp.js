@@ -25,7 +25,8 @@ async function processStudent(item) {
   await Promise.all(pages.map(async (page) => {
     const { layoutPath, pageName } = page;
     const destinationPath = `${studentFolderPath}/${pageName}.jpg`
-    const layout = sharp(layoutPath);
+    const layout = sharp(layoutPath).withMetadata();
+
     const { width: layoutWidth, height: layoutHeight } = await layout.metadata();
     const dataToComposite = await processPage(page, layoutWidth, layoutHeight);
     layout.composite(dataToComposite);

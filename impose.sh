@@ -1,2 +1,2 @@
-cd ~/Projects/learning/images/
-node /impose/index.js
+ cd ~/Applications/images/
+ node impose/index.js
