@@ -1,7 +1,7 @@
 import fs from 'fs';
 import csv from 'csv-parser';
 import sharp from 'sharp';
-import { DATA_FOLDER_NAME, LAYOUT_TYPE, LAYOUT_TYPE_DIRECTION_MAPPING, SOURCE_SORT_FOLDER_NAME } from "../constants.js";
+import { DATA_FOLDER_NAME, LAYOUT_TYPE, LAYOUT_TYPE_DIRECTION_MAPPING, ROW_NAMES, SOURCE_SORT_FOLDER_NAME } from "../constants.js";
 import { getDirection, getImageName, getNumberStrings, parseNumberArray } from '../common/common.js';
 
 const layoutTypeValues = Object.values(LAYOUT_TYPE)
@@ -52,7 +52,7 @@ export async function processCSVDataToSort(csvPath) {
     const photoNumbers = new Set();
 
     for await (const studentData of csvStream) {
-      const studentName = studentData['Имя участника']
+      const studentName = studentData[ROW_NAMES.studentName]
       if (studentName) {
         for (const layoutType of layoutTypeValues) {
           const cellValue = studentData[layoutType]

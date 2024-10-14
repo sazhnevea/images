@@ -13,6 +13,12 @@ export const CUT_OFF = 24;
 
 export const ALBUM_NAME_FIELD = 'Название альбома'
 
+export const ROW_NAMES = {
+  albumName: 'Название альбома',
+  studentName: 'Имя участника',
+  page: 'Разворот'
+}
+
 const ALBUM_NAMES = {
   ourKingergarten: 'Наш детский сад'
 }
@@ -20,12 +26,6 @@ const ALBUM_NAMES = {
 export const DIRECTION = {
   V: 'vertical',
   H: 'horisontal',
-}
-
-export const COLUMN_NAME = {
-  COVER: 'обложка',
-  FULL: 'общая',
-  PAGE: 'разворот',
 }
 
 export const LAYOUT_TYPE = {

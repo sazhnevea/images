@@ -1,6 +1,12 @@
 import { CUT_OFF, PADDINGS, SIZE_TYPES } from "../constants.js";
 
-export const resizePhoto = async (photo, sizeType, layoutWidth, layoutHeight, order) => {
+export const resizePhoto = async ({
+  photo,
+  sizeType,
+  layoutWidth,
+  layoutHeight,
+  order
+}) => {
   let resizedPhoto;
   let updatedWidth;
   let updatedHeight;

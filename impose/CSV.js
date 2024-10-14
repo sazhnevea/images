@@ -1,14 +1,14 @@
 import csv from 'csv-parser';
 import fs from 'fs';
 import { getAlbumName, getDirection, getImageName, getNumberStrings, isArraysEqual, parseNumberArray } from '../common/common.js';
-import { ALBUM_NAMES_DATA, COLUMN_NAME, DATA_FOLDER_NAME, LAYOUT_PATH, LAYOUT_TYPE_DIRECTION_MAPPING, LAYOUT_TYPE_MAPPING, RETOUCH_FOLDER_NAME } from '../constants.js';
+import { ALBUM_NAMES_DATA, DATA_FOLDER_NAME, LAYOUT_PATH, LAYOUT_TYPE_DIRECTION_MAPPING, LAYOUT_TYPE_MAPPING, RETOUCH_FOLDER_NAME, ROW_NAMES } from '../constants.js';
 import sharp from 'sharp';
 
 const cachedMetadata = {};
 
-const getDirectionsList = async (numberStrings) => {
+const getDirectionsList = async (photoNumbers) => {
   const directionsList = []
-  for (const photoNumber of numberStrings) {
+  for (const photoNumber of photoNumbers) {
     if (!cachedMetadata[photoNumber]) {
       const imagePath = `${DATA_FOLDER_NAME}/${RETOUCH_FOLDER_NAME}/${getImageName(photoNumber)}`;
       const { width, height } = await sharp(imagePath).metadata();
@@ -29,54 +29,61 @@ const getLayoutType = (directionList) => {
   return matchingLayoutType || null;
 }
 
-const columnNames = Object.values(COLUMN_NAME)
-
 export async function processCSVDataToImpose(csvPath) {
   return new Promise((resolve, reject) => {
     const data = { albumName: '', studentsData: [] };
     let currentStudent = {};
     let pageNumber = 1;
 
-    const allStudentData = []; // Массив для накопления всех данных студентов
+    const studentsData = [];
 
     const readStream = fs.createReadStream(csvPath);
     readStream.pipe(csv())
       .on('data', (studentData) => {
-        allStudentData.push(studentData);
+        studentsData.push(studentData);
       })
       .on('end', async () => {
-        for (let studentData of allStudentData) {
+        for (let i = 0; i < studentsData.length; i++) {
+          const studentData = studentsData[i]
           const albumName = getAlbumName(studentData);
           if (!data.albumName) {
             data.albumName = albumName;
           }
 
-          if (studentData['Имя участника']) {
+          if (studentData[ROW_NAMES.studentName]) {
             currentStudent = {
-              name: studentData['Имя участника'],
+              name: studentData[ROW_NAMES.studentName],
               pages: [],
             };
 
             for (const property in studentData) {
-              const fixedColumnName = columnNames.find(layoutType => property.includes(layoutType));
-              if (fixedColumnName && studentData[property]) {
-                const numberStrings = getNumberStrings(studentData[property]);             
-                const directionList = (await getDirectionsList(numberStrings)).map(({ direction }) => direction);
-                const layoutType = getLayoutType(directionList)
-                const layoutTypesOrder = LAYOUT_TYPE_MAPPING[layoutType];
-   
-                if (numberStrings) {
-                  const photoNumbers = parseNumberArray(numberStrings);
-                  const photos = processPhotoNumbers(photoNumbers, layoutTypesOrder, studentData, property);
+              const isPageColumn = property.includes(ROW_NAMES.page);
+              if (isPageColumn && studentData[property]) {
+                const photoNumbersString = getNumberStrings(studentData[property]);             
+                const directionList = (await getDirectionsList(photoNumbersString)).map(({ direction }) => direction);
+                const pageType = getLayoutType(directionList)
+                const studentName = currentStudent.name
+                if (!pageType) {
+                  console.log(`У студента ${studentName} неверно подобраны фотографии в столбце "${property}". Номера фотографий: ${photoNumbersString}. Разворот не создан!`)
+                  continue
+                }
+                
+                if (photoNumbersString) {
+                  const photoNumbers = parseNumberArray(photoNumbersString);
+                  const photos = processPhotoNumbers({
+                    photoNumbers,
+                    studentName: currentStudent.name,
+                    pageType
+                  });
                   currentStudent.pages.push({
                     layoutPath: LAYOUT_PATH,
                     pageName: `${pageNumber}`,
-                    pageType: layoutType,
-                    photos: photos,
+                    pageType,
+                    photos,
                   });
                   pageNumber++;
                 } else {
-                  console.error(`У студента ${studentData['Имя участника']} отсутствуют номера фотографий в развороте ${property}`);
+                  console.error(`У студента ${studentData[ROW_NAMES.studentName]} отсутствуют номера фотографий в развороте ${property}`);
                 }
               }
             }
@@ -111,14 +118,19 @@ export async function processCSVDataToImpose(csvPath) {
   });
 }
 
-const processPhotoNumbers = (photoNumbers, layoutTypesOrder, studentData, property) => {
+const processPhotoNumbers = ({
+  photoNumbers,
+  studentName,
+  pageType
+}) => {
+  const layoutTypesOrder = LAYOUT_TYPE_MAPPING[pageType]
   return photoNumbers.map((number, index) => {
     if (layoutTypesOrder[index]) {
       return ({
-        path: getImageName(number),
+        path: `${DATA_FOLDER_NAME}/${RETOUCH_FOLDER_NAME}/${getImageName(number)}`,
         sizeType: layoutTypesOrder[index]
       })
     }
-    console.error(`Фотография № ${number} является лишней в развороте ${property} у студента ${studentData['Имя участника']}`)
+    console.error(`Фотография № ${number} является лишней в развороте ${pageType} у студента ${studentName}`)
   }).filter(Boolean)
 }
