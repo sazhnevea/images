@@ -20,7 +20,6 @@ export const createFolder = (folderName) => {
 
 export const getNumberStrings = (string) => string.match(/[-]{0,1}[\d]*[\\.]{0,1}[\d]+/g)
 
-
 export const parseNumberArray = numberStrings => numberStrings.map(Number);
 
 export const getKeyByValue = (object, value) => {
@@ -33,4 +32,9 @@ export const getDirection = (width, height) => width > height ? DIRECTION.H : DI
 
 export const getAlbumName = (rowData) => {
   return rowData[ALBUM_NAME_FIELD]
+}
+
+export const isArraysEqual = (arr1, arr2) => {
+  if (arr1.length !== arr2.length) return false;
+  return arr1.every((value, index) => value === arr2[index]);
 }

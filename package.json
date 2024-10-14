@@ -4,7 +4,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "prestart": "rm -rf result",
+    "clean": "rm -rf result",
     "impose": "node impose/index.js",
     "sort": "node sort/index.js"
   },
