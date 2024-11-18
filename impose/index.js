@@ -1,5 +1,7 @@
 import {
-  CSVPathImpose, DATA_FOLDER_NAME, RESULT,
+  CSVPathImpose,
+  DATA_FOLDER_NAME,
+  RESULT,
 } from '../constants.js';
 
 import '../core/offset.js';

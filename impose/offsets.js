@@ -1,6 +1,15 @@
 import { CUT_OFF, PADDINGS, SIZE_TYPES } from "../constants.js";
 
-export const getOffsets = async (updatedWidth, updatedHeight, sizeType, layoutWidth, layoutHeight, order, pagesAmount, step) => {
+export const getOffsets = ({
+  updatedWidth,
+  updatedHeight,
+  sizeType,
+  layoutWidth,
+  layoutHeight,
+  order,
+  pagesAmount,
+  step
+}) => {
   let leftOffset = 0;
   let topOffset = 0;
   const { xPadding, yPadding, innerPadding } = PADDINGS[sizeType]
@@ -96,7 +105,6 @@ export const getOffsets = async (updatedWidth, updatedHeight, sizeType, layoutWi
         leftOffset = layoutWidth.getHalf() + xPadding + updatedWidth + innerPadding
         topOffset = Math.round(layoutHeight.minusMargin() - yPadding - updatedHeight);
       }
-
       break
     }
     case SIZE_TYPES.TWO_VERTICAL_CUSTOM: {
