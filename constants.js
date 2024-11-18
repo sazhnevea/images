@@ -146,8 +146,8 @@ export const PADDINGS = {
     innerPadding: 50
   },
   [SIZE_TYPES.THREE_HORISONTAL_HALF]: {
-    xPadding: 433,
-    yPadding: 83.5,
+    xPadding: 410,
+    yPadding: 94,
   },
   [SIZE_TYPES.FOUR_HORISONTAL_FULL]: {
     xPadding: 186,
@@ -160,7 +160,7 @@ export const PADDINGS = {
     innerPadding: 50
   },
   [SIZE_TYPES.TWO_HORISONTAL_HALF]: {
-    xPadding: 186,
+    xPadding: 50,
     yPadding: 186,
     innerPadding: 50
   },
