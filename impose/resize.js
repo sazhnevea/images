@@ -36,7 +36,7 @@ export const resizePhoto = async ({
     
     case SIZE_TYPES.THREE_HORISONTAL_HALF: {
       updatedWidth = Math.round(layoutWidth.getHalf().minusMargins()) - (doubleXPadding);
-      updatedHeight = Math.round((layoutHeight.minusMargins() - (doubleYPadding * 2)) / 3);
+      updatedHeight = Math.round(updatedWidth / 3 * 2);
       resizedPhoto = await photo.resize(updatedWidth, updatedHeight).sharpen({ sigma: 1 })
       break;
     }
@@ -62,7 +62,7 @@ export const resizePhoto = async ({
     }
     case SIZE_TYPES.TWO_HORISONTAL_HALF: {
       updatedWidth = Math.round(layoutWidth.getHalf().minusMargin()) - doubleXPadding ;
-      updatedHeight = Math.round((layoutHeight.minusMargins() - (doubleYPadding) - innerPadding) / 2);
+      updatedHeight = Math.round(updatedWidth / 3 * 2);
       resizedPhoto = await photo.resize(updatedWidth, updatedHeight).sharpen({ sigma: 1 })
       break
     }
