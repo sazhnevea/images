@@ -4,20 +4,24 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "prestart": "rm -rf result",
+    "clean": "rm -rf result",
     "impose": "node impose/index.js",
-    "sort": "node sort/index.js"
+    "vignette": "node vignette/index.js",
+    "sort": "node sort/index.js",
+    "build": "babel impose --out-dir dist --ignore node_modules"
   },
   "author": "",
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "canvas": "^2.11.2",
     "csv-parser": "^3.0.0",
-    "jimp": "^0.22.12",
-    "sharp": "^0.33.2",
-    "uninstall": "^0.0.0"
+    "sharp": "^0.33.2"
   },
   "devDependencies": {
+    "@babel/cli": "^7.25.9",
+    "@babel/core": "^7.26.0",
+    "@babel/preset-env": "^7.26.0",
     "@types/node": "^20.11.30",
     "eslint": "^8.57.0",
     "eslint-config-airbnb-base": "^15.0.0",
