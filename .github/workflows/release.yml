@@ -3,7 +3,7 @@ name: Create Release with Build Artifacts
 on:
   push:
     tags:
-      - 'v*'  # Срабатывает при пуше тега, например, v1.0.0
+      - 'v.*'  # Срабатывает при пуше тега, например, v1.0.0
 
 jobs:
   release:
