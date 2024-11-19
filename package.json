@@ -8,8 +8,8 @@
     "impose": "node impose/index.js",
     "vignette": "node vignette/index.js",
     "sort": "node sort/index.js",
-    "build:impose": "FOLDER_NAME=impose webpack",
-    "build:sort": "FOLDER_NAME=sort webpack",
+    "build:impose": "BUNDLE_NAME=impose webpack",
+    "build:sort": "BUNDLE_NAME=sort webpack",
     "build": "npm run build:impose && npm run build:sort"
   },
   "author": "",

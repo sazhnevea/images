@@ -3,7 +3,7 @@ name: Create Release with Build Artifacts
 on:
   push:
     tags:
-      - 'v.*'  # Срабатывает при пуше тега, например, v1.0.0
+      - 'v.*'
 
 permissions:
   contents: write
@@ -26,9 +26,9 @@ jobs:
           npm install
           npm run build
 
-      - name: Create ZIP file for dist
+      - name: Create ZIP file for build
         run: |
-          zip -r dist.zip dist/
+          zip -r build.zip build/
 
       - name: Upload to GitHub Release
         uses: ncipollo/release-action@v1.14.0
