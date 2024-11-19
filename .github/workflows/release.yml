@@ -4,6 +4,9 @@ on:
   push:
     tags:
       - 'v.*'  # Срабатывает при пуше тега, например, v1.0.0
+      
+permissions:
+  contents: write
 
 jobs:
   release:
