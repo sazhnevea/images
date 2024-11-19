@@ -9,6 +9,7 @@ const __dirname = dirname(__filename);
 const bundleName = process.env.BUNDLE_NAME;
 
 const copyAssets = () => {
+  // Copy assets folder
   const source = resolve(__dirname, 'assets');
   const destination = resolve(__dirname, 'build', 'assets');
 
@@ -17,6 +18,17 @@ const copyAssets = () => {
     console.log('Assets folder copied successfully!');
   } else {
     console.warn('Assets folder does not exist, skipping...');
+  }
+
+  // Copy README.md
+  const readmeSource = resolve(__dirname, 'README.md');
+  const readmeDestination = resolve(__dirname, 'build', 'README.md');
+
+  if (existsSync(readmeSource)) {
+    cpSync(readmeSource, readmeDestination);
+    console.log('README.md copied successfully!');
+  } else {
+    console.warn('README.md does not exist, skipping...');
   }
 };
 
