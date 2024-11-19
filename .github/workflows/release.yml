@@ -33,5 +33,5 @@ jobs:
       - name: Upload to GitHub Release
         uses: ncipollo/release-action@v1.14.0
         with:
-          artifacts: dist.zip
+          artifacts: build.zip
           token: ${{ secrets.GITHUB_TOKEN }}
