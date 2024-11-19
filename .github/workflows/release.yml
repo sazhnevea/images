@@ -4,7 +4,7 @@ on:
   push:
     tags:
       - 'v.*'  # Срабатывает при пуше тега, например, v1.0.0
-      
+
 permissions:
   contents: write
 
@@ -26,8 +26,12 @@ jobs:
           npm install
           npm run build
 
+      - name: Create ZIP file for dist
+        run: |
+          zip -r dist.zip dist/
+
       - name: Upload to GitHub Release
         uses: ncipollo/release-action@v1.14.0
         with:
-          artifacts: ./dist
+          artifacts: dist.zip
           token: ${{ secrets.GITHUB_TOKEN }}
