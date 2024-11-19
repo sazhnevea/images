@@ -1,0 +1,30 @@
+name: Create Release with Build Artifacts
+
+on:
+  push:
+    tags:
+      - 'v*'  # Срабатывает при пуше тега, например, v1.0.0
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Install dependencies and build
+        run: |
+          npm install
+          npm run build
+
+      - name: Upload to GitHub Release
+        uses: ncipollo/release-action@v1
+        with:
+          artifacts: ./dist
+          token: ${{ secrets.GITHUB_TOKEN }}

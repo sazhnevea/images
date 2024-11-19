@@ -11,8 +11,9 @@ const folderName = process.env.FOLDER_NAME
 export default {
   entry: `./${folderName}/index.js`,
   output: {
-    filename: 'bundle.js',
+    filename: 'bundle.cjs',
     path: resolve(__dirname, 'dist', folderName),
+    libraryTarget: 'commonjs2',
   },
   mode: 'production',
   target: 'node',
