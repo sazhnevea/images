@@ -24,7 +24,7 @@ jobs:
           npm run build
 
       - name: Upload to GitHub Release
-        uses: ncipollo/release-action@v1
+        uses: ncipollo/release-action@v1.14.0
         with:
           artifacts: ./dist
-          token: ${{ secrets.RELEASE_ACTION_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}
