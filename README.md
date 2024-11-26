@@ -1,13 +1,12 @@
 Установка:
-
 1. Установить NodeJS https://nodejs.org/en/download/prebuilt-installer
-2. установить глобально sharp `npm i -g sharp`
-3. установить глобально путь до node_modules
-3.1 для mac os `export NODE_PATH=$(npm root -g)` 
-3.2 для windows `npm root -g`, затем `set NODE_PATH=путь`
+2. Установить локально в папке images sharp `npm i sharp`
+3. ярлыки для запуска
+3.1. windows - использовать файл win_launch_template.bat для создания скрипта запуска. после создать ярлык и в свойства/дополнительно поставить галочку "запуск от имени администратора"
+3.2. mac - использовать файл mac_launch_template.sh для создания скрипта запуска. после создать ярлык
 
-impose:
 
+Верстка:
 Имена столбцов таблицы:
 1. 'Название альбома',
 2. 'Имя участника',
