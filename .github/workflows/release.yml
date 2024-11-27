@@ -1,0 +1,43 @@
+name: Create Release with Build Artifacts
+
+on:
+  push:
+    branches:
+      - master
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Install dependencies and build
+        run: npm ci
+
+      - name: Extract version from package.json
+        id: get_version
+        run: echo "VERSION=$(jq -r .version package.json)" >> $GITHUB_ENV
+
+      - name: Build project
+        run: npm run build
+
+      - name: Create ZIP file for build
+        run: |
+          zip -r build.zip build/
+
+      - name: Create GitHub Release
+        uses: ncipollo/release-action@v1.14.0
+        with:
+          tag: v${{ env.VERSION }}
+          artifacts: build.zip
+          token: ${{ secrets.GITHUB_TOKEN }}
