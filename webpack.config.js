@@ -1,38 +1,12 @@
 import { fileURLToPath } from 'url';
 import { resolve, dirname } from 'path';
-import { existsSync, cpSync } from 'fs';
+import CopyPlugin from 'copy-webpack-plugin';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 // eslint-disable-next-line no-undef
 const bundleName = process.env.BUNDLE_NAME;
-
-const copyAssets = () => {
-  // Copy assets folder
-  const source = resolve(__dirname, 'assets');
-  const destination = resolve(__dirname, 'build', 'assets');
-
-  if (existsSync(source)) {
-    cpSync(source, destination, { recursive: true });
-    console.log('Assets folder copied successfully!');
-  } else {
-    console.warn('Assets folder does not exist, skipping...');
-  }
-
-  // Copy README.md
-  const readmeSource = resolve(__dirname, 'README.md');
-  const readmeDestination = resolve(__dirname, 'build', 'README.md');
-
-  if (existsSync(readmeSource)) {
-    cpSync(readmeSource, readmeDestination);
-    console.log('README.md copied successfully!');
-  } else {
-    console.warn('README.md does not exist, skipping...');
-  }
-};
-
-copyAssets();
 
 export default {
   entry: `./${bundleName}/index.js`,
@@ -49,4 +23,14 @@ export default {
   resolve: {
     extensions: ['.js', '.json'],
   },
+  plugins: [
+    new CopyPlugin({
+      patterns: [
+        { from: resolve(__dirname, 'assets'), to: resolve(__dirname, 'build', 'assets') },
+        { from: resolve(__dirname, 'README.md'), to: resolve(__dirname, 'build', 'README.md') },
+        { from: resolve(__dirname, 'mac-launch-template.sh'), to: resolve(__dirname, 'build') },
+        { from: resolve(__dirname, 'win_launch_template.bat'), to: resolve(__dirname, 'build') },
+      ],
+    }),
+  ],
 };
