@@ -1,2 +1,2 @@
  cd ~/Applications/images/
- node sort/index.js
+ node impose/index.cjs

@@ -1,5 +1,7 @@
 import {
-  CSVPathImpose, DATA_FOLDER_NAME, RESULT,
+  CSVPathImpose,
+  DATA_FOLDER_NAME,
+  RESULT,
 } from '../constants.js';
 
 import '../core/offset.js';
@@ -11,7 +13,6 @@ async function main() {
   try {
     createFolder(RESULT)
     const data = await processCSVDataToImpose(`${DATA_FOLDER_NAME}/${CSVPathImpose}`);
-    console.log('data', data)
     await processPhotos(data);
   } catch (error) {
     console.error('An error occurred:', error);
