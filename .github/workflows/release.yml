@@ -3,7 +3,7 @@ name: Create Release with Build Artifacts
 on:
   push:
     branches:
-      - feature/bundle
+      - master
 
 permissions:
   contents: write
