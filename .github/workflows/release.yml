@@ -2,8 +2,8 @@ name: Create Release with Build Artifacts
 
 on:
   push:
-    tags:
-      - 'v.*'
+    branches:
+      - master
 
 permissions:
   contents: write
@@ -22,16 +22,23 @@ jobs:
           node-version: 18
 
       - name: Install dependencies and build
-        run: |
-          npm ci
-          npm run build
+        run: npm ci
+
+      - name: Extract version from package.json
+        id: get_version
+        run: echo "VERSION=$(node -p \"require('./package.json').version\")" >> $GITHUB_ENV
+
+      - name: Build project
+        run: npm run build
 
       - name: Create ZIP file for build
         run: |
           zip -r build.zip build/
 
-      - name: Upload to GitHub Release
-        uses: ncipollo/release-action@v1.14.0
-        with:
-          artifacts: build.zip
-          token: ${{ secrets.GITHUB_TOKEN }}
+          - name: Create GitHub Release
+          uses: ncipollo/release-action@v1.14.0
+          with:
+            tag: v${{ env.VERSION }}
+            releaseName: Release v${{ env.VERSION }}
+            artifacts: build.zip
+            token: ${{ secrets.GITHUB_TOKEN }}
