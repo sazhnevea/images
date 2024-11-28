@@ -1,33 +1,7 @@
 import csv from 'csv-parser';
 import fs from 'fs';
-import { getAlbumName, getDirection, getImageName, getNumberStrings, isArraysEqual, parseNumberArray } from '../common/common.js';
-import { ALBUM_NAMES_DATA, DATA_FOLDER_NAME, LAYOUT_PATH, LAYOUT_TYPE_DIRECTION_MAPPING, LAYOUT_TYPE_MAPPING, RETOUCH_FOLDER_NAME, ROW_NAMES } from '../constants.js';
-import sharp from 'sharp';
-
-const cachedMetadata = {};
-
-const getDirectionsList = async (photoNumbers) => {
-  const directionsList = []
-  for (const photoNumber of photoNumbers) {
-    if (!cachedMetadata[photoNumber]) {
-      const imagePath = `${DATA_FOLDER_NAME}/${RETOUCH_FOLDER_NAME}/${getImageName(photoNumber)}`;
-      const { width, height } = await sharp(imagePath).metadata();
-      cachedMetadata[photoNumber] = { width, height };
-    }
-    directionsList.push(({
-      photoNumber: photoNumber,
-      direction: getDirection(cachedMetadata[photoNumber].width, cachedMetadata[photoNumber].height)}));
-  }
-  return directionsList
-};
-
-const getLayoutType = (directionList) => {
-  const matchingLayoutType = Object.keys(LAYOUT_TYPE_DIRECTION_MAPPING).find((layoutType) => {
-    const directionMapping = LAYOUT_TYPE_DIRECTION_MAPPING[layoutType];
-    return isArraysEqual(directionMapping, directionList);
-  });
-  return matchingLayoutType || null;
-}
+import { getAlbumName, getDirectionsList, getImageName, getLayoutType, getNumberStrings, parseNumberArray } from '../common/common.js';
+import { ALBUM_NAMES_DATA, DATA_FOLDER_NAME, LAYOUT_PATH, LAYOUT_TYPE_MAPPING, RETOUCH_FOLDER_NAME, ROW_NAMES } from '../constants.js';
 
 export async function processCSVDataToImpose(csvPath) {
   return new Promise((resolve, reject) => {
@@ -58,9 +32,12 @@ export async function processCSVDataToImpose(csvPath) {
 
             for (const property in studentData) {
               const isPageColumn = property.includes(ROW_NAMES.page);
-              if (isPageColumn && studentData[property]) {
-                const photoNumbersString = getNumberStrings(studentData[property]);             
-                const directionList = (await getDirectionsList(photoNumbersString)).map(({ direction }) => direction);
+              if (isPageColumn && studentData[property]) {        
+                const photoNumbersString = getNumberStrings(studentData[property]);
+                if (!photoNumbersString.length) {
+                  continue
+                }        
+                const directionList = (await getDirectionsList(`${DATA_FOLDER_NAME}/${RETOUCH_FOLDER_NAME}`, photoNumbersString)).map(({ direction }) => direction);
                 const pageType = getLayoutType(directionList)
                 const studentName = currentStudent.name
                 if (!pageType) {
