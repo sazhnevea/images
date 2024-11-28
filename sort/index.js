@@ -10,7 +10,6 @@ import { copyPhotos } from './copyPhotos.js';
 
 async function main() {
   try {
-    createFolder(RESULT)
     createFolder(`${RESULT}/${RETOUCH_FOLDER_NAME}`)
     const photosList = await processCSVDataToSort(`${DATA_FOLDER_NAME}/${CSVPathSort}`);
     await copyPhotos(photosList);
