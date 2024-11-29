@@ -10,12 +10,12 @@ export const copyPhotos = async (photosList) => {
     try {
       await promises.access(sourcePath, constants.F_OK);
       await promises.copyFile(sourcePath, destinationPath);
-      console.info(`Copied photo: ${sourcePath} to ${destinationPath}`);
+      console.info(`Фото скопировано: ${photoFixedName}`);
     } catch (error) {
       if (error.code === 'ENOENT') {
-        console.warn(`Photo not found: ${sourcePath}`);
+        console.warn(`Фото не найдено: ${sourcePath}`);
       } else {
-        console.error(`Error copying photo: ${sourcePath}`, error);
+        console.error(`Ошибка при копировании фотографии: ${sourcePath}`, error);
       }
     }
   }
