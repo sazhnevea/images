@@ -1,7 +1,7 @@
 import fs from 'fs';
 import csv from 'csv-parser';
 import { DATA_FOLDER_NAME, ROW_NAMES, SOURCE_SORT_FOLDER_NAME } from "../constants.js";
-import { filterExistingPhotoNumbers, getDirectionsList, getLayoutType, getNumberStrings, parseNumberArray } from '../common/common.js';
+import { filterExistingPhotoNumbers, getDirectionsList, getLayoutType, getNumberStrings, parseNumberArray, printMissingPhotoListMessage } from '../common/common.js';
 
 export async function processCSVDataToSort(csvPath) {
   try {
@@ -22,7 +22,7 @@ export async function processCSVDataToSort(csvPath) {
             }
             const { existing, missing } = await filterExistingPhotoNumbers(numberStrings, `${DATA_FOLDER_NAME}/${SOURCE_SORT_FOLDER_NAME}`)
             if (missing.length) {
-              missingPhotos.add(...missing)
+              missing.forEach((missingPhoto) => missingPhotos.add(missingPhoto));
             }
 
             if (!existing.length) {
@@ -40,13 +40,13 @@ export async function processCSVDataToSort(csvPath) {
               photoNumbers.add(number);
             })
           }
+          }
         }
       }
-      }
     }
-    if (missingPhotos.size > 0) {
-      console.log(`Следующие фотографии не найдены: ${Array.from(missingPhotos)}`)
-    }
+    
+    printMissingPhotoListMessage(missingPhotos)
+
     return Array.from(photoNumbers);
   } catch (error) {
     console.error('Error processing CSV data:', error);

@@ -5,21 +5,33 @@ import { DIRECTION, LAYOUT_TYPE_DIRECTION_MAPPING, ROW_NAMES } from "../constant
 import sharp from 'sharp';
 
 export const filterExistingPhotoNumbers = async function (photoNumbers, directory) {
-  const statuses = await Promise.all(
+  // Проверяем все номера фотографий
+  const statuses = await Promise.allSettled(
       photoNumbers.map(async (photoNumber) => {
           const filePath = path.join(directory, getImageName(photoNumber));
           try {
               await fs.promises.access(filePath, fs.constants.F_OK);
-              return { photoNumber, exists: true };
+              return { photoNumber, exists: true }; // Файл существует
           } catch {
-              return { photoNumber, exists: false };
+              return { photoNumber, exists: false }; // Файл не существует
           }
       })
   );
 
-  // Разделяем на существующие и пропущенные
-  const existing = statuses.filter((status) => status.exists).map((status) => status.photoNumber);
-  const missing = statuses.filter((status) => !status.exists).map((status) => status.photoNumber);
+  // Обрабатываем результаты
+  const existing = [];
+  const missing = [];
+
+  for (const result of statuses) {
+      if (result.status === 'fulfilled') {
+          const { photoNumber, exists } = result.value;
+          if (exists) {
+              existing.push(photoNumber);
+          } else {
+              missing.push(photoNumber);
+          }
+      }
+  }
 
   return { existing, missing };
 };
@@ -93,4 +105,10 @@ export const isArraysEqual = (arr1, arr2) => {
 
 export const getLeftOffsetBasedOnPagesAmount = (pagesAmount, step = 0) => {
   return (pagesAmount - 1) * step
+}
+
+export const printMissingPhotoListMessage = (missingPhotos) => {
+  if (missingPhotos.size > 0) {
+    console.log(`Следующие фотографии не найдены: ${Array.from(missingPhotos)}`)
+  }
 }
