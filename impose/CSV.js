@@ -1,6 +1,6 @@
 import csv from 'csv-parser';
 import fs from 'fs';
-import { getAlbumName, getDirectionsList, getImageName, getLayoutType, getNumberStrings, parseNumberArray } from '../common/common.js';
+import { filterExistingPhotoNumbers, getAlbumName, getDirectionsList, getImageName, getLayoutType, getNumberStrings, parseNumberArray, printMissingPhotoListMessage } from '../common/common.js';
 import { ALBUM_NAMES_DATA, DATA_FOLDER_NAME, LAYOUT_PATH, LAYOUT_TYPE_MAPPING, RETOUCH_FOLDER_NAME, ROW_NAMES } from '../constants.js';
 
 export async function processCSVDataToImpose(csvPath) {
@@ -17,6 +17,7 @@ export async function processCSVDataToImpose(csvPath) {
         studentsData.push(studentData);
       })
       .on('end', async () => {
+        const missingPhotos = new Set();
         for (let i = 0; i < studentsData.length; i++) {
           const studentData = studentsData[i]
           const albumName = getAlbumName(studentData);
@@ -33,35 +34,41 @@ export async function processCSVDataToImpose(csvPath) {
             for (const property in studentData) {
               const isPageColumn = property.includes(ROW_NAMES.page);
               if (isPageColumn && studentData[property]) {        
-                const photoNumbersString = getNumberStrings(studentData[property]);
-                if (!photoNumbersString.length) {
-                  continue
-                }        
-                const directionList = (await getDirectionsList(`${DATA_FOLDER_NAME}/${RETOUCH_FOLDER_NAME}`, photoNumbersString)).map(({ direction }) => direction);
-                const pageType = getLayoutType(directionList)
-                const studentName = currentStudent.name
-                if (!pageType) {
-                  console.log(`У студента ${studentName} неверно подобраны фотографии в столбце "${property}". Номера фотографий: ${photoNumbersString}. Разворот не создан!`)
+                const numberStrings = getNumberStrings(studentData[property]);
+                if (!numberStrings.length) {
                   continue
                 }
                 
-                if (photoNumbersString) {
-                  const photoNumbers = parseNumberArray(photoNumbersString);
-                  const photos = processPhotoNumbers({
-                    photoNumbers,
-                    studentName: currentStudent.name,
-                    pageType
-                  });
-                  currentStudent.pages.push({
-                    layoutPath: LAYOUT_PATH,
-                    pageName: `${pageNumber}`,
-                    pageType,
-                    photos,
-                  });
-                  pageNumber++;
-                } else {
-                  console.error(`У студента ${studentData[ROW_NAMES.studentName]} отсутствуют номера фотографий в развороте ${property}`);
+                const { existing, missing } = await filterExistingPhotoNumbers(numberStrings, `${DATA_FOLDER_NAME}/${RETOUCH_FOLDER_NAME}`)
+                if (missing.length) {
+                  missing.forEach((missingPhoto) => missingPhotos.add(missingPhoto));
                 }
+
+                if (!existing.length) {
+                  continue
+                }
+    
+                const directionList = (await getDirectionsList(`${DATA_FOLDER_NAME}/${RETOUCH_FOLDER_NAME}`, existing)).map(({ direction }) => direction);
+                const pageType = getLayoutType(directionList)
+                const studentName = currentStudent.name
+                if (!pageType) {
+                  console.log(`У студента ${studentName} неверно подобраны фотографии в столбце "${property}". Номера фотографий: ${existing}. Разворот не создан!`)
+                  continue
+                }
+
+                const photoNumbers = parseNumberArray(existing);
+                const photos = processPhotoNumbers({
+                  photoNumbers,
+                  studentName: currentStudent.name,
+                  pageType
+                });
+                currentStudent.pages.push({
+                  layoutPath: LAYOUT_PATH,
+                  pageName: `${pageNumber}`,
+                  pageType,
+                  photos,
+                });
+                pageNumber++;
               }
             }
             data.studentsData.push(currentStudent);
@@ -69,6 +76,8 @@ export async function processCSVDataToImpose(csvPath) {
             pageNumber = 1;
           }
         }
+
+        printMissingPhotoListMessage(missingPhotos)
 
         if (Object.keys(ALBUM_NAMES_DATA).includes(data.albumName)) {
           const albumData = ALBUM_NAMES_DATA[data.albumName];
