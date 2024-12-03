@@ -1,2 +1,2 @@
- cd ~/Applications/images/
- node impose/index.cjs
+cd /Users/esazhnev/Desktop/images
+node impose.cjs
