@@ -33,7 +33,6 @@ export async function processCSVDataToSort(csvPath) {
             const pageType = getLayoutType(directionList)
             if (!pageType) {
               console.log(`У студента ${studentName} неверно подобраны фотографии в столбце "${property}". Номера фотографий: ${existing}`)
-              continue
             }
             const photoNumbersList = [...parseNumberArray(existing)]
             photoNumbersList.forEach(number => {
