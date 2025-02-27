@@ -71,9 +71,8 @@ async function processPage(page, layoutWidth, layoutHeight) {
   }));
 
   if (decoration) {
-      const { path, name, step, offsets} = decoration;
+      const { path, name, offsets} = decoration;
       const decorationImage = sharp(`${path}${name}`, );
-
       dataToComposite.push({ input: await decorationImage.toBuffer(), left: offsets.left + getLeftOffsetBasedOnPagesAmount(pagesAmount, step), top: offsets.top });
   }
 
