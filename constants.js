@@ -68,7 +68,7 @@ export const ALBUM_NAMES_DATA = {
           name: 'decoration.png',
           path: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/ourKingergarten/${LAYOUT_TYPE.COVER}/`,
           offsets: {
-            left: 2960,
+            left: 2930,
             top: 608,
           }
         },
