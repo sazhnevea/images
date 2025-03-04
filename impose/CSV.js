@@ -1,7 +1,7 @@
 import csv from 'csv-parser';
 import fs from 'fs';
 import { filterExistingPhotoNumbers, getAlbumName, getDirectionsList, getImageName, getLayoutType, getNumberStrings, parseNumberArray, printMissingPhotoListMessage } from '../common/common.js';
-import { ALBUM_NAMES_DATA, DATA_FOLDER_NAME, LAYOUT_PATH, LAYOUT_TYPE_MAPPING, RETOUCH_FOLDER_NAME, ROW_NAMES } from '../constants.js';
+import { ALBUM_NAMES_DATA, DATA_FOLDER_NAME, LAYOUT_PATH, LAYOUT_TYPE, LAYOUT_TYPE_MAPPING, RETOUCH_FOLDER_NAME, ROW_NAMES } from '../constants.js';
 
 export async function processCSVDataToImpose(csvPath) {
   return new Promise((resolve, reject) => {
@@ -79,14 +79,20 @@ export async function processCSVDataToImpose(csvPath) {
 
         printMissingPhotoListMessage(missingPhotos)
 
+
         if (Object.keys(ALBUM_NAMES_DATA).includes(data.albumName)) {
+
           const albumData = ALBUM_NAMES_DATA[data.albumName];
           data.studentsData.forEach((studentData) => {
-            studentData.pages.forEach((pageData) => {
+            
+            studentData.pages.forEach((pageData, index) => {
+
               const { pageType } = pageData;
-              const layoutData = albumData.layoutsData[pageType];
+              const layoutData = albumData.layoutsData[index === 0 ? LAYOUT_TYPE.COVER : pageType];
+
               if (layoutData) {
                 const { step, layoutPathFolder, decoration } = layoutData;
+
                 const pagesAmount = studentData.pages.length;
                 pageData.pagesAmount = pagesAmount;
                 pageData.step = step || 0;
