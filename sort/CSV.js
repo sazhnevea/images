@@ -29,11 +29,6 @@ export async function processCSVDataToSort(csvPath) {
               continue
             }
 
-            const directionList = (await getDirectionsList(`${DATA_FOLDER_NAME}/${SOURCE_SORT_FOLDER_NAME}`, existing)).map(({ direction }) => direction);
-            const pageType = getLayoutType(directionList)
-            if (!pageType) {
-              console.log(`У студента ${studentName} неверно подобраны фотографии в столбце "${property}". Номера фотографий: ${existing}`)
-            }
             const photoNumbersList = [...parseNumberArray(existing)]
             photoNumbersList.forEach(number => {
               photoNumbers.add(number);
