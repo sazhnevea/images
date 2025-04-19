@@ -1,12 +1,9 @@
 export const ASSETS_FOLDER_NAME = 'assets';
 export const ALBUMS_FOLDER_NAME = 'albums';
 export const DATA_FOLDER_NAME = 'data';
-export const IMPOSE_FOLDER_NAME = 'files';
 export const RESULT = 'result';
-export const RETOUCH_FOLDER_NAME = 'files';
-export const SOURCE_SORT_FOLDER_NAME = 'files';
-export const CSVPathImpose = `data.csv`
-export const CSVPathSort = `data.csv`
+export const FILES_FOLDER = 'files';
+export const CSVFileName = 'data.csv'
 export const LAYOUT_PATH = 'assets/layout.jpg'
 
 export const CUT_OFF = 24;

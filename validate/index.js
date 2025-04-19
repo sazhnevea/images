@@ -1,11 +1,13 @@
 import fs from 'fs';
 import csv from 'csv-parser';
-import { CSVPathSort, DATA_FOLDER_NAME, ROW_NAMES, SOURCE_SORT_FOLDER_NAME } from "../constants.js";
+import { CSVFileName, DATA_FOLDER_NAME, ROW_NAMES, FILES_FOLDER } from "../constants.js";
 import { filterExistingPhotoNumbersOLD, getDirectionsList, getLayoutType, getNumberStrings, parseNumberArray, printMissingPhotoListMessage } from '../common/common.js';
+
+let hasAnyInvalidSpread = false
 
 async function main() {
   try {
-    const csvStream = fs.createReadStream(`${DATA_FOLDER_NAME}/${CSVPathSort}`).pipe(csv());
+    const csvStream = fs.createReadStream(`${DATA_FOLDER_NAME}/${CSVFileName}`).pipe(csv());
     const photoNumbers = new Set();
     const missingPhotos = new Set();
     for await (const studentData of csvStream) {
@@ -20,7 +22,7 @@ async function main() {
             if (!numberStrings.length) {
               continue
             }
-            const { existing, missing } = await filterExistingPhotoNumbersOLD(numberStrings, `${DATA_FOLDER_NAME}/${SOURCE_SORT_FOLDER_NAME}`)
+            const { existing, missing } = await filterExistingPhotoNumbersOLD(numberStrings, `${DATA_FOLDER_NAME}/${FILES_FOLDER}`)
 
             if (missing.length) {
               missing.forEach((missingPhoto) => missingPhotos.add(missingPhoto));
@@ -30,9 +32,10 @@ async function main() {
               continue
             }
             
-            const directionList = (await getDirectionsList(`${DATA_FOLDER_NAME}/${SOURCE_SORT_FOLDER_NAME}`, existing)).map(({ direction }) => direction);
+            const directionList = (await getDirectionsList(`${DATA_FOLDER_NAME}/${FILES_FOLDER}`, existing)).map(({ direction }) => direction);
             const pageType = getLayoutType(directionList)
             if (!pageType) {
+              hasAnyInvalidSpread = true
               console.log(`У студента ${studentName} неверно подобраны фотографии в столбце "${property}". Номера фотографий: ${existing}`)
             }
 
@@ -47,6 +50,10 @@ async function main() {
     }
     
     printMissingPhotoListMessage(missingPhotos)
+   
+    if (!hasAnyInvalidSpread) {
+      console.log('Все молодцы! Фотографии подобраны правильно.')
+    }
   } catch (error) {
     console.error('Error processing CSV data:', error);
     throw error;

@@ -1,5 +1,5 @@
 import {
-  CSVPathSort,
+  CSVFileName,
   DATA_FOLDER_NAME,
   RESULT,
 } from '../constants.js';
@@ -10,7 +10,7 @@ import { copyPhotos } from './copyPhotos.js';
 async function main() {
   try {
     createFolder(`${RESULT}`)
-    const photosList = await processCSVDataToSort(`${DATA_FOLDER_NAME}/${CSVPathSort}`);
+    const photosList = await processCSVDataToSort(`${DATA_FOLDER_NAME}/${CSVFileName}`);
     await copyPhotos(photosList);
   } catch (error) {
     console.error('An error occurred:', error);

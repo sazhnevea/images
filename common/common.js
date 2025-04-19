@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import { promises, constants } from 'fs';
 
-import { DATA_FOLDER_NAME, DIRECTION, LAYOUT_TYPE_DIRECTION_MAPPING, ROW_NAMES, SOURCE_SORT_FOLDER_NAME } from "../constants.js";
+import { DATA_FOLDER_NAME, DIRECTION, LAYOUT_TYPE_DIRECTION_MAPPING, ROW_NAMES, FILES_FOLDER } from "../constants.js";
 import sharp from 'sharp';
 
 export const filterExistingPhotoNumbersOLD = async function (photoNumbers, directory) {
@@ -137,7 +137,7 @@ export const withJPG = (photoNumber) => `${photoNumber}.jpg`
 
 export const getImageName = async (photoNumber) => {
   const baseName = photoNumber.toString();
-  const folderPath = `${DATA_FOLDER_NAME}/${SOURCE_SORT_FOLDER_NAME}`;
+  const folderPath = `${DATA_FOLDER_NAME}/${FILES_FOLDER}`;
 
 for (const ext of ALLOWED_EXTENSIONS) {
   const fullPath = path.join(folderPath, baseName + ext);

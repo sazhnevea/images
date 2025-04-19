@@ -2,7 +2,6 @@ import fs from 'fs';
 import sharp from 'sharp';
 import path from 'path';
 import {
-  IMPOSE_FOLDER_NAME,
   RESULT,
 } from '../constants.js';
 import { resizePhoto } from './resize.js';
