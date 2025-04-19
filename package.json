@@ -1,13 +1,13 @@
 {
   "name": "images",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "main": "index.js",
   "type": "module",
   "scripts": {
     "clean": "rm -rf result",
     "impose": "node impose/index.js",
-    "vignette": "node vignette/index.js",
     "sort": "node sort/index.js",
+    "validate": "node validate/index.js",
     "build:impose": "BUNDLE_NAME=impose webpack",
     "build:sort": "BUNDLE_NAME=sort webpack",
     "build": "npm run build:impose && npm run build:sort"
