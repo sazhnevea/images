@@ -12,7 +12,7 @@ export default {
   entry: `./${bundleName}/index.js`,
   output: {
     filename: `${bundleName}.cjs`,
-    path: resolve(__dirname, 'build'),
+    path: resolve(__dirname, 'build', 'scripts'),
     libraryTarget: 'commonjs2',
   },
   mode: 'production',
@@ -28,8 +28,8 @@ export default {
       patterns: [
         { from: resolve(__dirname, 'assets'), to: resolve(__dirname, 'build', 'assets') },
         { from: resolve(__dirname, 'README.md'), to: resolve(__dirname, 'build', 'README.md') },
-        { from: resolve(__dirname, 'mac-launch-template.sh'), to: resolve(__dirname, 'build') },
-        { from: resolve(__dirname, 'win_launch_template.bat'), to: resolve(__dirname, 'build') },
+        { from: resolve(__dirname, 'template-mac-launch.sh'), to: resolve(__dirname, 'build') },
+        { from: resolve(__dirname, 'template-win-launch.bat'), to: resolve(__dirname, 'build') },
       ],
     }),
   ],
