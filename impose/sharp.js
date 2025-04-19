@@ -2,7 +2,6 @@ import fs from 'fs';
 import sharp from 'sharp';
 import path from 'path';
 import {
-  IMPOSE_FOLDER_NAME,
   RESULT,
 } from '../constants.js';
 import { resizePhoto } from './resize.js';
@@ -18,7 +17,7 @@ export const processPhotos = async (data) => {
 
 async function processStudent(student) {
   const { name, pages } = student;
-  const studentFolderPath = path.join(RESULT, IMPOSE_FOLDER_NAME, name);
+  const studentFolderPath = path.join(RESULT, name);
   await createStudentFolder(studentFolderPath);
 
   await Promise.all(pages.map(async (page) => {

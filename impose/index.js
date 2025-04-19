@@ -1,5 +1,5 @@
 import {
-  CSVPathImpose,
+  CSVFileName,
   DATA_FOLDER_NAME,
   RESULT,
 } from '../constants.js';
@@ -12,7 +12,7 @@ import { processPhotos } from './sharp.js';
 async function main() {
   try {
     createFolder(RESULT)
-    const data = await processCSVDataToImpose(`${DATA_FOLDER_NAME}/${CSVPathImpose}`);
+    const data = await processCSVDataToImpose(`${DATA_FOLDER_NAME}/${CSVFileName}`);
     await processPhotos(data);
   } catch (error) {
     console.error('An error occurred:', error);

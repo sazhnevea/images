@@ -1,7 +1,7 @@
 import fs from 'fs';
 import csv from 'csv-parser';
-import { DATA_FOLDER_NAME, ROW_NAMES, SOURCE_SORT_FOLDER_NAME } from "../constants.js";
-import { filterExistingPhotoNumbers, getDirectionsList, getLayoutType, getNumberStrings, parseNumberArray, printMissingPhotoListMessage } from '../common/common.js';
+import { DATA_FOLDER_NAME, ROW_NAMES, FILES_FOLDER } from "../constants.js";
+import { filterExistingPhotoNumbers, getNumberStrings, parseNumberArray, printMissingPhotoListMessage } from '../common/common.js';
 
 export async function processCSVDataToSort(csvPath) {
   try {
@@ -20,7 +20,7 @@ export async function processCSVDataToSort(csvPath) {
             if (!numberStrings.length) {
               continue
             }
-            const { existing, missing } = await filterExistingPhotoNumbers(numberStrings, `${DATA_FOLDER_NAME}/${SOURCE_SORT_FOLDER_NAME}`)
+            const { existing, missing } = await filterExistingPhotoNumbers(numberStrings, `${DATA_FOLDER_NAME}/${FILES_FOLDER}`)
             if (missing.length) {
               missing.forEach((missingPhoto) => missingPhotos.add(missingPhoto));
             }
