@@ -18,7 +18,7 @@ export const processPhotos = async (data) => {
 
 async function processStudent(student) {
   const { name, pages } = student;
-  const studentFolderPath = path.join(RESULT, IMPOSE_FOLDER_NAME, name);
+  const studentFolderPath = path.join(RESULT, name);
   await createStudentFolder(studentFolderPath);
 
   await Promise.all(pages.map(async (page) => {

@@ -1,3 +1,3 @@
 cd C:\Program Files\images 
-node impose/index.cjs
+node impose.cjs
 pause

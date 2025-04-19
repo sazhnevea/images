@@ -6,10 +6,10 @@ import { DATA_FOLDER_NAME, DIRECTION, LAYOUT_TYPE_DIRECTION_MAPPING, ROW_NAMES, 
 import sharp from 'sharp';
 
 export const filterExistingPhotoNumbersOLD = async function (photoNumbers, directory) {
-  // Проверяем все номера фотографий
+
   const statuses = await Promise.allSettled(
       photoNumbers.map(async (photoNumber) => {
-          const filePath = path.join(directory, getImageName(photoNumber));
+          const filePath = path.join(directory, withJPG(photoNumber));
           try {
               await fs.promises.access(filePath, fs.constants.F_OK);
               return { photoNumber, exists: true }; // Файл существует
@@ -76,7 +76,7 @@ export const getDirectionsList = async (folderPath, numberStrings) => {
   const directionsList = []
   for (const photoNumber of numberStrings) {
     if (!cachedMetadata[photoNumber]) {
-      const imagePath = `${folderPath}/${getImageName(photoNumber)}`;
+      const imagePath = `${folderPath}/${withJPG(photoNumber)}`;
       const { width, height } = await sharp(imagePath).metadata();
       cachedMetadata[photoNumber] = { width, height };
     }
@@ -133,7 +133,7 @@ const ALLOWED_EXTENSIONS = [
   '.CR2', '.CR3', '.NEF', '.ARW', '.DNG', '.RAF', '.RW2', '.ORF', '.SR2',
 ];
 
-export const getImageNameOld = (photoNumber) => `${photoNumber}.jpg`
+export const withJPG = (photoNumber) => `${photoNumber}.jpg`
 
 export const getImageName = async (photoNumber) => {
   const baseName = photoNumber.toString();

@@ -1,14 +1,12 @@
 export const ASSETS_FOLDER_NAME = 'assets';
 export const ALBUMS_FOLDER_NAME = 'albums';
 export const DATA_FOLDER_NAME = 'data';
-export const IMPOSE_FOLDER_NAME = 'верстка';
+export const IMPOSE_FOLDER_NAME = 'files';
 export const RESULT = 'result';
-export const RETOUCH_FOLDER_NAME = 'ретушь';
-export const VIGNETTE_FOLDER_NAME = 'виньетки';
-export const SOURCE_SORT_FOLDER_NAME = 'цветокоррекция';
-export const CSVPathImpose = `верстка.csv`
-export const CSVPathToVignette = `виньетка.csv`
-export const CSVPathSort = `сортировка.csv`
+export const RETOUCH_FOLDER_NAME = 'files';
+export const SOURCE_SORT_FOLDER_NAME = 'files';
+export const CSVPathImpose = `data.csv`
+export const CSVPathSort = `data.csv`
 export const LAYOUT_PATH = 'assets/layout.jpg'
 
 export const CUT_OFF = 24;

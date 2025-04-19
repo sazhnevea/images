@@ -1,6 +1,6 @@
 import csv from 'csv-parser';
 import fs from 'fs';
-import { filterExistingPhotoNumbersOLD, getAlbumName, getDirectionsList, getImageNameOld, getLayoutType, getNumberStrings, parseNumberArray, printMissingPhotoListMessage } from '../common/common.js';
+import { filterExistingPhotoNumbersOLD, getAlbumName, getDirectionsList, withJPG, getLayoutType, getNumberStrings, parseNumberArray, printMissingPhotoListMessage } from '../common/common.js';
 import { ALBUM_NAMES_DATA, DATA_FOLDER_NAME, LAYOUT_PATH, LAYOUT_TYPE, LAYOUT_TYPE_MAPPING, RETOUCH_FOLDER_NAME, ROW_NAMES } from '../constants.js';
 
 export async function processCSVDataToImpose(csvPath) {
@@ -119,7 +119,7 @@ const processPhotoNumbers = ({
   return photoNumbers.map((number, index) => {
     if (layoutTypesOrder[index]) {
       return ({
-        path: `${DATA_FOLDER_NAME}/${RETOUCH_FOLDER_NAME}/${getImageNameOld(number)}`,
+        path: `${DATA_FOLDER_NAME}/${RETOUCH_FOLDER_NAME}/${withJPG(number)}`,
         sizeType: layoutTypesOrder[index]
       })
     }
