@@ -10,7 +10,8 @@
     "validate": "node validate/index.js",
     "build:impose": "BUNDLE_NAME=impose webpack",
     "build:sort": "BUNDLE_NAME=sort webpack",
-    "build": "npm run build:impose && npm run build:sort"
+    "build:validate": "BUNDLE_NAME=validate webpack",
+    "build": "npm run build:impose && npm run build:sort && npm run build:validate"
   },
   "author": "",
   "license": "ISC",
