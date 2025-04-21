@@ -70,6 +70,17 @@ export const filterExistingPhotoNumbers = async function (photoNumbers, director
   return { existing, missing };
 };
 
+const getCorrectedDimensions = async (imagePath) => {
+  const { width, height, orientation } = await sharp(imagePath).metadata();
+
+  if ([5, 6, 7, 8].includes(orientation)) {
+    // Ориентации, при которых изображение визуально повернуто
+    return { width: height, height: width };
+  }
+  return { width, height };
+};
+
+
 const cachedMetadata = {};
 
 export const getDirectionsList = async (folderPath, numberStrings) => {
@@ -77,7 +88,7 @@ export const getDirectionsList = async (folderPath, numberStrings) => {
   for (const photoNumber of numberStrings) {
     if (!cachedMetadata[photoNumber]) {
       const imagePath = `${folderPath}/${withJPG(photoNumber)}`;
-      const { width, height } = await sharp(imagePath).metadata();
+      const { width, height } = await getCorrectedDimensions(imagePath);
       cachedMetadata[photoNumber] = { width, height };
     }
     directionsList.push(({

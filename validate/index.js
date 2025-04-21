@@ -23,7 +23,6 @@ async function main() {
               continue
             }
             const { existing, missing } = await filterExistingPhotoNumbersOLD(numberStrings, `${DATA_FOLDER_NAME}/${FILES_FOLDER}`)
-
             if (missing.length) {
               missing.forEach((missingPhoto) => missingPhotos.add(missingPhoto));
             }
