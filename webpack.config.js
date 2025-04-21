@@ -12,7 +12,7 @@ export default {
   entry: `./${bundleName}/index.js`,
   output: {
     filename: `${bundleName}.cjs`,
-    path: resolve(__dirname, 'build', 'scripts'),
+    path: resolve(__dirname, 'build'),
     libraryTarget: 'commonjs2',
   },
   mode: 'production',
