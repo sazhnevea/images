@@ -92,11 +92,10 @@ export async function processCSVDataToImpose(csvPath) {
 
               if (layoutData) {
                 const { step, layoutPathFolder, decoration } = layoutData;
-
                 const pagesAmount = studentData.pages.length;
                 pageData.pagesAmount = pagesAmount;
                 pageData.step = step || 0;
-                pageData.layoutPath = `${layoutPathFolder}${step ? Math.max(2, studentData.pages.length - 1) : 1}.jpg`;
+                pageData.layoutPath = `${layoutPathFolder}${step ? studentData.pages.length - 1 : 1}.jpg`;
                 pageData.decoration = decoration;
               }
             });
