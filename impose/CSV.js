@@ -27,7 +27,7 @@ export async function processCSVDataToImpose(csvPath) {
 
           if (studentData[ROW_NAMES.studentName]) {
             currentStudent = {
-              name: studentData[ROW_NAMES.studentName],
+              name: studentData[ROW_NAMES.studentName].trim(),
               pages: [],
             };
 
