@@ -8,3 +8,8 @@ export const createStudentFolder = async (studentFolderPath) => {
     console.error('Error creating student folder:', err);
   }
 };
+
+export const roundToNearestEven = (number) => {
+  const rounded = Math.round(number);
+  return rounded % 2 === 0 ? rounded : rounded - 1;
+}

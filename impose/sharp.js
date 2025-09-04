@@ -6,7 +6,7 @@ import {
 } from '../constants.js';
 import { resizePhoto } from './resize.js';
 import { getOffsets } from './offsets.js';
-import { createStudentFolder } from './helper.js';
+import { createStudentFolder, roundToNearestEven } from './helper.js';
 import { getLeftOffsetBasedOnPagesAmount } from '../common/common.js';
 
 export const processPhotos = async (data) => {
@@ -26,13 +26,14 @@ async function processStudent(student) {
     const layout = sharp(layoutPath).withMetadata();
 
     const { width: layoutWidth, height: layoutHeight } = await layout.metadata();
-    const dataToComposite = await processPage(page, layoutWidth, layoutHeight);
+    const dataToComposite = await processPage(page, roundToNearestEven(layoutWidth), roundToNearestEven(layoutHeight));
     layout.composite(dataToComposite);
     await layout.toFile(destinationPath);
   }));
 }
 
 async function processPage(page, layoutWidth, layoutHeight) {
+
   const { decoration, photos, pagesAmount, step } = page;
   const dataToComposite = [];
   await Promise.all(photos.map(async (photo, order) => {

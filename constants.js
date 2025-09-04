@@ -6,7 +6,9 @@ export const FILES_FOLDER = 'files';
 export const CSVFileName = 'data.csv'
 export const LAYOUT_PATH = 'assets/layout.jpg'
 
-export const CUT_OFF = 24;
+// export const CUT_OFF = 24;
+// Алекс бук
+export const CUT_OFF = 35;
 
 export const ALBUM_NAME_FIELD = 'Название альбома'
 
@@ -59,11 +61,13 @@ export const ALBUM_NAMES_DATA = {
     layoutsData: {
       [LAYOUT_TYPE.COVER]: {
         layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/ourKingergarten/${LAYOUT_TYPE.COVER}/`,
+        // TODO: посчитать
         step: 12,
         decoration: {
           name: 'decoration.png',
           path: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/ourKingergarten/${LAYOUT_TYPE.COVER}/`,
           offsets: {
+            // TODO: посчитать
             left: 2930,
             top: 608,
           }
@@ -133,12 +137,12 @@ export const PADDINGS = {
     yPadding: 0,
   },
   [SIZE_TYPES.HALF_CUTTED]: {
-    xPadding: 186,
-    yPadding: 186,
+    xPadding: 233,
+    yPadding: 233,
   },
   [SIZE_TYPES.THREE_QUARTERS]: {
-    xPadding: 186,
-    yPadding: 186,
+    xPadding: 233,
+    yPadding: 233,
     innerPadding: 50
   },
   [SIZE_TYPES.THREE_HORISONTAL_HALF]: {
@@ -146,33 +150,33 @@ export const PADDINGS = {
     yPadding: 94,
   },
   [SIZE_TYPES.FOUR_HORISONTAL_FULL]: {
-    xPadding: 186,
-    yPadding: 186,
+    xPadding: 233,
+    yPadding: 233,
     innerPadding: 50
   },
   [SIZE_TYPES.TWO_VERTICAL_ONE_HORISONTAL_HALF]: {
-    xPadding: 186,
-    yPadding: 186,
+    xPadding: 233,
+    yPadding: 233,
     innerPadding: 50
   },
   [SIZE_TYPES.TWO_HORISONTAL_HALF]: {
-    xPadding: 50,
-    yPadding: 186,
+    xPadding: 70,
+    yPadding: 261,
     innerPadding: 50
   },
   [SIZE_TYPES.FOUR_VERTICAL_HALF]: {
-    xPadding: 186,
-    yPadding: 186,
+    xPadding: 233,
+    yPadding: 233,
     innerPadding: 50
   },
   [SIZE_TYPES.TWO_VERTICAL_CUSTOM]: {
-    xPadding: 186,
-    yPadding: 186,
+    xPadding: 233,
+    yPadding: 233,
     innerPadding: 50
   },
   [SIZE_TYPES.TWO_VERTICAL_RIGHT_CENTER]: {
-    xPadding: 186,
-    yPadding: 186,
+    xPadding: 233,
+    yPadding: 233,
     innerPadding: 50
   },
   [SIZE_TYPES.COVER]: {

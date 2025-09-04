@@ -1,4 +1,5 @@
 import { CUT_OFF, PADDINGS, SIZE_TYPES } from "../constants.js";
+import { roundToNearestEven } from "./helper.js";
 
 export const resizePhoto = async ({
   photo,
@@ -23,70 +24,71 @@ export const resizePhoto = async ({
     }
     case SIZE_TYPES.THREE_QUARTERS: {
       updatedWidth = Math.round((layoutWidth - (CUT_OFF * 2) - xPadding - innerPadding) * 0.80 + CUT_OFF)
-      updatedHeight = layoutHeight.minusMargins() - doubleYPadding;
+      updatedHeight = layoutHeight.minusCutOffs() - doubleYPadding;
       resizedPhoto = await photo.resize(updatedWidth, updatedHeight).sharpen()
       break;
     }
     case SIZE_TYPES.HALF_CUTTED: {
-      updatedWidth = layoutWidth.getHalf().minusMargins() - doubleXPadding;
-      updatedHeight = layoutHeight.minusMargins() - doubleYPadding;
+      updatedWidth = layoutWidth.getHalf().minusCutOffs() - doubleXPadding;
+      updatedHeight = layoutHeight.minusCutOffs() - doubleYPadding;
       resizedPhoto = await photo.resize(updatedWidth, updatedHeight).sharpen();
       break;
     }
     
     case SIZE_TYPES.THREE_HORISONTAL_HALF: {
-      updatedWidth = Math.round(layoutWidth.getHalf().minusMargins()) - (doubleXPadding);
+      updatedWidth = Math.round(layoutWidth.getHalf().minusCutOffs()) - (doubleXPadding);
       updatedHeight = Math.round(updatedWidth / 3 * 2);
       resizedPhoto = await photo.resize(updatedWidth, updatedHeight).sharpen()
       break;
     }
     case SIZE_TYPES.FOUR_HORISONTAL_FULL: {
-      updatedWidth = Math.round(layoutWidth.getHalf().minusMargins()) - xPadding;
-      updatedHeight = Math.round((layoutHeight.minusMargins() - (doubleYPadding) - innerPadding) / 2);
+      updatedWidth = Math.round(layoutWidth.getHalf().minusCutOffs()) - xPadding;
+      updatedHeight = Math.round((layoutHeight.minusCutOffs() - (doubleYPadding) - innerPadding) / 2);
       resizedPhoto = await photo.resize(updatedWidth, updatedHeight).sharpen()
       break;
     }
     case SIZE_TYPES.TWO_VERTICAL_ONE_HORISONTAL_HALF: {
       if (order === 1 || order === 2) {
-        updatedWidth = Math.round((layoutWidth.getHalf().minusMargin() - doubleXPadding - innerPadding) / 2 );
-        updatedHeight = Math.round((layoutHeight.minusMargins() - (doubleYPadding) - innerPadding) / 2);
+        updatedWidth = Math.round((layoutWidth.getHalf().minusCutOff() - doubleXPadding - innerPadding) / 2 );
+        updatedHeight = Math.round((layoutHeight.minusCutOffs() - (doubleYPadding) - innerPadding) / 2);
         resizedPhoto = await photo.resize(updatedWidth, updatedHeight).sharpen()
       }
       
       if (order === 3) {
-        updatedWidth = Math.round(layoutWidth.getHalf().minusMargin()) - doubleXPadding ;
-        updatedHeight = Math.round((layoutHeight.minusMargins() - (doubleYPadding) - innerPadding) / 2);
+        updatedWidth = Math.round(layoutWidth.getHalf().minusCutOff()) - doubleXPadding ;
+        updatedHeight = Math.round((layoutHeight.minusCutOffs() - (doubleYPadding) - innerPadding) / 2);
         resizedPhoto = await photo.resize(updatedWidth, updatedHeight).sharpen();
       }
       break
     }
     case SIZE_TYPES.TWO_HORISONTAL_HALF: {
-      updatedWidth = Math.round(layoutWidth.getHalf().minusMargin()) - doubleXPadding ;
+      updatedWidth = Math.round(layoutWidth.getHalf().minusCutOff()) - doubleXPadding ;
       updatedHeight = Math.round(updatedWidth / 3 * 2);
       resizedPhoto = await photo.resize(updatedWidth, updatedHeight).sharpen()
       break
     }
     case SIZE_TYPES.FOUR_VERTICAL_HALF: {
-      updatedWidth = Math.round((layoutWidth.getHalf().minusMargin() - doubleXPadding - innerPadding) / 2 );
-      updatedHeight = Math.round((layoutHeight.minusMargins() - (doubleYPadding) - innerPadding) / 2);
+      updatedWidth = Math.round((layoutWidth.getHalf().minusCutOff() - doubleXPadding - innerPadding) / 2 );
+      updatedHeight = Math.round((layoutHeight.minusCutOffs() - (doubleYPadding) - innerPadding) / 2);
       resizedPhoto = await photo.resize(updatedWidth, updatedHeight).sharpen()
       break
     }
     case SIZE_TYPES.TWO_VERTICAL_CUSTOM: {
       updatedWidth = Math.round((layoutWidth - (CUT_OFF * 2) - xPadding - innerPadding) * 0.20)
-      updatedHeight = Math.round((layoutHeight.minusMargins() - (doubleYPadding) - innerPadding) / 2);
+      updatedHeight = Math.round((layoutHeight.minusCutOffs() - (doubleYPadding) - innerPadding) / 2);
       resizedPhoto = await photo.resize(updatedWidth, updatedHeight).sharpen()
       break
     }
     case SIZE_TYPES.TWO_VERTICAL_RIGHT_CENTER: {
       if (order === 1 || order === 2) {
-        updatedWidth = Math.round((layoutWidth.getHalf().minusMargin() - doubleXPadding - innerPadding) / 2 );
-        updatedHeight = Math.round((layoutHeight.minusMargins() - (doubleYPadding) - innerPadding) / 2);
+        updatedWidth = Math.round((layoutWidth.getHalf().minusCutOff() - doubleXPadding - innerPadding) / 2 );
+        updatedHeight = Math.round((layoutHeight.minusCutOffs() - (doubleYPadding) - innerPadding) / 2);
         resizedPhoto = await photo.resize(updatedWidth, updatedHeight).sharpen()
       }
       break
     }
     case SIZE_TYPES.COVER: {
+      // TODO: что это за цифры?
       updatedWidth = 1359;
       updatedHeight = 2040;
       resizedPhoto = await photo.resize(updatedWidth, updatedHeight).sharpen()
@@ -98,5 +100,9 @@ export const resizePhoto = async ({
       break;
   }
 
-  return { resizedPhoto, updatedWidth, updatedHeight };
+  return { 
+    resizedPhoto,
+    updatedWidth: roundToNearestEven(updatedWidth),
+    updatedHeight: roundToNearestEven(updatedHeight)
+  };
 };
