@@ -174,11 +174,6 @@ export const isArraysEqual = (arr1, arr2) => {
   return arr1.every((value, index) => value === arr2[index]);
 }
 
-
-export const getLeftOffsetBasedOnPagesAmount = (pagesAmount, step = 0) => {
-  return (pagesAmount - 1) * step
-}
-
 export const printMissingPhotoListMessage = (missingPhotos) => {
   if (missingPhotos.size > 0) {
     console.log(`Следующие фотографии не найдены: ${Array.from(missingPhotos)}`)

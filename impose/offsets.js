@@ -1,142 +1,238 @@
-import { CUT_OFF, PADDINGS, SIZE_TYPES } from "../constants.js";
+import { SIZES, SIZE_TYPES } from "../constants.js";
+import { calcOffsets } from "./helper.js";
 
 export const getOffsets = ({
-  updatedWidth,
-  updatedHeight,
+  photoWidth,
+  photoHeight,
   sizeType,
   layoutWidth,
   layoutHeight,
   order,
-  pagesAmount,
-  step
 }) => {
   let leftOffset = 0;
   let topOffset = 0;
-  const { xPadding, yPadding, innerPadding } = PADDINGS[sizeType]
+  const { innerPadding = 0, width } = SIZES[sizeType]
+
   switch (sizeType) {
     case SIZE_TYPES.HALF: {
-      leftOffset = 0;
-      topOffset = 0;
+      const { left, top } = calcOffsets({
+        baseX: 0,
+        baseY: 0,
+        availableWidth: layoutWidth * width,
+        availableHeight: layoutHeight,
+        imagesX: 1,
+        imagesY: 1,
+        photoWidth,
+        photoHeight,
+        innerPadding,
+      });
+      leftOffset = left
+      topOffset = top
       break;
     }
     case SIZE_TYPES.THREE_QUARTERS: {
-      leftOffset = 0;
-      topOffset = topOffset + CUT_OFF + yPadding
+
+      const { left, top } = calcOffsets({
+        baseX: 0,
+        baseY: 0,
+        availableWidth: layoutWidth * width,
+        availableHeight: layoutHeight,
+        imagesX: 1,
+        imagesY: 1,
+        photoWidth,
+        photoHeight,
+        innerPadding,
+      });
+
+      leftOffset = left; 
+      topOffset = top
       break;
     }
     case SIZE_TYPES.HALF_CUTTED: {
-      const leftSpace = layoutWidth.minusCutOffs().getHalf() - updatedWidth;
-      leftOffset = layoutWidth.minusCutOff() - updatedWidth - (leftSpace / 2);
-      topOffset = topOffset.plusCutOff() + yPadding;
+      const { left, top } = calcOffsets({
+        baseX: layoutWidth.getHalf(),
+        baseY: 0,
+        availableWidth: layoutWidth.getHalf().minusCutOff(),
+        availableHeight: layoutHeight,
+        imagesX: 1,
+        imagesY: 1,
+        photoWidth,
+        photoHeight,
+        innerPadding,
+      });
+
+      leftOffset = left
+      topOffset = top
       break;
     }
     case SIZE_TYPES.THREE_HORISONTAL_HALF: {
-      const leftSpace = layoutWidth.minusCutOffs().getHalf() - updatedWidth
-      leftOffset = layoutWidth.minusCutOff() - updatedWidth - (leftSpace / 2);
-      topOffset = Math.round(topOffset.plusCutOff() + yPadding);
+      const { left, top } = calcOffsets({
+        baseX: layoutWidth.getHalf(),
+        baseY: 0,
+        availableWidth: layoutWidth.getHalf().minusCutOff(),
+        availableHeight: layoutHeight,
+        imagesX: 1,
+        imagesY: 3,
+        photoWidth,
+        photoHeight,
+        innerPadding,
+      });
+
+      topOffset = top
+      leftOffset = left
+
       if (order >= 2) {
-        topOffset = Math.round(topOffset + updatedHeight + yPadding)
+        topOffset = topOffset + photoHeight + innerPadding;
       }
       if (order >= 3) {
-        topOffset = Math.round(topOffset + updatedHeight + yPadding)
+        topOffset = topOffset + photoHeight + innerPadding;
       }
       break;
     }
     case SIZE_TYPES.FOUR_HORISONTAL_FULL: {
-      if (order === 0) {
-        leftOffset = layoutWidth.getHalf() - (innerPadding / 2) - updatedWidth;
-        topOffset = Math.round(topOffset.plusCutOff() + yPadding);
+      const { left, top } = calcOffsets({
+        baseX: 0,
+        baseY: 0,
+        availableWidth: layoutWidth,
+        availableHeight: layoutHeight,
+        imagesX: 2,
+        imagesY: 2,
+        photoWidth,
+        photoHeight,
+        innerPadding,
+      });
+    
+      leftOffset = left;
+      topOffset = top;
+    
+      if (order === 2 || order === 3) {
+        topOffset += photoHeight + innerPadding;
       }
-
-      if (order === 1) {
-        leftOffset = layoutWidth.getHalf() - (innerPadding / 2) - updatedWidth;
-        topOffset = Math.round(Math.round(topOffset.plusCutOff() + yPadding) + updatedHeight + innerPadding)
+      if (order === 1 || order === 3) {
+        leftOffset += photoWidth + innerPadding;
       }
-      if (order === 2) {
-        leftOffset = layoutWidth.getHalf() + (innerPadding / 2)
-        topOffset = Math.round(topOffset.plusCutOff() + yPadding);
-      }
-
-      if (order === 3) {
-        leftOffset = layoutWidth.getHalf() + (innerPadding / 2)
-        topOffset = Math.round(Math.round(topOffset.plusCutOff() + yPadding) + updatedHeight + innerPadding)
-      }
+  
       break;
     }
     case SIZE_TYPES.TWO_VERTICAL_ONE_HORISONTAL_HALF: {
-      if (order === 1) {
-        leftOffset = layoutWidth.getHalf() + xPadding;
-        topOffset = Math.round(topOffset.plusCutOff() + yPadding);
-      }
+      const { left, top } = calcOffsets({
+        baseX: layoutWidth.getHalf(),
+        baseY: 0,
+        availableWidth: layoutWidth.getHalf().minusCutOff(),
+        availableHeight: layoutHeight,
+        imagesX: order === 3 ? 1 : 2,
+        imagesY: 2,
+        photoWidth,
+        photoHeight,
+        innerPadding,
+      });
+
+      leftOffset = left;
+      topOffset = top;
+      
       if (order === 2) {
-        leftOffset = layoutWidth.getHalf() + xPadding + updatedWidth + innerPadding
-        topOffset = Math.round(topOffset.plusCutOff() + yPadding);
+        leftOffset = leftOffset + photoWidth + innerPadding;
       }
+      
       if (order === 3) {
-        leftOffset = layoutWidth.getHalf() + xPadding
-        topOffset = Math.round(layoutHeight.minusCutOff() - yPadding - updatedHeight);
+        topOffset = topOffset + photoHeight + innerPadding;
       }
       break
     }
     case SIZE_TYPES.TWO_HORISONTAL_HALF: {
-      leftOffset = layoutWidth.getHalf() + xPadding
-      if (order === 1) {
-        topOffset = Math.round(topOffset.plusCutOff() + yPadding);
-      }
+      const { left, top } = calcOffsets({
+        baseX: layoutWidth.getHalf(),
+        baseY: 0,
+        availableWidth: layoutWidth.getHalf().minusCutOff(),
+        availableHeight: layoutHeight,
+        imagesX: 1,
+        imagesY: 2,
+        photoWidth,
+        photoHeight,
+        innerPadding,
+      });
+
+      leftOffset = left
+      topOffset = top
+      
       if (order === 2) {
-        topOffset = Math.round(topOffset.plusCutOff() + yPadding + updatedHeight + innerPadding);
+        topOffset = topOffset + photoHeight + innerPadding;
       }
+      
       break
     }
     case SIZE_TYPES.FOUR_VERTICAL_HALF: {
-      if (order === 1) {
-        leftOffset = layoutWidth.getHalf() + xPadding;
-        topOffset = Math.round(topOffset.plusCutOff() + yPadding);
+      const { left, top } = calcOffsets({
+        baseX: layoutWidth.getHalf(),
+        baseY: 0,
+        availableWidth: layoutWidth.getHalf().minusCutOff(),
+        availableHeight: layoutHeight,
+        imagesX: 2,
+        imagesY: 2,
+        photoWidth,
+        photoHeight,
+        innerPadding,
+      });
+
+      leftOffset = left;
+      topOffset = top;
+      if (order === 2 || order === 4) {
+        leftOffset = leftOffset + photoWidth + innerPadding;
       }
-      if (order === 2) {
-        leftOffset = layoutWidth.getHalf() + xPadding + updatedWidth + innerPadding
-        topOffset = Math.round(topOffset.plusCutOff() + yPadding);
-      }
-      if (order === 3) {
-        leftOffset = layoutWidth.getHalf() + xPadding
-        topOffset = Math.round(layoutHeight.minusCutOff() - yPadding - updatedHeight);
-      }
-      if (order === 4) {
-        leftOffset = layoutWidth.getHalf() + xPadding + updatedWidth + innerPadding
-        topOffset = Math.round(layoutHeight.minusCutOff() - yPadding - updatedHeight);
+      if (order === 3 || order === 4) {
+        topOffset = topOffset + photoHeight + innerPadding;
       }
       break
     }
     case SIZE_TYPES.TWO_VERTICAL_CUSTOM: {
-      leftOffset = layoutWidth - CUT_OFF - xPadding - updatedWidth;
-      if (order === 1) {
-        topOffset = Math.round(topOffset.plusCutOff() + yPadding);
-      }
+      const { left, top } = calcOffsets({
+        baseX: Math.round(layoutWidth * SIZES[SIZE_TYPES.THREE_QUARTERS].width),
+        baseY: 0,
+        availableWidth: layoutWidth.minusCutOff() - (layoutWidth * SIZES[SIZE_TYPES.THREE_QUARTERS].width),
+        availableHeight: layoutHeight,
+        imagesX: 1,
+        imagesY: 2,
+        photoWidth,
+        photoHeight,
+        innerPadding,
+      });
+
+      leftOffset = left
+      topOffset = top
+      
       if (order === 2) {
-        topOffset = Math.round(topOffset.plusCutOff() + yPadding + updatedHeight + innerPadding);
+        topOffset = Math.round(topOffset + photoHeight + innerPadding);
       }
       break
     }
     case SIZE_TYPES.TWO_VERTICAL_RIGHT_CENTER: {
-      if (order === 1) {
-        leftOffset = layoutWidth.getHalf() + xPadding;
-        topOffset = Math.round((layoutHeight -updatedHeight) / 2);
-      }
+
+      const { left, top } = calcOffsets({
+        baseX: layoutWidth.getHalf(),
+        baseY: 0,
+        availableWidth: layoutWidth.getHalf().minusCutOff(),
+        availableHeight: layoutHeight,
+        imagesX: 2,
+        imagesY: 1,
+        photoWidth,
+        photoHeight,
+        innerPadding,
+        });
+      leftOffset = left;
+      topOffset = top;
+
       if (order === 2) {
-        leftOffset = layoutWidth.getHalf() + xPadding + updatedWidth + innerPadding
-        topOffset = Math.round((layoutHeight - updatedHeight) / 2);
+        leftOffset = leftOffset + photoWidth + innerPadding;
       }
       break
     }
-    case SIZE_TYPES.COVER: {
-      leftOffset = CUT_OFF + xPadding + ((pagesAmount - 1) * step);
-      // TODO: что это?
-      topOffset = Math.round(topOffset.plusCutOff() + yPadding - 150);
+    case SIZE_TYPES.FULL: {
+      leftOffset = 0
+      topOffset = 0
       break
     }
     default:
       break;
   }
-
-  return { leftOffset, topOffset };
+  return { left: leftOffset, top: topOffset };
 };

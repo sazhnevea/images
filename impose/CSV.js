@@ -50,9 +50,8 @@ export async function processCSVDataToImpose(csvPath) {
     
                 const directionList = (await getDirectionsList(`${DATA_FOLDER_NAME}/${FILES_FOLDER}`, existing)).map(({ direction }) => direction);
                 const pageType = getLayoutType(directionList)
-                const studentName = currentStudent.name
                 if (!pageType) {
-                  console.log(`У студента ${studentName} неверно подобраны фотографии в столбце "${property}". Номера фотографий: ${existing}. Разворот не создан!`)
+                  console.log(`У студента ${currentStudent.name} неверно подобраны фотографии в столбце "${property}". Номера фотографий: ${existing}. Разворот не создан!`)
                   continue
                 }
 
@@ -78,10 +77,7 @@ export async function processCSVDataToImpose(csvPath) {
         }
 
         printMissingPhotoListMessage(missingPhotos)
-
-
         if (Object.keys(ALBUM_NAMES_DATA).includes(data.albumName)) {
-
           const albumData = ALBUM_NAMES_DATA[data.albumName];
           data.studentsData.forEach((studentData) => {
             
@@ -89,13 +85,14 @@ export async function processCSVDataToImpose(csvPath) {
 
               const { pageType } = pageData;
               const layoutData = albumData.layoutsData[index === 0 ? LAYOUT_TYPE.COVER : pageType];
-
               if (layoutData) {
-                const { step, layoutPathFolder, decoration } = layoutData;
+                const { layoutPathFolder, decoration, size, coordinates } = layoutData;
+                const coords = coordinates ? coordinates[studentData.pages.length - 1] : null
                 const pagesAmount = studentData.pages.length;
                 pageData.pagesAmount = pagesAmount;
-                pageData.step = step || 0;
-                pageData.layoutPath = `${layoutPathFolder}${step ? studentData.pages.length - 1 : 1}.jpg`;
+                pageData.coordinates = coords;
+                pageData.size = size;
+                pageData.layoutPath = `${layoutPathFolder}${index === 0 ? studentData.pages.length - 1 : 1}.jpg`;
                 pageData.decoration = decoration;
               }
             });

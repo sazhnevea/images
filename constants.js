@@ -6,7 +6,6 @@ export const FILES_FOLDER = 'files';
 export const CSVFileName = 'data.csv'
 export const LAYOUT_PATH = 'assets/layout.jpg'
 
-// export const CUT_OFF = 24;
 // Алекс бук
 export const CUT_OFF = 35;
 
@@ -38,7 +37,6 @@ export const LAYOUT_TYPE = {
   F1H2: 'слева 1 всклянь, справа 2 горизонтали', 
   F1V4: '1 слева всклянь, справа 4 вертикали',
   XXLF1V2: 'слева 1 большой, справа 2 вертикали',
-  VIGNETTE: 'виньетка',
 }
 
 export const LAYOUT_TYPE_DIRECTION_MAPPING = {
@@ -51,7 +49,6 @@ export const LAYOUT_TYPE_DIRECTION_MAPPING = {
   [LAYOUT_TYPE.F1H2]: [DIRECTION.V, DIRECTION.H, DIRECTION.H], // слева 1 всклянь, справа 2 горизонтали
   [LAYOUT_TYPE.F1V4]: [DIRECTION.V, DIRECTION.V, DIRECTION.V, DIRECTION.V, DIRECTION.V], // 1 слева всклянь, справа 4 вертикали
   [LAYOUT_TYPE.XXLF1V2]: [DIRECTION.H, DIRECTION.V, DIRECTION.V], // слева 1 большой, справа 2 вертикали
-  [LAYOUT_TYPE.VIGNETTE]: [DIRECTION.V],
   [LAYOUT_TYPE.F1V2]: [DIRECTION.V, DIRECTION.V, DIRECTION.V], // слева 1 всклянь, справа 2 вертикали
 }
 
@@ -61,15 +58,45 @@ export const ALBUM_NAMES_DATA = {
     layoutsData: {
       [LAYOUT_TYPE.COVER]: {
         layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/ourKingergarten/${LAYOUT_TYPE.COVER}/`,
-        // TODO: посчитать
-        step: 12,
+        coordinates: {
+          // ключи - количество разворотов
+          // значение - координаты фото для соответствующего разворота
+          1: {
+            left: 3244,
+            top: 777,
+          },
+          2: {
+            left: 3381,
+            top: 996,
+          },
+          3: {
+            left: 3379,
+            top: 1026,
+          },
+          // координаты ниже не обновлены для алекса
+          4: {
+            left: 3280,
+            top: 777,
+          },
+          5: {
+            left: 3292,
+            top: 777,
+          },
+          6: {
+            left: 3304,
+            top: 777,
+          },
+        },
+        size: { 
+          width: 1357,
+          height: 1905,
+        },
         decoration: {
           name: 'decoration.png',
           path: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/ourKingergarten/${LAYOUT_TYPE.COVER}/`,
           offsets: {
-            // TODO: посчитать
-            left: 2930,
-            top: 608,
+            left: -346,
+            top: -83,
           }
         },
       },
@@ -94,16 +121,13 @@ export const ALBUM_NAMES_DATA = {
       [LAYOUT_TYPE.XXLF1V2]: {
         layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/ourKingergarten/${LAYOUT_TYPE.XXLF1V2}/`,
       },
-      [LAYOUT_TYPE.VIGNETTE]: {
-        layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/ourKingergarten/${LAYOUT_TYPE.VIGNETTE}/`,
-      },
     }
   },
 }
 
 export const SIZE_TYPES = {
   COVER: 'COVER', 
-  FULL: 'FULL', 
+  FULL: 'FULL',
   HALF: 'HALF',
   THREE_QUARTERS: 'THREE_QUARTERS',
   HALF_CUTTED: 'HALF_CUTTED',
@@ -114,7 +138,6 @@ export const SIZE_TYPES = {
   FOUR_VERTICAL_HALF: 'FOUR_VERTICAL_HALF',
   TWO_VERTICAL_CUSTOM: 'TWO_VERTICAL_CUSTOM',
   TWO_VERTICAL_RIGHT_CENTER: 'TWO_VERTICAL_RIGHT_CENTER',
-  VIGNETTE: 'FULL', 
 }
 
 export const LAYOUT_TYPE_MAPPING = {
@@ -128,68 +151,58 @@ export const LAYOUT_TYPE_MAPPING = {
   [LAYOUT_TYPE.F1H2]: [SIZE_TYPES.HALF, SIZE_TYPES.TWO_HORISONTAL_HALF, SIZE_TYPES.TWO_HORISONTAL_HALF],
   [LAYOUT_TYPE.F1V4]: [SIZE_TYPES.HALF, SIZE_TYPES.FOUR_VERTICAL_HALF, SIZE_TYPES.FOUR_VERTICAL_HALF, SIZE_TYPES.FOUR_VERTICAL_HALF,SIZE_TYPES.FOUR_VERTICAL_HALF,], 
   [LAYOUT_TYPE.XXLF1V2]: [SIZE_TYPES.THREE_QUARTERS, SIZE_TYPES.TWO_VERTICAL_CUSTOM, SIZE_TYPES.TWO_VERTICAL_CUSTOM],
-  [LAYOUT_TYPE.VIGNETTE]: [SIZE_TYPES.FULL],
 }
 
-export const PADDINGS = {
+// знаения задаются в процентах от всей ширины лейаута за минусом двух линий отреза
+// 'layoutWidth минус cutOffs', layoutWidth.minusCutOffs()
+// 'width', width) ширина фот
+// 'width %', width / layoutWidth.minusCutOffs()
+export const SIZES = {
   [SIZE_TYPES.HALF]: {
-    xPadding: 0,
-    yPadding: 0,
+    width: 0.5,
+    height: 1,
   },
   [SIZE_TYPES.HALF_CUTTED]: {
-    xPadding: 233,
-    yPadding: 233,
+    width: 0.3937,
+    height: 0.868,
   },
   [SIZE_TYPES.THREE_QUARTERS]: {
-    xPadding: 233,
-    yPadding: 233,
-    innerPadding: 50
+    width: 0.7595,
+    height: 0.868, 
   },
   [SIZE_TYPES.THREE_HORISONTAL_HALF]: {
-    xPadding: 410,
-    yPadding: 94,
+    width: 0.3264182895850974,
+    height: 0.29105322763306907,
+    innerPadding: 50,
   },
   [SIZE_TYPES.FOUR_HORISONTAL_FULL]: {
-    xPadding: 233,
-    yPadding: 233,
+    width: 0.45,
+    height: 0.427,
     innerPadding: 50
   },
   [SIZE_TYPES.TWO_VERTICAL_ONE_HORISONTAL_HALF]: {
-    xPadding: 233,
-    yPadding: 233,
+    width: 0.1951735817104149,
+    height: 0.4269535673839185,
     innerPadding: 50
   },
   [SIZE_TYPES.TWO_HORISONTAL_HALF]: {
-    xPadding: 70,
-    yPadding: 261,
+    width: 0.4703,
+    height: 0.419,
     innerPadding: 50
   },
   [SIZE_TYPES.FOUR_VERTICAL_HALF]: {
-    xPadding: 233,
-    yPadding: 233,
+    width: 0.1951735817104149,
+    height: 0.4269535673839185 ,
     innerPadding: 50
   },
   [SIZE_TYPES.TWO_VERTICAL_CUSTOM]: {
-    xPadding: 233,
-    yPadding: 233,
+    width: 0.187976,
+    height: 0.42695,
     innerPadding: 50
   },
   [SIZE_TYPES.TWO_VERTICAL_RIGHT_CENTER]: {
-    xPadding: 233,
-    yPadding: 233,
+    width: 0.1951735817104149,
+    height: 0.4269535673839185,
     innerPadding: 50
-  },
-  [SIZE_TYPES.COVER]: {
-    xPadding: 3244,
-    yPadding: 777,
-    innerPadding: 50
-  },
-  [SIZE_TYPES.FULL]: {
-    xPadding: 0,
-    yPadding: 0,
-  },
-  [SIZE_TYPES.VIGNETTE]: {
-    xPadding: 0,
-    yPadding: 0,
   },
 }
