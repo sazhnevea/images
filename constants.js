@@ -4,7 +4,7 @@ export const DATA_FOLDER_NAME = 'data';
 export const RESULT = 'result';
 export const FILES_FOLDER = 'files';
 export const CSVFileName = 'data.csv'
-export const LAYOUT_PATH = 'assets/layout.jpg'
+export const LAYOUT_PATH = 'assets/default.jpg'
 
 // Алекс бук
 export const CUT_OFF = 35;
@@ -119,6 +119,9 @@ export const ALBUM_NAMES_DATA = {
         layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/ourKingergarten/${LAYOUT_TYPE.F1V4}/`,
       },
       [LAYOUT_TYPE.XXLF1V2]: {
+        layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/ourKingergarten/${LAYOUT_TYPE.XXLF1V2}/`,
+      },
+      [LAYOUT_TYPE.F1V2]: {
         layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/ourKingergarten/${LAYOUT_TYPE.XXLF1V2}/`,
       },
     }
