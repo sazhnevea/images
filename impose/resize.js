@@ -66,13 +66,6 @@ export const resizePhoto = ({
       updatedHeight = Math.round(layoutHeight.minusCutOffs() * height);
       break
     }
-    case SIZE_TYPES.TWO_VERTICAL_RIGHT_CENTER: {
-      if (order === 1 || order === 2) {
-        updatedWidth = Math.round(layoutWidth.minusCutOffs() * width);
-        updatedHeight = Math.round(layoutHeight.minusCutOffs() * height);
-      }
-      break
-    }
   }
   return { 
     updatedWidth: roundToNearestEven(updatedWidth),

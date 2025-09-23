@@ -81,6 +81,9 @@ export async function processCSVDataToImpose(csvPath) {
                 pageNumber++;
               }
             }
+
+            currentStudent.pages.forEach(page => page.layoutPath = getCommonLayoutPath(LAYOUT_PATH, currentStudent.pages.length))
+     
             data.studentsData.push(currentStudent);
             currentStudent = {};
             pageNumber = 1;
@@ -140,6 +143,14 @@ function getLayoutPath (layoutPathFolder, amount, isCover) {
       return `${layoutPathFolder}${amount}.jpg`
     }
 
+    const layoutPath = `${layoutPathFolder}${amount}.jpg`;
+    if (fs.existsSync(layoutPath)) {
+      return layoutPath
+    }
+    return `${layoutPathFolder}default.jpg`
+  }
+
+function getCommonLayoutPath (layoutPathFolder, amount) {
     const layoutPath = `${layoutPathFolder}${amount}.jpg`;
     if (fs.existsSync(layoutPath)) {
       return layoutPath

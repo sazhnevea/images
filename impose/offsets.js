@@ -205,27 +205,6 @@ export const getOffsets = ({
       }
       break
     }
-    case SIZE_TYPES.TWO_VERTICAL_RIGHT_CENTER: {
-
-      const { left, top } = calcOffsets({
-        baseX: layoutWidth.getHalf(),
-        baseY: 0,
-        availableWidth: layoutWidth.getHalf().minusCutOff(),
-        availableHeight: layoutHeight,
-        imagesX: 2,
-        imagesY: 1,
-        photoWidth,
-        photoHeight,
-        innerPadding,
-        });
-      leftOffset = left;
-      topOffset = top;
-
-      if (order === 2) {
-        leftOffset = leftOffset + photoWidth + innerPadding;
-      }
-      break
-    }
     case SIZE_TYPES.FULL: {
       leftOffset = 0
       topOffset = 0

@@ -52,8 +52,9 @@ async function processPage(page, layoutWidth, layoutHeight, studentName) {
           // Для фотографий типа FULL мы не ресайзим фотографию автоматически,
           // т.к. ее нужно положить на разворот руками и выставить центр красиво
         const { width, height } = await currentPhoto.metadata()
-        photoWidth = width;
-        photoWidth = height;
+        // допуск 1 пиксель
+        photoWidth = width - 1;
+        photoHeight = height - 1;
         
       } else {
         if (size) {
@@ -72,11 +73,15 @@ async function processPage(page, layoutWidth, layoutHeight, studentName) {
       }
       if (sizeType === SIZE_TYPES.FULL) {
         if (photoWidth > layoutWidth || photoHeight > layoutHeight) {
+          console.log('photoWidth > layoutWidth || photoHeight > layoutHeight', photoWidth > layoutWidth || photoHeight > layoutHeight)
           console.log(`Ошибка! У студента ${studentName} фотография ${path} должна занимать разворот целиком, но ее размеры больше размера разворота. Разворот создан без фотографии!`)
+          console.log('photoWidth', photoWidth)
+          console.log('layoutWidth', layoutWidth)
+          console.log('photoHeight', photoHeight)
+          console.log('layoutHeight', layoutHeight)
           return
         }
       } 
-
       const resizedPhoto = currentPhoto.resize(photoWidth, photoHeight).sharpen()
    
       let leftOffset = 0
