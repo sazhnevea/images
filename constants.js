@@ -18,7 +18,8 @@ export const ROW_NAMES = {
 }
 
 const ALBUM_NAMES = {
-  ourKingergarten: 'Наш детский сад'
+  ourKingergarten: 'Наш детский сад',
+  figures: 'Фигуры'
 }
 
 export const DIRECTION = {
@@ -55,7 +56,7 @@ export const ALBUM_NAMES_DATA = {
     name: ALBUM_NAMES.ourKingergarten,
     layoutsData: {
       [LAYOUT_TYPE.COVER]: {
-        layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/ourKingergarten/${LAYOUT_TYPE.COVER}/`,
+        layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/${ALBUM_NAMES.ourKingergarten}/${LAYOUT_TYPE.COVER}/`,
         coordinates: {
           // ключи - количество разворотов
           // значение - координаты фото для соответствующего разворота
@@ -107,7 +108,7 @@ export const ALBUM_NAMES_DATA = {
         },
         decoration: {
           name: 'decoration.png',
-          path: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/ourKingergarten/${LAYOUT_TYPE.COVER}/`,
+          path: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/${ALBUM_NAMES.ourKingergarten}/${LAYOUT_TYPE.COVER}/`,
           // указывается смещение декорации относительно координат фото
           offsets: {
             left: -346,
@@ -116,31 +117,124 @@ export const ALBUM_NAMES_DATA = {
         },
       },
       [LAYOUT_TYPE.FULL]: {
-        layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/ourKingergarten/${LAYOUT_TYPE.FULL}/`
+        layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/${ALBUM_NAMES.ourKingergarten}/${LAYOUT_TYPE.FULL}/`
       },
       [LAYOUT_TYPE.F1C1]: {
-        layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/ourKingergarten/${LAYOUT_TYPE.F1C1}/`
+        layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/${ALBUM_NAMES.ourKingergarten}/${LAYOUT_TYPE.F1C1}/`
       },
       [LAYOUT_TYPE.F1H3]: {
-        layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/ourKingergarten/${LAYOUT_TYPE.F1H3}/`,
+        layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/${ALBUM_NAMES.ourKingergarten}/${LAYOUT_TYPE.F1H3}/`,
       },
       [LAYOUT_TYPE.H4]: {
-        layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/ourKingergarten/${LAYOUT_TYPE.H4}/`,
+        layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/${ALBUM_NAMES.ourKingergarten}/${LAYOUT_TYPE.H4}/`,
       },
       [LAYOUT_TYPE.F1V2H1]: {
-        layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/ourKingergarten/${LAYOUT_TYPE.F1V2H1}/`,
+        layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/${ALBUM_NAMES.ourKingergarten}/${LAYOUT_TYPE.F1V2H1}/`,
       },
       [LAYOUT_TYPE.F1H2]: {
-        layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/ourKingergarten/${LAYOUT_TYPE.F1H2}/`,
+        layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/${ALBUM_NAMES.ourKingergarten}/${LAYOUT_TYPE.F1H2}/`,
       },
       [LAYOUT_TYPE.F1V4]: {
-        layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/ourKingergarten/${LAYOUT_TYPE.F1V4}/`,
+        layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/${ALBUM_NAMES.ourKingergarten}/${LAYOUT_TYPE.F1V4}/`,
       },
       [LAYOUT_TYPE.XXLF1V2]: {
-        layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/ourKingergarten/${LAYOUT_TYPE.XXLF1V2}/`,
+        layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/${ALBUM_NAMES.ourKingergarten}/${LAYOUT_TYPE.XXLF1V2}/`,
       },
       [LAYOUT_TYPE.F1V2]: {
-        layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/ourKingergarten/${LAYOUT_TYPE.XXLF1V2}/`,
+        layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/${ALBUM_NAMES.ourKingergarten}/${LAYOUT_TYPE.XXLF1V2}/`,
+      },
+    }
+  },
+  [ALBUM_NAMES.figures]: {
+    name: ALBUM_NAMES.figures,
+    layoutsData: {
+      [LAYOUT_TYPE.COVER]: {
+        layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/${ALBUM_NAMES.figures}/${LAYOUT_TYPE.COVER}/`,
+        coordinates: {
+          // ключи - количество разворотов
+          // значение - координаты фото для соответствующего разворота
+          1: {
+            left: 2925,
+            top: 466,
+          },
+          2: {
+            left: 3115,
+            top: 486,
+          },
+          3: {
+            left: 3090,
+            top: 486,
+          },
+        
+          4: {
+            left: 3103,
+            top: 486,
+          },
+          5: {
+            left: 3115,
+            top: 486,
+          },
+          6: {
+            left: 3126,
+            top: 486,
+          },
+          7: {
+            left: 3128,
+            top: 486,
+          },
+          8: {
+            left: 3149,
+            top: 486,
+          },
+          9: {
+            left: 3162,
+            top: 486,
+          },
+          10: {
+            left: 3173,
+            top: 486,
+          },
+        },
+        size: { 
+          width: 1822,
+          height: 2679,
+        },
+        decoration: {
+          name: 'decoration.png',
+          path: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/${ALBUM_NAMES.figures}/${LAYOUT_TYPE.COVER}/`,
+          // указывается смещение декорации относительно координат фото
+          offsets: {
+            left: 0,
+            top: 0,
+          }
+        },
+      },
+      [LAYOUT_TYPE.FULL]: {
+        layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/${ALBUM_NAMES.figures}/${LAYOUT_TYPE.FULL}/`
+      },
+      [LAYOUT_TYPE.F1C1]: {
+        layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/${ALBUM_NAMES.figures}/${LAYOUT_TYPE.F1C1}/`
+      },
+      [LAYOUT_TYPE.F1H3]: {
+        layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/${ALBUM_NAMES.figures}/${LAYOUT_TYPE.F1H3}/`,
+      },
+      [LAYOUT_TYPE.H4]: {
+        layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/${ALBUM_NAMES.figures}/${LAYOUT_TYPE.H4}/`,
+      },
+      [LAYOUT_TYPE.F1V2H1]: {
+        layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/${ALBUM_NAMES.figures}/${LAYOUT_TYPE.F1V2H1}/`,
+      },
+      [LAYOUT_TYPE.F1H2]: {
+        layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/${ALBUM_NAMES.figures}/${LAYOUT_TYPE.F1H2}/`,
+      },
+      [LAYOUT_TYPE.F1V4]: {
+        layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/${ALBUM_NAMES.figures}/${LAYOUT_TYPE.F1V4}/`,
+      },
+      [LAYOUT_TYPE.XXLF1V2]: {
+        layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/${ALBUM_NAMES.figures}/${LAYOUT_TYPE.XXLF1V2}/`,
+      },
+      [LAYOUT_TYPE.F1V2]: {
+        layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/${ALBUM_NAMES.figures}/${LAYOUT_TYPE.XXLF1V2}/`,
       },
     }
   },
