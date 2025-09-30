@@ -23,7 +23,7 @@ async function processStudent(student) {
   await Promise.all(pages.map(async (page) => {
     const { layoutPath, pageName } = page;
     const destinationPath = `${studentFolderPath}/${pageName}.jpg`
-    const layout = sharp(layoutPath).withMetadata();
+    const layout = sharp(layoutPath)
 
     const { width: layoutWidth, height: layoutHeight } = await layout.metadata();
     const dataToComposite = await processPage(page, roundToNearestEven(layoutWidth), roundToNearestEven(layoutHeight), name);

@@ -19,7 +19,11 @@ export const ROW_NAMES = {
 
 const ALBUM_NAMES = {
   ourKingergarten: 'Наш детский сад',
-  figures: 'Фигуры'
+  figures: 'Фигуры',
+  geometry: 'Геометрия',
+  pencil: 'Карандаш',
+  chocolade: 'Шоколад',
+  memory: 'Мемори',
 }
 
 export const DIRECTION = {
@@ -235,6 +239,365 @@ export const ALBUM_NAMES_DATA = {
       },
       [LAYOUT_TYPE.F1V2]: {
         layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/${ALBUM_NAMES.figures}/${LAYOUT_TYPE.XXLF1V2}/`,
+      },
+    }
+  },
+  [ALBUM_NAMES.geometry]: {
+    name: ALBUM_NAMES.geometry,
+    layoutsData: {
+      [LAYOUT_TYPE.COVER]: {
+        layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/${ALBUM_NAMES.geometry}/${LAYOUT_TYPE.COVER}/`,
+        coordinates: {
+          // ключи - количество разворотов
+          // значение - координаты фото для соответствующего разворота
+          1: {
+            left: 3153,
+            top: 417,
+          },
+          2: {
+            left: 3363,
+            top: 457,
+          },
+          3: {
+            left: 3338,
+            top: 457,
+          },
+          4: {
+            left: 3351,
+            top: 457,
+          },
+          5: {
+            left: 3363,
+            top: 457,
+          },
+          6: {
+            left: 3354,
+            top: 457,
+          },
+          7: {
+            left: 3366,
+            top: 457,
+          },
+          8: {
+            left: 3377,
+            top: 457,
+          },
+          9: {
+            left: 3390,
+            top: 457,
+          },
+          10: {
+            left: 3401,
+            top: 457,
+          },
+        },
+        size: { 
+          width: 1725,
+          height: 2809,
+        },
+        decoration: {
+          name: 'decoration.png',
+          path: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/${ALBUM_NAMES.geometry}/${LAYOUT_TYPE.COVER}/`,
+          // указывается смещение декорации относительно координат фото
+          offsets: {
+            left: 784,
+            top: 114,
+          }
+        },
+      },
+      [LAYOUT_TYPE.FULL]: {
+        layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/${ALBUM_NAMES.geometry}/${LAYOUT_TYPE.FULL}/`
+      },
+      [LAYOUT_TYPE.F1C1]: {
+        layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/${ALBUM_NAMES.geometry}/${LAYOUT_TYPE.F1C1}/`
+      },
+      [LAYOUT_TYPE.F1H3]: {
+        layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/${ALBUM_NAMES.geometry}/${LAYOUT_TYPE.F1H3}/`,
+      },
+      [LAYOUT_TYPE.H4]: {
+        layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/${ALBUM_NAMES.geometry}/${LAYOUT_TYPE.H4}/`,
+      },
+      [LAYOUT_TYPE.F1V2H1]: {
+        layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/${ALBUM_NAMES.geometry}/${LAYOUT_TYPE.F1V2H1}/`,
+      },
+      [LAYOUT_TYPE.F1H2]: {
+        layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/${ALBUM_NAMES.geometry}/${LAYOUT_TYPE.F1H2}/`,
+      },
+      [LAYOUT_TYPE.F1V4]: {
+        layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/${ALBUM_NAMES.geometry}/${LAYOUT_TYPE.F1V4}/`,
+      },
+      [LAYOUT_TYPE.XXLF1V2]: {
+        layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/${ALBUM_NAMES.geometry}/${LAYOUT_TYPE.XXLF1V2}/`,
+      },
+      [LAYOUT_TYPE.F1V2]: {
+        layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/${ALBUM_NAMES.geometry}/${LAYOUT_TYPE.XXLF1V2}/`,
+      },
+    }
+  },
+  [ALBUM_NAMES.pencil]: {
+    name: ALBUM_NAMES.pencil,
+    layoutsData: {
+      [LAYOUT_TYPE.COVER]: {
+        layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/${ALBUM_NAMES.pencil}/${LAYOUT_TYPE.COVER}/`,
+        coordinates: {
+          // ключи - количество разворотов
+          // значение - координаты фото для соответствующего разворота
+          1: {
+            left: 2985,
+            top: 426,
+          },
+          2: {
+            left: 3139,
+            top: 446,
+          },
+          3: {
+            left: 3116,
+            top: 446,
+          },
+          4: {
+            left: 3127,
+            top: 446,
+          },
+          5: {
+            left: 3139,
+            top: 446,
+          },
+          6: {
+            left: 3151,
+            top: 446,
+          },
+          7: {
+            left: 3163,
+            top: 446,
+          },
+          8: {
+            left: 3175,
+            top: 446,
+          },
+          9: {
+            left: 3186,
+            top: 446,
+          },
+          10: {
+            left: 3198,
+            top: 446,
+          },
+        },
+        size: { 
+          width: 1822,
+          height: 2679,
+        },
+      },
+      [LAYOUT_TYPE.FULL]: {
+        layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/${ALBUM_NAMES.pencil}/${LAYOUT_TYPE.FULL}/`
+      },
+      [LAYOUT_TYPE.F1C1]: {
+        layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/${ALBUM_NAMES.pencil}/${LAYOUT_TYPE.F1C1}/`
+      },
+      [LAYOUT_TYPE.F1H3]: {
+        layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/${ALBUM_NAMES.pencil}/${LAYOUT_TYPE.F1H3}/`,
+      },
+      [LAYOUT_TYPE.H4]: {
+        layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/${ALBUM_NAMES.pencil}/${LAYOUT_TYPE.H4}/`,
+      },
+      [LAYOUT_TYPE.F1V2H1]: {
+        layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/${ALBUM_NAMES.pencil}/${LAYOUT_TYPE.F1V2H1}/`,
+      },
+      [LAYOUT_TYPE.F1H2]: {
+        layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/${ALBUM_NAMES.pencil}/${LAYOUT_TYPE.F1H2}/`,
+      },
+      [LAYOUT_TYPE.F1V4]: {
+        layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/${ALBUM_NAMES.pencil}/${LAYOUT_TYPE.F1V4}/`,
+      },
+      [LAYOUT_TYPE.XXLF1V2]: {
+        layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/${ALBUM_NAMES.pencil}/${LAYOUT_TYPE.XXLF1V2}/`,
+      },
+      [LAYOUT_TYPE.F1V2]: {
+        layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/${ALBUM_NAMES.pencil}/${LAYOUT_TYPE.XXLF1V2}/`,
+      },
+    }
+  },
+  [ALBUM_NAMES.chocolade]: {
+    name: ALBUM_NAMES.chocolade,
+    layoutsData: {
+      [LAYOUT_TYPE.COVER]: {
+        layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/${ALBUM_NAMES.chocolade}/${LAYOUT_TYPE.COVER}/`,
+        coordinates: {
+          // ключи - количество разворотов
+          // значение - координаты фото для соответствующего разворота
+          1: {
+            left: 2842,
+            top: 439,
+          },
+          2: {
+            left: 3032,
+            top: 496,
+          },
+          3: {
+            left: 3007,
+            top: 496,
+          },
+          4: {
+            left: 3020,
+            top: 496,
+          },
+          5: {
+            left: 3032,
+            top: 496,
+          },
+          6: {
+            left: 3043,
+            top: 496,
+          },
+          7: {
+            left: 3055,
+            top: 496,
+          },
+          8: {
+            left: 3076,
+            top: 496,
+          },
+          9: {
+            left: 3079,
+            top: 496,
+          },
+          10: {
+            left: 3090,
+            top: 496,
+          },
+        },
+        size: { 
+          width: 2046,
+          height: 3143,
+        },
+        decoration: {
+          name: 'decoration.png',
+          path: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/${ALBUM_NAMES.chocolade}/${LAYOUT_TYPE.COVER}/`,
+          // указывается смещение декорации относительно координат фото
+          offsets: {
+            left: -1342,
+            top: -1492,
+          }
+        },
+      },
+      [LAYOUT_TYPE.FULL]: {
+        layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/${ALBUM_NAMES.chocolade}/${LAYOUT_TYPE.FULL}/`
+      },
+      [LAYOUT_TYPE.F1C1]: {
+        layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/${ALBUM_NAMES.chocolade}/${LAYOUT_TYPE.F1C1}/`
+      },
+      [LAYOUT_TYPE.F1H3]: {
+        layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/${ALBUM_NAMES.chocolade}/${LAYOUT_TYPE.F1H3}/`,
+      },
+      [LAYOUT_TYPE.H4]: {
+        layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/${ALBUM_NAMES.chocolade}/${LAYOUT_TYPE.H4}/`,
+      },
+      [LAYOUT_TYPE.F1V2H1]: {
+        layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/${ALBUM_NAMES.chocolade}/${LAYOUT_TYPE.F1V2H1}/`,
+      },
+      [LAYOUT_TYPE.F1H2]: {
+        layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/${ALBUM_NAMES.chocolade}/${LAYOUT_TYPE.F1H2}/`,
+      },
+      [LAYOUT_TYPE.F1V4]: {
+        layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/${ALBUM_NAMES.chocolade}/${LAYOUT_TYPE.F1V4}/`,
+      },
+      [LAYOUT_TYPE.XXLF1V2]: {
+        layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/${ALBUM_NAMES.chocolade}/${LAYOUT_TYPE.XXLF1V2}/`,
+      },
+      [LAYOUT_TYPE.F1V2]: {
+        layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/${ALBUM_NAMES.chocolade}/${LAYOUT_TYPE.XXLF1V2}/`,
+      },
+    }
+  },
+  [ALBUM_NAMES.memory]: {
+    name: ALBUM_NAMES.memory,
+    layoutsData: {
+      [LAYOUT_TYPE.COVER]: {
+        layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/${ALBUM_NAMES.memory}/${LAYOUT_TYPE.COVER}/`,
+        coordinates: {
+          // ключи - количество разворотов
+          // значение - координаты фото для соответствующего разворота
+          1: {
+            left: 2858,
+            top: 337,
+          },
+          2: {
+            left: 3038,
+            top: 357,
+          },
+          3: {
+            left: 3013,
+            top: 357,
+          },
+          4: {
+            left: 3026,
+            top: 357,
+          },
+          5: {
+            left: 3038,
+            top: 357,
+          },
+          6: {
+            left: 3049,
+            top: 357,
+          },
+          7: {
+            left: 3061,
+            top: 357,
+          },
+          8: {
+            left: 3072,
+            top: 357,
+          },
+          9: {
+            left: 3085,
+            top: 357,
+          },
+          10: {
+            left: 3096,
+            top: 357,
+          },
+        },
+        size: { 
+          width: 2080,
+          height: 3122,
+        },
+        decoration: {
+          name: 'decoration.png',
+          path: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/${ALBUM_NAMES.memory}/${LAYOUT_TYPE.COVER}/`,
+          // указывается смещение декорации относительно координат фото
+          offsets: {
+            left: -443,
+            top: -245,
+          }
+        },
+      },
+      [LAYOUT_TYPE.FULL]: {
+        layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/${ALBUM_NAMES.memory}/${LAYOUT_TYPE.FULL}/`
+      },
+      [LAYOUT_TYPE.F1C1]: {
+        layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/${ALBUM_NAMES.memory}/${LAYOUT_TYPE.F1C1}/`
+      },
+      [LAYOUT_TYPE.F1H3]: {
+        layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/${ALBUM_NAMES.memory}/${LAYOUT_TYPE.F1H3}/`,
+      },
+      [LAYOUT_TYPE.H4]: {
+        layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/${ALBUM_NAMES.memory}/${LAYOUT_TYPE.H4}/`,
+      },
+      [LAYOUT_TYPE.F1V2H1]: {
+        layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/${ALBUM_NAMES.memory}/${LAYOUT_TYPE.F1V2H1}/`,
+      },
+      [LAYOUT_TYPE.F1H2]: {
+        layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/${ALBUM_NAMES.memory}/${LAYOUT_TYPE.F1H2}/`,
+      },
+      [LAYOUT_TYPE.F1V4]: {
+        layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/${ALBUM_NAMES.memory}/${LAYOUT_TYPE.F1V4}/`,
+      },
+      [LAYOUT_TYPE.XXLF1V2]: {
+        layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/${ALBUM_NAMES.memory}/${LAYOUT_TYPE.XXLF1V2}/`,
+      },
+      [LAYOUT_TYPE.F1V2]: {
+        layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/${ALBUM_NAMES.memory}/${LAYOUT_TYPE.XXLF1V2}/`,
       },
     }
   },
