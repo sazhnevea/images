@@ -21,9 +21,9 @@ const ALBUM_NAMES = {
   ourKingergarten: 'Наш детский сад',
   figures: 'Фигуры',
   geometry: 'Геометрия',
-  pencil: 'Карандаш',
+  pencil: 'Карандаши',
   chocolade: 'Шоколад',
-  memory: 'Мемори',
+  memory: 'Memory',
 }
 
 export const DIRECTION = {
@@ -76,7 +76,6 @@ export const ALBUM_NAMES_DATA = {
             left: 3356,
             top: 996,
           },
-        
           4: {
             left: 3369,
             top: 996,
@@ -475,6 +474,7 @@ export const ALBUM_NAMES_DATA = {
           path: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/${ALBUM_NAMES.chocolade}/${LAYOUT_TYPE.COVER}/`,
           // указывается смещение декорации относительно координат фото
           offsets: {
+            // из таблицы
             left: -1342,
             top: -1492,
           }

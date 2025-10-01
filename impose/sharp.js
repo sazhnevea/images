@@ -7,7 +7,7 @@ import {
 } from '../constants.js';
 import { resizePhoto } from './resize.js';
 import { getOffsets } from './offsets.js';
-import { createStudentFolder, roundToNearestEven } from './helper.js';
+import { createStudentFolder, roundToNearestEven, prepareDecoration } from './helper.js';
 
 export const processPhotos = async (data) => {
   for (const studentData of data.studentsData) {
@@ -35,8 +35,8 @@ async function processStudent(student) {
 async function processPage(page, layoutWidth, layoutHeight, studentName) {
   const { size, decoration, photos, coordinates } = page;
 
-  let leftOffsetToCalcDecorOffset = 0
-  let topOffsetToCalcDecorOffset = 0
+  let photoCoordinateLeft = 0
+  let photoCoordinateTop = 0
 
   const dataToComposite = [];
   await Promise.all(photos.map(async (photo, order) => {
@@ -57,6 +57,8 @@ async function processPage(page, layoutWidth, layoutHeight, studentName) {
         photoHeight = height - 1;
         
       } else {
+        console.log('size', size)
+        // sizе есть у обложек, куда вставляем потом декорацию
         if (size) {
           photoWidth = size.width
           photoHeight = size.height
@@ -102,8 +104,8 @@ async function processPage(page, layoutWidth, layoutHeight, studentName) {
         leftOffset = left
         topOffset = top
       }
-      leftOffsetToCalcDecorOffset = leftOffset
-      topOffsetToCalcDecorOffset = topOffset
+      photoCoordinateLeft = leftOffset
+      photoCoordinateTop = topOffset
 
       dataToComposite.push({ input: await resizedPhoto.toBuffer(), left: leftOffset, top: topOffset });
     } catch (err) {
@@ -111,11 +113,17 @@ async function processPage(page, layoutWidth, layoutHeight, studentName) {
     }
   }));
 
-    if (decoration) {
-        const { path, name, offsets} = decoration;
-        const decorationImage = sharp(`${path}${name}`, );
-        dataToComposite.push({ input: await decorationImage.toBuffer(), left: leftOffsetToCalcDecorOffset + offsets.left, top: topOffsetToCalcDecorOffset + offsets.top });
-    }
+  const decorationLayer = await prepareDecoration(
+    decoration,              // объект с path, name, offsets
+    photoCoordinateLeft,     // смещение фото X
+    photoCoordinateTop,      // смещение фото Y
+    layoutWidth,
+    layoutHeight
+  );
+  
+  if (decorationLayer) {
+    dataToComposite.push(decorationLayer);
+  }
 
   return dataToComposite;
 }
