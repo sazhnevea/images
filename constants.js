@@ -38,9 +38,11 @@ export const LAYOUT_TYPE = {
   F1H3: 'слева 1 всклянь, 3 справа горизонтали',
   H4: '4 горизонтали',
   F1V2H1: 'слева 1 всклянь, справа 2 вертикали и 1 горизонталь', 
+  H1V2V2H1: 'слева 1 горизонталь и 2 вертикали, справа 2 вертикали и 1 горизонталь', 
   F1H2: 'слева 1 всклянь, справа 2 горизонтали', 
   F1V4: '1 слева всклянь, справа 4 вертикали',
   XXLF1V2: 'слева 1 большой, справа 2 вертикали',
+  H2V1H1V1: '2 горизонтали 1 вертикаль 1 горизонталь 1 вертикаль',
 }
 
 export const LAYOUT_TYPE_DIRECTION_MAPPING = {
@@ -53,6 +55,8 @@ export const LAYOUT_TYPE_DIRECTION_MAPPING = {
   [LAYOUT_TYPE.F1H2]: [DIRECTION.V, DIRECTION.H, DIRECTION.H], // слева 1 всклянь, справа 2 горизонтали
   [LAYOUT_TYPE.F1V4]: [DIRECTION.V, DIRECTION.V, DIRECTION.V, DIRECTION.V, DIRECTION.V], // 1 слева всклянь, справа 4 вертикали
   [LAYOUT_TYPE.XXLF1V2]: [DIRECTION.H, DIRECTION.V, DIRECTION.V], // слева 1 большой, справа 2 вертикали
+  [LAYOUT_TYPE.H2V1H1V1]: [DIRECTION.H, DIRECTION.H, DIRECTION.V, DIRECTION.H, DIRECTION.V], 
+  [LAYOUT_TYPE.H1V2V2H1]: [DIRECTION.H, DIRECTION.V, DIRECTION.V, DIRECTION.V, DIRECTION.V, DIRECTION.H], 
 }
 
 export const ALBUM_NAMES_DATA = {
@@ -144,7 +148,13 @@ export const ALBUM_NAMES_DATA = {
         layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/${ALBUM_NAMES.ourKingergarten}/${LAYOUT_TYPE.XXLF1V2}/`,
       },
       [LAYOUT_TYPE.F1V2]: {
-        layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/${ALBUM_NAMES.ourKingergarten}/${LAYOUT_TYPE.XXLF1V2}/`,
+        layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/${ALBUM_NAMES.ourKingergarten}/${LAYOUT_TYPE.F1V2}/`,
+      },
+      [LAYOUT_TYPE.H2V1H1V1]: {
+        layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/${ALBUM_NAMES.ourKingergarten}/${LAYOUT_TYPE.H2V1H1V1}/`,
+      },
+      [LAYOUT_TYPE.H1V2V2H1]: {
+        layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/${ALBUM_NAMES.ourKingergarten}/${LAYOUT_TYPE.H1V2V2H1}/`,
       },
     }
   },
@@ -237,7 +247,13 @@ export const ALBUM_NAMES_DATA = {
         layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/${ALBUM_NAMES.figures}/${LAYOUT_TYPE.XXLF1V2}/`,
       },
       [LAYOUT_TYPE.F1V2]: {
-        layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/${ALBUM_NAMES.figures}/${LAYOUT_TYPE.XXLF1V2}/`,
+        layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/${ALBUM_NAMES.figures}/${LAYOUT_TYPE.F1V2}/`,
+      },
+      [LAYOUT_TYPE.H2V1H1V1]: {
+        layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/${ALBUM_NAMES.figures}/${LAYOUT_TYPE.H2V1H1V1}/`,
+      },
+      [LAYOUT_TYPE.H1V2V2H1]: {
+        layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/${ALBUM_NAMES.figures}/${LAYOUT_TYPE.H1V2V2H1}/`,
       },
     }
   },
@@ -329,7 +345,13 @@ export const ALBUM_NAMES_DATA = {
         layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/${ALBUM_NAMES.geometry}/${LAYOUT_TYPE.XXLF1V2}/`,
       },
       [LAYOUT_TYPE.F1V2]: {
-        layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/${ALBUM_NAMES.geometry}/${LAYOUT_TYPE.XXLF1V2}/`,
+        layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/${ALBUM_NAMES.geometry}/${LAYOUT_TYPE.F1V2}/`,
+      },
+      [LAYOUT_TYPE.H2V1H1V1]: {
+        layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/${ALBUM_NAMES.geometry}/${LAYOUT_TYPE.H2V1H1V1}/`,
+      },
+      [LAYOUT_TYPE.H1V2V2H1]: {
+        layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/${ALBUM_NAMES.geometry}/${LAYOUT_TYPE.H1V2V2H1}/`,
       },
     }
   },
@@ -412,7 +434,13 @@ export const ALBUM_NAMES_DATA = {
         layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/${ALBUM_NAMES.pencil}/${LAYOUT_TYPE.XXLF1V2}/`,
       },
       [LAYOUT_TYPE.F1V2]: {
-        layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/${ALBUM_NAMES.pencil}/${LAYOUT_TYPE.XXLF1V2}/`,
+        layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/${ALBUM_NAMES.pencil}/${LAYOUT_TYPE.F1V2}/`,
+      },
+      [LAYOUT_TYPE.H2V1H1V1]: {
+        layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/${ALBUM_NAMES.pencil}/${LAYOUT_TYPE.H2V1H1V1}/`,
+      },
+      [LAYOUT_TYPE.H1V2V2H1]: {
+        layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/${ALBUM_NAMES.pencil}/${LAYOUT_TYPE.H1V2V2H1}/`,
       },
     }
   },
@@ -505,7 +533,13 @@ export const ALBUM_NAMES_DATA = {
         layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/${ALBUM_NAMES.chocolade}/${LAYOUT_TYPE.XXLF1V2}/`,
       },
       [LAYOUT_TYPE.F1V2]: {
-        layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/${ALBUM_NAMES.chocolade}/${LAYOUT_TYPE.XXLF1V2}/`,
+        layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/${ALBUM_NAMES.chocolade}/${LAYOUT_TYPE.F1V2}/`,
+      },
+      [LAYOUT_TYPE.H2V1H1V1]: {
+        layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/${ALBUM_NAMES.chocolade}/${LAYOUT_TYPE.H2V1H1V1}/`,
+      },
+      [LAYOUT_TYPE.H1V2V2H1]: {
+        layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/${ALBUM_NAMES.chocolade}/${LAYOUT_TYPE.H1V2V2H1}/`,
       },
     }
   },
@@ -597,7 +631,13 @@ export const ALBUM_NAMES_DATA = {
         layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/${ALBUM_NAMES.memory}/${LAYOUT_TYPE.XXLF1V2}/`,
       },
       [LAYOUT_TYPE.F1V2]: {
-        layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/${ALBUM_NAMES.memory}/${LAYOUT_TYPE.XXLF1V2}/`,
+        layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/${ALBUM_NAMES.memory}/${LAYOUT_TYPE.F1V2}/`,
+      },
+      [LAYOUT_TYPE.H2V1H1V1]: {
+        layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/${ALBUM_NAMES.memory}/${LAYOUT_TYPE.H2V1H1V1}/`,
+      },
+      [LAYOUT_TYPE.H1V2V2H1]: {
+        layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/${ALBUM_NAMES.memory}/${LAYOUT_TYPE.H1V2V2H1}/`,
       },
     }
   },
@@ -615,6 +655,9 @@ export const SIZE_TYPES = {
   TWO_HORISONTAL_HALF: 'TWO_HORISONTAL_HALF',
   FOUR_VERTICAL_HALF: 'FOUR_VERTICAL_HALF',
   TWO_VERTICAL_CUSTOM: 'TWO_VERTICAL_CUSTOM',
+  ONE_QUATER: 'ONE_QUATER',
+  TWO_VERTICAL_ONE_HORISONTAL_ONE_HORISONRAL_TWO_VERTICAL: 'TWO_VERTICAL_ONE_HORISONTAL_ONE_HORISONRAL_TWO_VERTICAL',
+
 }
 
 export const LAYOUT_TYPE_MAPPING = {
@@ -627,6 +670,8 @@ export const LAYOUT_TYPE_MAPPING = {
   [LAYOUT_TYPE.F1H2]: [SIZE_TYPES.HALF, SIZE_TYPES.TWO_HORISONTAL_HALF, SIZE_TYPES.TWO_HORISONTAL_HALF],
   [LAYOUT_TYPE.F1V4]: [SIZE_TYPES.HALF, SIZE_TYPES.FOUR_VERTICAL_HALF, SIZE_TYPES.FOUR_VERTICAL_HALF, SIZE_TYPES.FOUR_VERTICAL_HALF,SIZE_TYPES.FOUR_VERTICAL_HALF,], 
   [LAYOUT_TYPE.XXLF1V2]: [SIZE_TYPES.THREE_QUARTERS, SIZE_TYPES.TWO_VERTICAL_CUSTOM, SIZE_TYPES.TWO_VERTICAL_CUSTOM],
+  [LAYOUT_TYPE.H2V1H1V1]: [SIZE_TYPES.ONE_QUATER, SIZE_TYPES.ONE_QUATER, SIZE_TYPES.ONE_QUATER, SIZE_TYPES.ONE_QUATER, SIZE_TYPES.ONE_QUATER],
+  [LAYOUT_TYPE.H1V2V2H1]: [SIZE_TYPES.TWO_VERTICAL_ONE_HORISONTAL_ONE_HORISONRAL_TWO_VERTICAL, SIZE_TYPES.TWO_VERTICAL_ONE_HORISONTAL_ONE_HORISONRAL_TWO_VERTICAL, SIZE_TYPES.TWO_VERTICAL_ONE_HORISONTAL_ONE_HORISONRAL_TWO_VERTICAL, SIZE_TYPES.TWO_VERTICAL_ONE_HORISONTAL_ONE_HORISONRAL_TWO_VERTICAL, SIZE_TYPES.TWO_VERTICAL_ONE_HORISONTAL_ONE_HORISONRAL_TWO_VERTICAL, SIZE_TYPES.TWO_VERTICAL_ONE_HORISONTAL_ONE_HORISONRAL_TWO_VERTICAL],
 }
 
 // знаения задаются в процентах от всей ширины лейаута за минусом двух линий отреза
@@ -680,5 +725,15 @@ export const SIZES = {
     width: 1,
     height: 1,
     innerPadding: 0
+  },
+  [SIZE_TYPES.ONE_QUATER]: {
+    width: 0.25,
+    height: 0.5,
+    innerPadding: 50
+  },
+  [SIZE_TYPES.TWO_VERTICAL_ONE_HORISONTAL_ONE_HORISONRAL_TWO_VERTICAL]: {
+    width: 0.1951735817104149,
+    height: 0.4269535673839185,
+    innerPadding: 50
   },
 }

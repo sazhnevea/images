@@ -205,6 +205,89 @@ export const getOffsets = ({
       }
       break
     }
+
+    case SIZE_TYPES.ONE_QUATER: {
+      const { left, top } = calcOffsets({
+        baseX: 0,
+        baseY: 0,
+        availableWidth: layoutWidth,
+        availableHeight: layoutHeight,
+        imagesX: order === 0 || order === 1 || order === 3 ? 2 : 4,
+        imagesY: 2,
+        photoWidth,
+        photoHeight,
+        innerPadding,
+      });
+
+      leftOffset = left
+      topOffset = top
+      
+      if (order === 1) {
+        leftOffset = leftOffset + photoWidth + innerPadding ;
+      }
+      if (order > 1) {
+        topOffset = topOffset + photoHeight  + innerPadding;
+      }
+      if (order === 3) {
+        leftOffset = leftOffset + (photoWidth / 2) ;
+      }
+      if (order === 4) {
+        leftOffset = leftOffset + (photoWidth * 3) + innerPadding * 2;
+      }
+      break
+    }
+
+    case SIZE_TYPES.TWO_VERTICAL_ONE_HORISONTAL_ONE_HORISONRAL_TWO_VERTICAL: {
+      if (order === 0 || order === 3 || order === 4) {
+        const { left, top } = calcOffsets({
+          baseX: 0,
+          baseY: 0,
+          availableWidth: layoutWidth.getHalf().minusCutOff(),
+          availableHeight: layoutHeight,
+          imagesX: order === 0 ? 1 : 2,
+          imagesY: 2,
+          photoWidth,
+          photoHeight,
+          innerPadding,
+        });
+        
+        leftOffset = left;
+        topOffset = top;
+     
+        if (order === 4) {
+          leftOffset = leftOffset + photoWidth + innerPadding;
+        }
+        if (order === 3 || order === 4) {
+          topOffset = topOffset + photoHeight + innerPadding;
+        }
+      }
+
+      if (order === 1 || order === 2 || order === 5) {
+        const { left, top } = calcOffsets({
+          baseX: layoutWidth.getHalf(),
+          baseY: 0,
+          availableWidth: layoutWidth.getHalf().minusCutOff(),
+          availableHeight: layoutHeight,
+          imagesX: order === 5 ? 1 : 2,
+          imagesY: 2,
+          photoWidth,
+          photoHeight,
+          innerPadding,
+        });
+        
+        leftOffset = left;
+        topOffset = top;
+     
+        if (order === 2) {
+          leftOffset = leftOffset + photoWidth + innerPadding;
+        }
+        if (order === 5) {
+          topOffset = topOffset + photoHeight + innerPadding;
+        }
+      }
+      break
+    }
+
     case SIZE_TYPES.FULL: {
       leftOffset = 0
       topOffset = 0

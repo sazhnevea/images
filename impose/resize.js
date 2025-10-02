@@ -10,7 +10,6 @@ export const resizePhoto = ({
   let updatedWidth;
   let updatedHeight;
   const { width, height, innerPadding } = SIZES[sizeType]
-
   switch (sizeType) {
     case SIZE_TYPES.HALF: {
       updatedWidth = Math.round(layoutWidth * width);
@@ -66,6 +65,30 @@ export const resizePhoto = ({
       updatedHeight = Math.round(layoutHeight.minusCutOffs() * height);
       break
     }
+    case SIZE_TYPES.ONE_QUATER: {
+      if (order === 0 || order === 1 || order === 3) {
+        updatedWidth = Math.round(layoutWidth * width * 2);
+        updatedHeight = Math.round(layoutHeight * height);
+      } else {
+        updatedWidth = Math.round(layoutWidth * width);
+        updatedHeight = Math.round(layoutHeight * height);
+      }
+      break;
+    }
+
+    case SIZE_TYPES.TWO_VERTICAL_ONE_HORISONTAL_ONE_HORISONRAL_TWO_VERTICAL: {
+      if (order === 1 || order === 2 || order === 3 || order === 4) {
+        updatedWidth = Math.round(layoutWidth.minusCutOffs() * width);
+        updatedHeight = Math.round(layoutHeight.minusCutOffs() * height);
+      }
+      if (order === 0 || order === 5) {
+        updatedWidth = Math.round(layoutWidth.minusCutOffs() * width * 2 + innerPadding);
+        updatedHeight = Math.round(layoutHeight.minusCutOffs() * height);  
+      }
+      break
+    }
+
+
   }
   return { 
     updatedWidth: roundToNearestEven(updatedWidth),

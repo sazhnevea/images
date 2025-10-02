@@ -57,7 +57,6 @@ async function processPage(page, layoutWidth, layoutHeight, studentName) {
         photoHeight = height - 1;
         
       } else {
-        console.log('size', size)
         // sizе есть у обложек, куда вставляем потом декорацию
         if (size) {
           photoWidth = size.width
