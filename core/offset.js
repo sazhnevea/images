@@ -4,14 +4,14 @@ Number.prototype.getHalf = function() {
   return this / 2;
 };
 
-Number.prototype.plusMargin = function() {
+Number.prototype.plusCutOff = function() {
   return this + CUT_OFF;
 };
 
-Number.prototype.minusMargin = function() {
+Number.prototype.minusCutOff = function() {
   return this - CUT_OFF;
 };
 
-Number.prototype.minusMargins = function() {
+Number.prototype.minusCutOffs = function() {
   return this - CUT_OFF * 2;
 };
