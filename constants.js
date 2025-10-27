@@ -9,8 +9,6 @@ export const LAYOUT_PATH = 'assets/'
 // Алекс бук
 export const CUT_OFF = 35;
 
-export const ALBUM_NAME_FIELD = 'Название альбома'
-
 export const ROW_NAMES = {
   albumName: 'Название альбома',
   studentName: 'Имя участника',
@@ -69,8 +67,8 @@ export const ALBUM_NAMES_DATA = {
           // ключи - количество разворотов
           // значение - координаты фото для соответствующего разворота
           1: {
-            left: 3327,
-            top: 926,
+            left: 3333,
+            top: 996,
           },
           2: {
             left: 3381,
@@ -167,8 +165,8 @@ export const ALBUM_NAMES_DATA = {
           // ключи - количество разворотов
           // значение - координаты фото для соответствующего разворота
           1: {
-            left: 2925,
-            top: 466,
+            left: 3067,
+            top: 486,
           },
           2: {
             left: 3115,
@@ -266,8 +264,8 @@ export const ALBUM_NAMES_DATA = {
           // ключи - количество разворотов
           // значение - координаты фото для соответствующего разворота
           1: {
-            left: 3153,
-            top: 417,
+            left: 3315,
+            top: 457,
           },
           2: {
             left: 3363,
@@ -364,8 +362,8 @@ export const ALBUM_NAMES_DATA = {
           // ключи - количество разворотов
           // значение - координаты фото для соответствующего разворота
           1: {
-            left: 2985,
-            top: 426,
+            left: 3093,
+            top: 446,
           },
           2: {
             left: 3139,
@@ -453,8 +451,8 @@ export const ALBUM_NAMES_DATA = {
           // ключи - количество разворотов
           // значение - координаты фото для соответствующего разворота
           1: {
-            left: 2842,
-            top: 439,
+            left: 2984,
+            top: 496,
           },
           2: {
             left: 3032,
@@ -503,8 +501,8 @@ export const ALBUM_NAMES_DATA = {
           // указывается смещение декорации относительно координат фото
           offsets: {
             // из таблицы
-            left: -1342,
-            top: -1492,
+            left: -3000,
+            top: 269,
           }
         },
       },
@@ -552,8 +550,8 @@ export const ALBUM_NAMES_DATA = {
           // ключи - количество разворотов
           // значение - координаты фото для соответствующего разворота
           1: {
-            left: 2858,
-            top: 337,
+            left: 2990,
+            top: 357,
           },
           2: {
             left: 3038,
@@ -674,7 +672,7 @@ export const LAYOUT_TYPE_MAPPING = {
   [LAYOUT_TYPE.H1V2V2H1]: [SIZE_TYPES.TWO_VERTICAL_ONE_HORISONTAL_ONE_HORISONRAL_TWO_VERTICAL, SIZE_TYPES.TWO_VERTICAL_ONE_HORISONTAL_ONE_HORISONRAL_TWO_VERTICAL, SIZE_TYPES.TWO_VERTICAL_ONE_HORISONTAL_ONE_HORISONRAL_TWO_VERTICAL, SIZE_TYPES.TWO_VERTICAL_ONE_HORISONTAL_ONE_HORISONRAL_TWO_VERTICAL, SIZE_TYPES.TWO_VERTICAL_ONE_HORISONTAL_ONE_HORISONRAL_TWO_VERTICAL, SIZE_TYPES.TWO_VERTICAL_ONE_HORISONTAL_ONE_HORISONRAL_TWO_VERTICAL],
 }
 
-// знаения задаются в процентах от всей ширины лейаута за минусом двух линий отреза
+// значения задаются в процентах от всей ширины лейаута за минусом двух линий отреза
 // 'layoutWidth минус cutOffs', layoutWidth.minusCutOffs()
 // 'width', width) ширина фот
 // 'width %', width / layoutWidth.minusCutOffs()
