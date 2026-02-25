@@ -67,11 +67,16 @@ export const resizePhoto = ({
     }
     case SIZE_TYPES.ONE_QUATER: {
       if (order === 0 || order === 1 || order === 3) {
-        updatedWidth = Math.round(layoutWidth * width * 2);
-        updatedHeight = Math.round(layoutHeight * height);
+        if (order === 0 || order === 1) {
+          updatedWidth = Math.round((layoutWidth - innerPadding) * width * 2);
+        }
+        if (order === 3) {
+          updatedWidth = Math.round((layoutWidth - innerPadding * 2) * width * 2);
+        }
+        updatedHeight = Math.round((layoutHeight - innerPadding) * height);
       } else {
-        updatedWidth = Math.round(layoutWidth * width);
-        updatedHeight = Math.round(layoutHeight * height);
+        updatedWidth = Math.round((layoutWidth  - innerPadding * 3) * width);
+        updatedHeight = Math.round((layoutHeight - innerPadding) * height);
       }
       break;
     }

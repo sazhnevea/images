@@ -223,16 +223,16 @@ export const getOffsets = ({
       topOffset = top
       
       if (order === 1) {
-        leftOffset = leftOffset + photoWidth + innerPadding ;
+        leftOffset = leftOffset + photoWidth + innerPadding;
       }
       if (order > 1) {
         topOffset = topOffset + photoHeight  + innerPadding;
       }
       if (order === 3) {
-        leftOffset = leftOffset + (photoWidth / 2) ;
+        leftOffset = leftOffset + (photoWidth + innerPadding) / 2;
       }
       if (order === 4) {
-        leftOffset = leftOffset + (photoWidth * 3) + innerPadding * 2;
+        leftOffset = leftOffset + ((photoWidth + innerPadding) * 3);
       }
       break
     }

@@ -6,7 +6,7 @@ export const FILES_FOLDER = 'files';
 export const CSVFileName = 'data.csv'
 export const LAYOUT_PATH = 'assets/'
 
-// Алекс бук
+// Фабрика фотокниги
 export const CUT_OFF = 35;
 
 export const ROW_NAMES = {
@@ -67,44 +67,44 @@ export const ALBUM_NAMES_DATA = {
           // ключи - количество разворотов
           // значение - координаты фото для соответствующего разворота
           1: {
-            left: 3333,
-            top: 996,
+            left: 3331,
+            top: 767,
           },
           2: {
-            left: 3381,
-            top: 996,
+            left: 3331,
+            top: 767,
           },
           3: {
-            left: 3356,
-            top: 996,
+            left: 3331,
+            top: 767,
           },
           4: {
-            left: 3369,
-            top: 996,
+            left: 3331,
+            top: 767,
           },
           5: {
-            left: 3381,
-            top: 996,
+            left: 3355,
+            top: 767,
           },
           6: {
-            left: 3392,
-            top: 996,
+            left: 3355,
+            top: 767,
           },
           7: {
-            left: 3404,
-            top: 996,
+            left: 3379,
+            top: 767,
           },
           8: {
-            left: 3415,
-            top: 996,
+            left: 3379,
+            top: 767,
           },
           9: {
-            left: 3428,
-            top: 996,
+            left: 3403,
+            top: 767,
           },
           10: {
-            left: 3439,
-            top: 996,
+            left: 3403,
+            top: 767,
           },
         },
         size: { 
@@ -165,45 +165,45 @@ export const ALBUM_NAMES_DATA = {
           // ключи - количество разворотов
           // значение - координаты фото для соответствующего разворота
           1: {
-            left: 3067,
-            top: 486,
+            left: 3099,
+            top: 497,
           },
           2: {
-            left: 3115,
-            top: 486,
+            left: 3099,
+            top: 497,
           },
           3: {
-            left: 3090,
-            top: 486,
+            left: 3099,
+            top: 497,
           },
         
           4: {
-            left: 3103,
-            top: 486,
+            left: 3099,
+            top: 497,
           },
           5: {
-            left: 3115,
-            top: 486,
+            left: 3123,
+            top: 497,
           },
           6: {
-            left: 3126,
-            top: 486,
+            left: 3123,
+            top: 497,
           },
           7: {
-            left: 3128,
-            top: 486,
+            left: 3147,
+            top: 497,
           },
           8: {
-            left: 3149,
-            top: 486,
+            left: 3147,
+            top: 497,
           },
           9: {
-            left: 3162,
-            top: 486,
+            left: 3171,
+            top: 497,
           },
           10: {
-            left: 3173,
-            top: 486,
+            left: 3171,
+            top: 497,
           },
         },
         size: { 
@@ -264,44 +264,44 @@ export const ALBUM_NAMES_DATA = {
           // ключи - количество разворотов
           // значение - координаты фото для соответствующего разворота
           1: {
-            left: 3315,
-            top: 457,
+            left: 3337,
+            top: 387,
           },
           2: {
-            left: 3363,
-            top: 457,
+            left: 3337,
+            top: 387,
           },
           3: {
-            left: 3338,
-            top: 457,
+            left: 3337,
+            top: 387,
           },
           4: {
-            left: 3351,
-            top: 457,
+            left: 3337,
+            top: 387,
           },
           5: {
-            left: 3363,
-            top: 457,
+            left: 3361,
+            top: 387,
           },
           6: {
-            left: 3354,
-            top: 457,
+            left: 3361,
+            top: 387,
           },
           7: {
-            left: 3366,
-            top: 457,
+            left: 3385,
+            top: 387,
           },
           8: {
-            left: 3377,
-            top: 457,
+            left: 3385,
+            top: 387,
           },
           9: {
-            left: 3390,
-            top: 457,
+            left: 3409,
+            top: 387,
           },
           10: {
-            left: 3401,
-            top: 457,
+            left: 3409,
+            top: 387,
           },
         },
         size: { 
@@ -362,44 +362,44 @@ export const ALBUM_NAMES_DATA = {
           // ключи - количество разворотов
           // значение - координаты фото для соответствующего разворота
           1: {
-            left: 3093,
-            top: 446,
+            left: 3099,
+            top: 437,
           },
           2: {
-            left: 3139,
-            top: 446,
+            left: 3099,
+            top: 437,
           },
           3: {
-            left: 3116,
-            top: 446,
+            left: 3099,
+            top: 437,
           },
           4: {
-            left: 3127,
-            top: 446,
+            left: 3099,
+            top: 437,
           },
           5: {
-            left: 3139,
-            top: 446,
+            left: 3123,
+            top: 437,
           },
           6: {
-            left: 3151,
-            top: 446,
+            left: 3123,
+            top: 437,
           },
           7: {
-            left: 3163,
-            top: 446,
+            left: 3147,
+            top: 437,
           },
           8: {
-            left: 3175,
-            top: 446,
+            left: 3147,
+            top: 437,
           },
           9: {
-            left: 3186,
-            top: 446,
+            left: 3171,
+            top: 437,
           },
           10: {
-            left: 3198,
-            top: 446,
+            left: 3171,
+            top: 437,
           },
         },
         size: { 
@@ -451,44 +451,44 @@ export const ALBUM_NAMES_DATA = {
           // ключи - количество разворотов
           // значение - координаты фото для соответствующего разворота
           1: {
-            left: 2984,
-            top: 496,
+            left: 2986,
+            top: 337,
           },
           2: {
-            left: 3032,
-            top: 496,
+            left: 2986,
+            top: 337,
           },
           3: {
-            left: 3007,
-            top: 496,
+            left: 2986,
+            top: 337,
           },
           4: {
-            left: 3020,
-            top: 496,
+            left: 2986,
+            top: 337,
           },
           5: {
-            left: 3032,
-            top: 496,
+            left: 3010,
+            top: 337,
           },
           6: {
-            left: 3043,
-            top: 496,
+            left: 3010,
+            top: 337,
           },
           7: {
-            left: 3055,
-            top: 496,
+            left: 3034,
+            top: 337,
           },
           8: {
-            left: 3076,
-            top: 496,
+            left: 3034,
+            top: 337,
           },
           9: {
-            left: 3079,
-            top: 496,
+            left: 3058,
+            top: 337,
           },
           10: {
-            left: 3090,
-            top: 496,
+            left: 3058,
+            top: 337,
           },
         },
         size: { 
@@ -501,8 +501,8 @@ export const ALBUM_NAMES_DATA = {
           // указывается смещение декорации относительно координат фото
           offsets: {
             // из таблицы
-            left: -3000,
-            top: 269,
+            left: -2379,
+            top: 90,
           }
         },
       },
@@ -550,44 +550,44 @@ export const ALBUM_NAMES_DATA = {
           // ключи - количество разворотов
           // значение - координаты фото для соответствующего разворота
           1: {
-            left: 2990,
-            top: 357,
+            left: 2982,
+            top: 312,
           },
           2: {
-            left: 3038,
-            top: 357,
+            left: 2982,
+            top: 312,
           },
           3: {
-            left: 3013,
-            top: 357,
+            left: 2982,
+            top: 312,
           },
           4: {
-            left: 3026,
-            top: 357,
+            left: 2982,
+            top: 312,
           },
           5: {
-            left: 3038,
-            top: 357,
+            left: 3006,
+            top: 312,
           },
           6: {
-            left: 3049,
-            top: 357,
+            left: 3006,
+            top: 312,
           },
           7: {
-            left: 3061,
-            top: 357,
+            left: 3030,
+            top: 312,
           },
           8: {
-            left: 3072,
-            top: 357,
+            left: 3030,
+            top: 312,
           },
           9: {
-            left: 3085,
-            top: 357,
+            left: 3054,
+            top: 312,
           },
           10: {
-            left: 3096,
-            top: 357,
+            left: 3054,
+            top: 312,
           },
         },
         size: { 
@@ -599,8 +599,8 @@ export const ALBUM_NAMES_DATA = {
           path: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/${ALBUM_NAMES.memory}/${LAYOUT_TYPE.COVER}/`,
           // указывается смещение декорации относительно координат фото
           offsets: {
-            left: -443,
-            top: -245,
+            left: -437,
+            top: -240,
           }
         },
       },
