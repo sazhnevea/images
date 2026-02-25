@@ -7,6 +7,11 @@
 4.2. mac - использовать файл template-mac-launch.sh для создания скрипта запуска. после создать ярлык
 5. добавление скрипта в список доверенных `sudo xattr -d com.apple.quarantine /Users/esazhnev/Desktop/Мандарин/сортировать.sh`
 
+Errors
+
+1. Ошибка - Невозможно загрузить файл D:\SCRIPTS\sc.ps1, так как выполнение сценариев отключено в этой системе.
+  Решение - Set-ExecutionPolicy RemoteSigned
+
 Impose
 Цель - верстка альбомов для каждого студента
 
