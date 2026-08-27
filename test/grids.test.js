@@ -20,7 +20,7 @@ const GRID_TYPES = Object.entries(LAYOUT_TYPE)
   .filter(([key]) => /^L\d+$/.test(key))
   .map(([, value]) => value);
 
-test('all 12 new grids have unique direction sequences', () => {
+test('all 12 grids have unique direction sequences', () => {
   assert.equal(GRID_TYPES.length, 12);
 
   const sequences = GRID_TYPES.map(
@@ -41,40 +41,13 @@ test('grid 10 aligns the outer edges of both rows', () => {
   assert.equal(getRight(topRow), getRight(bottomRow));
 });
 
-test('grid 18 aligns the large photo with the three-photo stack', () => {
-  const [largePhoto, ...stack] = getSlots(
-    LAYOUT_TYPE.L18,
-    LAYOUT_WIDTH,
-    LAYOUT_HEIGHT,
-  );
-  const stackTop = Math.min(...stack.map((slot) => slot.top));
-  const stackBottom = Math.max(...stack.map((slot) => slot.top + slot.height));
-
-  assert.equal(largePhoto.top, stackTop);
-  assert.equal(largePhoto.top + largePhoto.height, stackBottom);
-});
-
-test('grid 18 spans the fold and uses the regular gutter', () => {
-  const [largePhoto, firstStackPhoto] = getSlots(
-    LAYOUT_TYPE.L18,
-    LAYOUT_WIDTH,
-    LAYOUT_HEIGHT,
-  );
-  const fold = LAYOUT_WIDTH / 2;
-
-  assert.ok(largePhoto.left + largePhoto.width > fold);
-  assert.equal(
-    firstStackPhoto.left - (largePhoto.left + largePhoto.width),
-    GRID_GUTTER,
-  );
-});
-
 const SPLIT_LAYOUTS = [
   [LAYOUT_TYPE.L11, 3],
   [LAYOUT_TYPE.L12, 1],
   [LAYOUT_TYPE.L13, 3],
   [LAYOUT_TYPE.L14, 1],
   [LAYOUT_TYPE.L15, 2],
+  [LAYOUT_TYPE.L16, 2],
   [LAYOUT_TYPE.L17, 1],
   [LAYOUT_TYPE.L19, 3],
   [LAYOUT_TYPE.L20, 4],
@@ -137,13 +110,12 @@ test('grid 23 makes the right portrait full bleed', () => {
 
   assert.equal(rightPortrait.top, 0);
   assert.equal(rightPortrait.height, LAYOUT_HEIGHT);
+  assert.equal(rightPortrait.left, Math.floor(LAYOUT_WIDTH / 2));
   assert.equal(rightPortrait.left + rightPortrait.width, LAYOUT_WIDTH);
-  assert.ok(Math.abs(
-    rightPortrait.width * 3 - rightPortrait.height * 2,
-  ) <= 1);
 });
 
 [
+  [LAYOUT_TYPE.L16, 2],
   [LAYOUT_TYPE.L19, 3],
   [LAYOUT_TYPE.L20, 4],
 ].forEach(([layoutType, leftSlotCount]) => {

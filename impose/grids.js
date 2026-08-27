@@ -95,27 +95,6 @@ const mosaic10 = (topScale) => {
   ]);
 };
 
-const linkedLayout18 = (rightScale) => {
-  // Keep the large photo and the three-photo stack at the same height:
-  // 2 * leftScale = 3 * (2 * rightScale) + 2 * gutter.
-  const leftScale = rightScale * 3 + GRID_GUTTER;
-  return {
-    left: layout([horizontal(leftScale)]),
-    right: stackHorizontal(3)(rightScale),
-  };
-};
-
-const bigHorizontalAndStack3 = (rightScale) => {
-  const linked = linkedLayout18(rightScale);
-  const rightLeft = linked.left.width + GRID_GUTTER;
-  const rightSlots = linked.right.slots.map((slot) => ({
-    ...slot,
-    left: slot.left + rightLeft,
-  }));
-
-  return layout([...linked.left.slots, ...rightSlots]);
-};
-
 const linkedLayout19 = (portraitScale) => ({
   left: portraitPairAndHorizontal(false)(portraitScale),
   right: stackHorizontal(2)((portraitScale * 17 + GRID_GUTTER * 2) / 12),
@@ -250,15 +229,15 @@ const fitSplit = (layoutWidth, layoutHeight, leftBuilder, rightBuilder, options 
 
 const fitLeftAndFullBleedRight = (layoutWidth, layoutHeight, leftBuilder) => {
   const [leftPage] = getPageContainers(layoutWidth, layoutHeight);
-  const rightWidth = Math.round(layoutHeight * 2 / 3);
+  const rightLeft = Math.floor(layoutWidth / 2);
 
   return [
     ...placeOnPage(findFit(leftBuilder, leftPage.fit), leftPage),
     {
       direction: DIRECTION.V,
-      width: rightWidth,
+      width: layoutWidth - rightLeft,
       height: layoutHeight,
-      left: layoutWidth - rightWidth,
+      left: rightLeft,
       top: 0,
     },
   ];
@@ -336,6 +315,13 @@ export const getSlots = (layoutType, layoutWidth, layoutHeight) => {
         stackHorizontal(2),
         stackHorizontal(3),
       );
+    case LAYOUT_TYPE.L16:
+      return fitSplit(
+        layoutWidth,
+        layoutHeight,
+        stackHorizontal(2),
+        stackHorizontal(2),
+      );
     case LAYOUT_TYPE.L17:
       return fitSplit(
         layoutWidth,
@@ -343,8 +329,6 @@ export const getSlots = (layoutType, layoutWidth, layoutHeight) => {
         single(DIRECTION.V),
         stackHorizontal(2),
       );
-    case LAYOUT_TYPE.L18:
-      return fit(bigHorizontalAndStack3, printable);
     case LAYOUT_TYPE.L19:
       return fitLinkedSplit(
         layoutWidth,
