@@ -8,6 +8,7 @@
     "impose": "node impose/index.js",
     "sort": "node sort/index.js",
     "validate": "node validate/index.js",
+    "test": "node --test",
     "build:impose": "BUNDLE_NAME=impose webpack",
     "build:sort": "BUNDLE_NAME=sort webpack",
     "build:validate": "BUNDLE_NAME=validate webpack",

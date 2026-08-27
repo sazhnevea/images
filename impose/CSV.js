@@ -1,7 +1,15 @@
 import csv from 'csv-parser';
 import fs from 'fs';
 import { filterExistingPhotoNumbersOLD, getAlbumName, getDirectionsList, withJPG, getLayoutType, getNumberStrings, parseNumberArray, printMissingPhotoListMessage } from '../common/common.js';
-import { ALBUM_NAMES_DATA, DATA_FOLDER_NAME, LAYOUT_PATH, LAYOUT_TYPE, LAYOUT_TYPE_MAPPING, FILES_FOLDER, ROW_NAMES } from '../constants.js';
+import {
+  ALBUM_NAMES_DATA,
+  DATA_FOLDER_NAME,
+  LAYOUT_PATH,
+  LAYOUT_TYPE,
+  LAYOUT_TYPE_DIRECTION_MAPPING,
+  FILES_FOLDER,
+  ROW_NAMES,
+} from '../constants.js';
 
 export async function processCSVDataToImpose(csvPath) {
   return new Promise((resolve, reject) => {
@@ -123,12 +131,11 @@ const processPhotoNumbers = ({
   studentName,
   pageType
 }) => {
-  const layoutTypesOrder = LAYOUT_TYPE_MAPPING[pageType]
+  const expectedPhotos = LAYOUT_TYPE_DIRECTION_MAPPING[pageType].length;
   return photoNumbers.map((number, index) => {
-    if (layoutTypesOrder[index]) {
+    if (index < expectedPhotos) {
       return ({
         path: `${DATA_FOLDER_NAME}/${FILES_FOLDER}/${withJPG(number)}`,
-        sizeType: layoutTypesOrder[index]
       })
     }
     console.error(`Фотография № ${number} является лишней в развороте ${pageType} у студента ${studentName}`)
