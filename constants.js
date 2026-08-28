@@ -82,7 +82,7 @@ const createInternalLayouts = (albumName) => Object.fromEntries(
   INTERNAL_LAYOUT_TYPES.map((layoutType) => [
     layoutType,
     {
-      layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/${albumName}/${LAYOUT_TYPE.FULL}/`,
+      layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/${albumName}/${layoutType}/`,
     },
   ]),
 );
