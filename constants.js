@@ -22,6 +22,12 @@ const ALBUM_NAMES = {
   pencil: 'Карандаши',
   chocolade: 'Шоколад',
   memory: 'Memory',
+  firstClassmanWhite: 'Первоклассник white',
+  aLaRus: 'А-ля Рус',
+  neonLight: 'Неон-светлый',
+  neonDark: 'Неон-темный',
+  firstClassmanGreen: 'Первоклассник green',
+  pixel: 'Пиксель',
 }
 
 export const DIRECTION = {
@@ -493,6 +499,411 @@ export const ALBUM_NAMES_DATA = {
         layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/${ALBUM_NAMES.memory}/${LAYOUT_TYPE.FULL}/`
       },
       ...createInternalLayouts(ALBUM_NAMES.memory),
+    }
+  },
+  [ALBUM_NAMES.firstClassmanWhite]: {
+    name: ALBUM_NAMES.firstClassmanWhite,
+    layoutsData: {
+      [LAYOUT_TYPE.COVER]: {
+        layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/${ALBUM_NAMES.firstClassmanWhite}/${LAYOUT_TYPE.COVER}/`,
+        coordinates: {
+          // ключи - количество разворотов
+          // значение - координаты фото для соответствующего разворота
+          1: {
+            left: 3047,
+            top: 841,
+          },
+          2: {
+            left: 3047,
+            top: 841,
+          },
+          3: {
+            left: 3047,
+            top: 841,
+          },
+          4: {
+            left: 3047,
+            top: 841,
+          },
+          5: {
+            left: 3071,
+            top: 841,
+          },
+          6: {
+            left: 3071,
+            top: 841,
+          },
+          7: {
+            left: 3095,
+            top: 841,
+          },
+          8: {
+            left: 3095,
+            top: 841,
+          },
+          9: {
+            left: 3119,
+            top: 841,
+          },
+          10: {
+            left: 3119,
+            top: 841,
+          },
+        },
+        size: { 
+          width: 1926,
+          height: 2700,
+        },
+        decoration: {
+          name: 'decoration.png',
+          path: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/${ALBUM_NAMES.firstClassmanWhite}/${LAYOUT_TYPE.COVER}/`,
+          // указывается смещение декорации относительно координат фото
+          offsets: {
+            left: -85,
+            top: -4,
+          }
+        },
+      },
+      [LAYOUT_TYPE.FULL]: {
+        layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/${ALBUM_NAMES.firstClassmanWhite}/${LAYOUT_TYPE.FULL}/`
+      },
+      ...createInternalLayouts(ALBUM_NAMES.firstClassmanWhite),
+    }
+  },
+  [ALBUM_NAMES.aLaRus]: {
+    name: ALBUM_NAMES.aLaRus,
+    layoutsData: {
+      [LAYOUT_TYPE.COVER]: {
+        layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/${ALBUM_NAMES.aLaRus}/${LAYOUT_TYPE.COVER}/`,
+        coordinates: {
+          // ключи - количество разворотов
+          // значение - координаты фото для соответствующего разворота
+          1: {
+            left: 3111,
+            top: 412,
+          },
+          2: {
+            left: 3111,
+            top: 412,
+          },
+          3: {
+            left: 3111,
+            top: 412,
+          },
+          4: {
+            left: 3111,
+            top: 412,
+          },
+          5: {
+            left: 3135,
+            top: 412,
+          },
+          6: {
+            left: 3135,
+            top: 412,
+          },
+          7: {
+            left: 3159,
+            top: 412,
+          },
+          8: {
+            left: 3159,
+            top: 412,
+          },
+          9: {
+            left: 3183,
+            top: 412,
+          },
+          10: {
+            left: 3183,
+            top: 412,
+          },
+        },
+        size: { 
+          width: 1818,
+          height: 2524,
+        },
+        decoration: {
+          name: 'decoration.png',
+          path: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/${ALBUM_NAMES.aLaRus}/${LAYOUT_TYPE.COVER}/`,
+          // указывается смещение декорации относительно координат фото
+          offsets: {
+            left: -93,
+            top: -88,
+          }
+        },
+      },
+      [LAYOUT_TYPE.FULL]: {
+        layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/${ALBUM_NAMES.aLaRus}/${LAYOUT_TYPE.FULL}/`
+      },
+      ...createInternalLayouts(ALBUM_NAMES.aLaRus),
+    }
+  },
+  [ALBUM_NAMES.neonLight]: {
+    name: ALBUM_NAMES.neonLight,
+    layoutsData: {
+      [LAYOUT_TYPE.COVER]: {
+        layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/${ALBUM_NAMES.neonLight}/${LAYOUT_TYPE.COVER}/`,
+        coordinates: {
+          // ключи - количество разворотов
+          // значение - координаты фото для соответствующего разворота
+          1: {
+            left: 3114,
+            top: 614,
+          },
+          2: {
+            left: 3114,
+            top: 614,
+          },
+          3: {
+            left: 3114,
+            top: 614,
+          },
+          4: {
+            left: 3114,
+            top: 614,
+          },
+          5: {
+            left: 3138,
+            top: 614,
+          },
+          6: {
+            left: 3138,
+            top: 614,
+          },
+          7: {
+            left: 3162,
+            top: 614,
+          },
+          8: {
+            left: 3162,
+            top: 614,
+          },
+          9: {
+            left: 3186,
+            top: 614,
+          },
+          10: {
+            left: 3186,
+            top: 614,
+          },
+        },
+        size: { 
+          width: 1776,
+          height: 2665,
+        },
+        decoration: {
+          name: 'decoration.png',
+          path: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/${ALBUM_NAMES.neonLight}/${LAYOUT_TYPE.COVER}/`,
+          // указывается смещение декорации относительно координат фото
+          offsets: {
+            left: 1209,
+            top: -380,
+          }
+        },
+      },
+      [LAYOUT_TYPE.FULL]: {
+        layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/${ALBUM_NAMES.neonLight}/${LAYOUT_TYPE.FULL}/`
+      },
+      ...createInternalLayouts(ALBUM_NAMES.neonLight),
+    }
+  },
+  [ALBUM_NAMES.neonDark]: {
+    name: ALBUM_NAMES.neonDark,
+    layoutsData: {
+      [LAYOUT_TYPE.COVER]: {
+        layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/${ALBUM_NAMES.neonDark}/${LAYOUT_TYPE.COVER}/`,
+        coordinates: {
+          // ключи - количество разворотов
+          // значение - координаты фото для соответствующего разворота
+          1: {
+            left: 3001,
+            top: 384,
+          },
+          2: {
+            left: 3001,
+            top: 384,
+          },
+          3: {
+            left: 3001,
+            top: 384,
+          },
+          4: {
+            left: 3001,
+            top: 384,
+          },
+          5: {
+            left: 3025,
+            top: 384,
+          },
+          6: {
+            left: 3025,
+            top: 384,
+          },
+          7: {
+            left: 3049,
+            top: 384,
+          },
+          8: {
+            left: 3049,
+            top: 384,
+          },
+          9: {
+            left: 3073,
+            top: 384,
+          },
+          10: {
+            left: 3073,
+            top: 384,
+          },
+        },
+        size: { 
+          width: 2020,
+          height: 2430,
+        },
+      },
+      [LAYOUT_TYPE.FULL]: {
+        layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/${ALBUM_NAMES.neonDark}/${LAYOUT_TYPE.FULL}/`
+      },
+      ...createInternalLayouts(ALBUM_NAMES.neonDark),
+    }
+  },
+  [ALBUM_NAMES.firstClassmanGreen]: {
+    name: ALBUM_NAMES.firstClassmanGreen,
+    layoutsData: {
+      [LAYOUT_TYPE.COVER]: {
+        layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/${ALBUM_NAMES.firstClassmanGreen}/${LAYOUT_TYPE.COVER}/`,
+        coordinates: {
+          // ключи - количество разворотов
+          // значение - координаты фото для соответствующего разворота
+          1: {
+            left: 3047,
+            top: 841,
+          },
+          2: {
+            left: 3047,
+            top: 841,
+          },
+          3: {
+            left: 3047,
+            top: 841,
+          },
+          4: {
+            left: 3047,
+            top: 841,
+          },
+          5: {
+            left: 3071,
+            top: 841,
+          },
+          6: {
+            left: 3071,
+            top: 841,
+          },
+          7: {
+            left: 3095,
+            top: 841,
+          },
+          8: {
+            left: 3095,
+            top: 841,
+          },
+          9: {
+            left: 3119,
+            top: 841,
+          },
+          10: {
+            left: 3119,
+            top: 841,
+          },
+        },
+        size: { 
+          width: 1926,
+          height: 2700,
+        },
+        decoration: {
+          name: 'decoration.png',
+          path: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/${ALBUM_NAMES.firstClassmanGreen}/${LAYOUT_TYPE.COVER}/`,
+          // указывается смещение декорации относительно координат фото
+          offsets: {
+            left: -85,
+            top: -4,
+          }
+        },
+      },
+      [LAYOUT_TYPE.FULL]: {
+        layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/${ALBUM_NAMES.firstClassmanGreen}/${LAYOUT_TYPE.FULL}/`
+      },
+      ...createInternalLayouts(ALBUM_NAMES.firstClassmanGreen),
+    }
+  },
+  [ALBUM_NAMES.pixel]: {
+    name: ALBUM_NAMES.pixel,
+    layoutsData: {
+      [LAYOUT_TYPE.COVER]: {
+        layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/${ALBUM_NAMES.pixel}/${LAYOUT_TYPE.COVER}/`,
+        coordinates: {
+          // ключи - количество разворотов
+          // значение - координаты фото для соответствующего разворота
+          1: {
+            left: 2979,
+            top: 359,
+          },
+          2: {
+            left: 2979,
+            top: 359,
+          },
+          3: {
+            left: 2979,
+            top: 359,
+          },
+          4: {
+            left: 2979,
+            top: 359,
+          },
+          5: {
+            left: 3002,
+            top: 359,
+          },
+          6: {
+            left: 3002,
+            top: 359,
+          },
+          7: {
+            left: 3027,
+            top: 359,
+          },
+          8: {
+            left: 3027,
+            top: 359,
+          },
+          9: {
+            left: 3050,
+            top: 359,
+          },
+          10: {
+            left: 3050,
+            top: 359,
+          },
+        },
+        size: { 
+          width: 2065,
+          height: 3182,
+        },
+        decoration: {
+          name: 'decoration.png',
+          path: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/${ALBUM_NAMES.pixel}/${LAYOUT_TYPE.COVER}/`,
+          // указывается смещение декорации относительно координат фото
+          offsets: {
+            left: -6,
+            top: -7,
+          }
+        },
+      },
+      [LAYOUT_TYPE.FULL]: {
+        layoutPathFolder: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/${ALBUM_NAMES.pixel}/${LAYOUT_TYPE.FULL}/`
+      },
+      ...createInternalLayouts(ALBUM_NAMES.pixel),
     }
   },
 }
