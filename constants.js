@@ -697,7 +697,7 @@ export const ALBUM_NAMES_DATA = {
           path: `${ASSETS_FOLDER_NAME}/${ALBUMS_FOLDER_NAME}/${ALBUM_NAMES.neonLight}/${LAYOUT_TYPE.COVER}/`,
           // указывается смещение декорации относительно координат фото
           offsets: {
-            left: 1209,
+            left: 888,
             top: -380,
           }
         },
@@ -717,49 +717,49 @@ export const ALBUM_NAMES_DATA = {
           // ключи - количество разворотов
           // значение - координаты фото для соответствующего разворота
           1: {
-            left: 3001,
-            top: 384,
+            left: 3121,
+            top: 421,
           },
           2: {
-            left: 3001,
-            top: 384,
+            left: 3121,
+            top: 421,
           },
           3: {
-            left: 3001,
-            top: 384,
+            left: 3121,
+            top: 421,
           },
           4: {
-            left: 3001,
-            top: 384,
+            left: 3121,
+            top: 421,
           },
           5: {
-            left: 3025,
-            top: 384,
+            left: 3145,
+            top: 421,
           },
           6: {
-            left: 3025,
-            top: 384,
+            left: 3145,
+            top: 421,
           },
           7: {
-            left: 3049,
-            top: 384,
+            left: 3169,
+            top: 421,
           },
           8: {
-            left: 3049,
-            top: 384,
+            left: 3169,
+            top: 421,
           },
           9: {
-            left: 3073,
-            top: 384,
+            left: 3193,
+            top: 421,
           },
           10: {
-            left: 3073,
-            top: 384,
+            left: 3193,
+            top: 421,
           },
         },
         size: { 
-          width: 2020,
-          height: 2430,
+          width: 1776,
+          height: 2554,
         },
       },
       [LAYOUT_TYPE.FULL]: {
@@ -846,48 +846,48 @@ export const ALBUM_NAMES_DATA = {
           // ключи - количество разворотов
           // значение - координаты фото для соответствующего разворота
           1: {
-            left: 2979,
+            left: 2980,
             top: 359,
           },
           2: {
-            left: 2979,
+            left: 2980,
             top: 359,
           },
           3: {
-            left: 2979,
+            left: 2980,
             top: 359,
           },
           4: {
-            left: 2979,
+            left: 2980,
             top: 359,
           },
           5: {
-            left: 3002,
+            left: 3003,
             top: 359,
           },
           6: {
-            left: 3002,
+            left: 3003,
             top: 359,
           },
           7: {
-            left: 3027,
+            left: 3028,
             top: 359,
           },
           8: {
-            left: 3027,
+            left: 3028,
             top: 359,
           },
           9: {
-            left: 3050,
+            left: 3051,
             top: 359,
           },
           10: {
-            left: 3050,
+            left: 3051,
             top: 359,
           },
         },
         size: { 
-          width: 2065,
+          width: 2063,
           height: 3182,
         },
         decoration: {
