@@ -20,8 +20,8 @@ const GRID_TYPES = Object.entries(LAYOUT_TYPE)
   .filter(([key]) => /^L\d+$/.test(key))
   .map(([, value]) => value);
 
-test('all 12 grids have unique direction sequences', () => {
-  assert.equal(GRID_TYPES.length, 12);
+test('all 14 grids have unique direction sequences', () => {
+  assert.equal(GRID_TYPES.length, 14);
 
   const sequences = GRID_TYPES.map(
     (layoutType) => LAYOUT_TYPE_DIRECTION_MAPPING[layoutType].join(','),
@@ -49,6 +49,7 @@ const SPLIT_LAYOUTS = [
   [LAYOUT_TYPE.L15, 2],
   [LAYOUT_TYPE.L16, 2],
   [LAYOUT_TYPE.L17, 1],
+  [LAYOUT_TYPE.L22, 1],
   [LAYOUT_TYPE.L19, 3],
   [LAYOUT_TYPE.L20, 4],
   [LAYOUT_TYPE.L21, 4],
@@ -104,14 +105,44 @@ test('grid 10 keeps the regular gutter across the whole spread', () => {
   assert.equal(gapBetween(grid10[0], grid10[1]), GRID_GUTTER);
 });
 
-test('grid 23 makes the right portrait full bleed', () => {
-  const slots = getSlots(LAYOUT_TYPE.L23, LAYOUT_WIDTH, LAYOUT_HEIGHT);
-  const rightPortrait = slots[3];
+test('grids 18 and 22 match the designed frames', () => {
+  const designWidth = 4772;
+  const designHeight = 3472;
+  const frame = (left, top, width, height) => ({ left, top, width, height });
 
-  assert.equal(rightPortrait.top, 0);
-  assert.equal(rightPortrait.height, LAYOUT_HEIGHT);
-  assert.equal(rightPortrait.left, Math.floor(LAYOUT_WIDTH / 2));
-  assert.equal(rightPortrait.left + rightPortrait.width, LAYOUT_WIDTH);
+  const grid18 = getSlots(LAYOUT_TYPE.L18, designWidth, designHeight);
+  const grid22 = getSlots(LAYOUT_TYPE.L22, designWidth, designHeight);
+
+  assert.deepEqual(grid18.map(({ left, top, width, height }) => ({ left, top, width, height })), [
+    frame(214, 235, 984, 1476),
+    frame(1248, 235, 984, 1476),
+    frame(214, 1761, 984, 1476),
+    frame(1248, 1761, 984, 1476),
+    frame(2386, 0, 2386, 3472),
+  ]);
+
+  assert.deepEqual(grid22.map(({ left, top, width, height }) => ({ left, top, width, height })), [
+    frame(153, 131, 2140, 3210),
+    frame(2436, 153, 1088, 1632),
+    frame(3574, 153, 1088, 1632),
+    frame(2436, 1835, 2226, 1484),
+  ]);
+});
+
+[
+  [LAYOUT_TYPE.L18, 4],
+  [LAYOUT_TYPE.L23, 3],
+].forEach(([layoutType, rightIndex]) => {
+  test(`grid ${layoutType} makes the right portrait full bleed`, () => {
+    const slots = getSlots(layoutType, LAYOUT_WIDTH, LAYOUT_HEIGHT);
+    const rightPortrait = slots[rightIndex];
+
+    assert.equal(rightPortrait.direction, DIRECTION.V);
+    assert.equal(rightPortrait.top, 0);
+    assert.equal(rightPortrait.height, LAYOUT_HEIGHT);
+    assert.equal(rightPortrait.left, Math.floor(LAYOUT_WIDTH / 2));
+    assert.equal(rightPortrait.left + rightPortrait.width, LAYOUT_WIDTH);
+  });
 });
 
 [
@@ -143,7 +174,9 @@ for (const layoutType of GRID_TYPES) {
     slots.forEach((slot, index) => {
       assert.equal(slot.direction, expectedDirections[index]);
 
-      if (layoutType === LAYOUT_TYPE.L23 && index === 3) {
+      const isFullBleed = (layoutType === LAYOUT_TYPE.L18 && index === 4)
+        || (layoutType === LAYOUT_TYPE.L23 && index === 3);
+      if (isFullBleed) {
         return;
       }
 

@@ -227,12 +227,18 @@ const fitSplit = (layoutWidth, layoutHeight, leftBuilder, rightBuilder, options 
   ];
 };
 
-const fitLeftAndFullBleedRight = (layoutWidth, layoutHeight, leftBuilder) => {
+const fitLeftAndFullBleedRight = (layoutWidth, layoutHeight, leftBuilder, options = {}) => {
   const [leftPage] = getPageContainers(layoutWidth, layoutHeight);
   const rightLeft = Math.floor(layoutWidth / 2);
+  const verticalInset = options.verticalInset ?? 0;
+  const fitBox = {
+    ...leftPage.fit,
+    top: leftPage.fit.top + verticalInset,
+    height: leftPage.fit.height - verticalInset * 2,
+  };
 
   return [
-    ...placeOnPage(findFit(leftBuilder, leftPage.fit), leftPage),
+    ...placeOnPage(findFit(leftBuilder, fitBox), leftPage),
     {
       direction: DIRECTION.V,
       width: layoutWidth - rightLeft,
@@ -329,6 +335,13 @@ export const getSlots = (layoutType, layoutWidth, layoutHeight) => {
         single(DIRECTION.V),
         stackHorizontal(2),
       );
+    case LAYOUT_TYPE.L18:
+      return fitLeftAndFullBleedRight(
+        layoutWidth,
+        layoutHeight,
+        gridPortrait2x2,
+        { verticalInset: 100 },
+      );
     case LAYOUT_TYPE.L19:
       return fitLinkedSplit(
         layoutWidth,
@@ -349,6 +362,14 @@ export const getSlots = (layoutType, layoutWidth, layoutHeight) => {
         layoutHeight,
         gridPortrait2x2,
         stackHorizontal(3),
+      );
+    case LAYOUT_TYPE.L22:
+      return fitSplit(
+        layoutWidth,
+        layoutHeight,
+        single(DIRECTION.V),
+        portraitPairAndHorizontal(false),
+        { rightPredicate: scalePredicates.alignedPair },
       );
     case LAYOUT_TYPE.L23:
       return fitLeftAndFullBleedRight(
