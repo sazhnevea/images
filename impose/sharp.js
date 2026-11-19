@@ -2,11 +2,10 @@ import fs from 'fs';
 import sharp from 'sharp';
 import path from 'path';
 import {
+  LAYOUT_TYPE,
   RESULT,
-  SIZE_TYPES,
 } from '../constants.js';
-import { resizePhoto } from './resize.js';
-import { getOffsets } from './offsets.js';
+import { getSlots } from './grids.js';
 import { createStudentFolder, roundToNearestEven, prepareDecoration } from './helper.js';
 
 export const processPhotos = async (data) => {
@@ -33,89 +32,80 @@ async function processStudent(student) {
 }
 
 async function processPage(page, layoutWidth, layoutHeight, studentName) {
-  const { size, decoration, photos, coordinates } = page;
+  const {
+    size,
+    decoration,
+    photos,
+    coordinates,
+    pageType,
+  } = page;
+  const isCover = pageType === LAYOUT_TYPE.COVER;
+  const isFull = pageType === LAYOUT_TYPE.FULL;
+  const slots = isCover || isFull ? [] : getSlots(pageType, layoutWidth, layoutHeight);
 
-  let photoCoordinateLeft = 0
-  let photoCoordinateTop = 0
-
-  const dataToComposite = [];
-  await Promise.all(photos.map(async (photo, order) => {
+  const photoLayers = await Promise.all(photos.map(async (photo, order) => {
     try {
-      const { path, sizeType } = photo;
-      await fs.promises.access(path, fs.constants.F_OK);
-      const currentPhoto = sharp(path)
+      const { path: photoPath } = photo;
+      await fs.promises.access(photoPath, fs.constants.F_OK);
+      const currentPhoto = sharp(photoPath)
 
       let photoWidth = 0
       let photoHeight = 0
+      let leftOffset = 0
+      let topOffset = 0
+      let resizeOptions;
 
-      if (SIZE_TYPES.FULL === sizeType) {
-          // Для фотографий типа FULL мы не ресайзим фотографию автоматически,
-          // т.к. ее нужно положить на разворот руками и выставить центр красиво
+      if (isFull) {
+        // FULL-фото кладётся вручную подготовленным на весь разворот.
         const { width, height } = await currentPhoto.metadata()
-        // допуск 1 пиксель
         photoWidth = width - 1;
         photoHeight = height - 1;
-        
+      } else if (isCover) {
+        photoWidth = size.width;
+        photoHeight = size.height;
+        leftOffset = coordinates.left;
+        topOffset = coordinates.top;
       } else {
-        // sizе есть у обложек, куда вставляем потом декорацию
-        if (size) {
-          photoWidth = size.width
-          photoHeight = size.height
-        } else {
-          const { updatedWidth, updatedHeight } = resizePhoto({
-            sizeType,
-            layoutWidth,
-            layoutHeight,
-            order,
-          });
-          photoWidth = updatedWidth
-          photoHeight = updatedHeight 
+        const slot = slots[order];
+        if (!slot) {
+          throw new Error(`Для фотографии №${order + 1} отсутствует слот в сетке ${pageType}`);
         }
+        photoWidth = slot.width;
+        photoHeight = slot.height;
+        leftOffset = slot.left;
+        topOffset = slot.top;
+        // Вход и слот имеют одинаковое соотношение сторон, поэтому fill
+        // масштабирует изображение без кадрирования.
+        resizeOptions = { fit: 'fill' };
       }
-      if (sizeType === SIZE_TYPES.FULL) {
+
+      if (isFull) {
         if (photoWidth > layoutWidth || photoHeight > layoutHeight) {
           console.log('photoWidth > layoutWidth || photoHeight > layoutHeight', photoWidth > layoutWidth || photoHeight > layoutHeight)
-          console.log(`Ошибка! У студента ${studentName} фотография ${path} должна занимать разворот целиком, но ее размеры больше размера разворота. Разворот создан без фотографии!`)
+          console.log(`Ошибка! У студента ${studentName} фотография ${photoPath} должна занимать разворот целиком, но ее размеры больше размера разворота. Разворот создан без фотографии!`)
           console.log('photoWidth', photoWidth)
           console.log('layoutWidth', layoutWidth)
           console.log('photoHeight', photoHeight)
           console.log('layoutHeight', layoutHeight)
-          return
+          return null
         }
-      } 
-      const resizedPhoto = currentPhoto.resize(photoWidth, photoHeight).sharpen()
-   
-      let leftOffset = 0
-      let topOffset = 0
-
-      if (coordinates) {
-        leftOffset = coordinates.left
-        topOffset = coordinates.top
-      } else {
-        const { left, top } = getOffsets({
-          photoWidth,
-          photoHeight,
-          sizeType,
-          layoutWidth,
-          layoutHeight,
-          order,
-        });
-        leftOffset = left
-        topOffset = top
       }
-      photoCoordinateLeft = leftOffset
-      photoCoordinateTop = topOffset
 
-      dataToComposite.push({ input: await resizedPhoto.toBuffer(), left: leftOffset, top: topOffset });
+      const resizedPhoto = currentPhoto.resize(photoWidth, photoHeight, resizeOptions).sharpen()
+      return { input: await resizedPhoto.toBuffer(), left: leftOffset, top: topOffset };
     } catch (err) {
       console.error('Ошибка обработки фотографии:', err);
+      return null;
     }
   }));
 
+  const dataToComposite = photoLayers.filter(Boolean);
+  const lastPhotoLayer = dataToComposite[dataToComposite.length - 1];
+
   const decorationLayer = await prepareDecoration(
-    decoration,              // объект с path, name, offsets
-    photoCoordinateLeft,     // смещение фото X
-    photoCoordinateTop,      // смещение фото Y
+    decoration,
+    lastPhotoLayer?.left ?? 0,
+    lastPhotoLayer?.top ?? 0,
     layoutWidth,
     layoutHeight
   );
