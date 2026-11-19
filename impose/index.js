@@ -4,7 +4,6 @@ import {
   RESULT,
 } from '../constants.js';
 
-import '../core/offset.js';
 import { createFolder } from '../common/common.js';
 import { processCSVDataToImpose } from './CSV.js';
 import { processPhotos } from './sharp.js';

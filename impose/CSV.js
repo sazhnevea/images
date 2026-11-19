@@ -1,7 +1,15 @@
 import csv from 'csv-parser';
 import fs from 'fs';
 import { filterExistingPhotoNumbersOLD, getAlbumName, getDirectionsList, withJPG, getLayoutType, getNumberStrings, parseNumberArray, printMissingPhotoListMessage } from '../common/common.js';
-import { ALBUM_NAMES_DATA, DATA_FOLDER_NAME, LAYOUT_PATH, LAYOUT_TYPE, LAYOUT_TYPE_MAPPING, FILES_FOLDER, ROW_NAMES } from '../constants.js';
+import {
+  ALBUM_NAMES_DATA,
+  DATA_FOLDER_NAME,
+  LAYOUT_PATH,
+  LAYOUT_TYPE,
+  LAYOUT_TYPE_DIRECTION_MAPPING,
+  FILES_FOLDER,
+  ROW_NAMES,
+} from '../constants.js';
 
 export async function processCSVDataToImpose(csvPath) {
   return new Promise((resolve, reject) => {
@@ -18,6 +26,7 @@ export async function processCSVDataToImpose(csvPath) {
       })
       .on('end', async () => {
         const missingPhotos = new Set();
+        let manualCoverLogged = false;
         for (let i = 0; i < studentsData.length; i++) {
           const studentData = studentsData[i]
           const albumName = getAlbumName(studentData);
@@ -56,15 +65,13 @@ export async function processCSVDataToImpose(csvPath) {
                   continue
                 }
                 
-                if (pageType === LAYOUT_TYPE.COVER && !data.albumName) {
-                  console.log(`У студента ${currentStudent.name} в столбце "${property}" фотографии номер ${existing} относятся к обложке, но не указано название альбома!`)
-                  console.log('Существующие названия альбомов: ', Object.keys(ALBUM_NAMES_DATA))
-                  return
-                }
-                if (pageType === LAYOUT_TYPE.COVER && !Object.keys(ALBUM_NAMES_DATA).includes(data.albumName)) {
-                  console.log(`У студента ${currentStudent.name} в столбце "${property}" фотографии номер ${existing} относятся к обложке, но указанное название альбома: "${data.albumName}" не относится ни к одному существующему названию альбома!`)
-                  console.log('Существующие названия альбомов: ', Object.keys(ALBUM_NAMES_DATA))
-                  return
+                const albumIsKnown = Boolean(data.albumName) && Object.keys(ALBUM_NAMES_DATA).includes(data.albumName);
+                if (pageType === LAYOUT_TYPE.COVER && !albumIsKnown) {
+                  if (!manualCoverLogged) {
+                    console.log('Альбом с ручной обложкой, обложка не создана.');
+                    manualCoverLogged = true;
+                  }
+                  continue
                 }
                 const photoNumbers = parseNumberArray(existing);
                 const photos = processPhotoNumbers({
@@ -123,12 +130,11 @@ const processPhotoNumbers = ({
   studentName,
   pageType
 }) => {
-  const layoutTypesOrder = LAYOUT_TYPE_MAPPING[pageType]
+  const expectedPhotos = LAYOUT_TYPE_DIRECTION_MAPPING[pageType].length;
   return photoNumbers.map((number, index) => {
-    if (layoutTypesOrder[index]) {
+    if (index < expectedPhotos) {
       return ({
         path: `${DATA_FOLDER_NAME}/${FILES_FOLDER}/${withJPG(number)}`,
-        sizeType: layoutTypesOrder[index]
       })
     }
     console.error(`Фотография № ${number} является лишней в развороте ${pageType} у студента ${studentName}`)
